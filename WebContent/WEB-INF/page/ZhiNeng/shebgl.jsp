@@ -223,7 +223,7 @@ nav li,
                                                                              室温设定：<input type="text" id="tjzq" name="tjzq" size=6px value="20"/>
                                                                              调节参数：<input type="text" id="tjcs" name="tjcs" size=6px value="153"/>
                                                                              锁定标识：<select name="sdbs" id="sdbs">
-                                 		<option value=02>请选锁定标识</option>
+                                 		<option value="FF">请选锁定标识</option>
                                  		<option value=00>自动</option>
                                  		<option value=01>锁定</option>
 	                                  </select> &nbsp;&nbsp;&nbsp;

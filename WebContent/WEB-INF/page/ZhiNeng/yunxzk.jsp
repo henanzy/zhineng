@@ -165,10 +165,7 @@ select{
 				<span class="mws-report-content" style="margin-top: 10px;"> 
 				<span class="mws-report-title">
 						 小区 	
-					<select id="xq"
-						name="xqName">
-							
-					</select> &nbsp;&nbsp;&nbsp; 
+					 &nbsp;&nbsp;&nbsp; 
 					
 					
 					<!-- <input type="submit" class="mws-button black" id="search_btn" value="搜索" /> -->
@@ -176,6 +173,28 @@ select{
 				</span>
 			</p>
 			
+		</div>
+		
+		<div class="mws-panel grid_8" style="min-width:600px;">
+			<div class="mws-panel-header">
+				<span class="mws-i-24 i-graph">室内平均温度与室外温度曲线图</span>
+				<span style="position:absolute;top:10px;left:300px;">
+				<select id="xq"
+						name="xqName">
+							
+					</select>&nbsp;&nbsp;&nbsp;
+					<input type="date" id="startTime2"  style="width:140px" value="" />-
+                <input type="date" id="endTime2" style="width:140px" value="" />	
+				<input type="submit"
+						class="mws-button black" id="wd_search" value="搜索" />
+				</span>
+			</div>
+			<div class="mws-panel-body">
+				<div class="mws-panel-content">
+					<!-- <div id="mws-line-chart" style="width:100%; height:300px; "></div> -->
+					<div id="mws-dashboard-chart-2" style="min-width: 400px; height: 350px"></div>
+				</div>
+			</div>
 		</div>
 		
 		<div class="mws-panel grid_8" style="min-width:600px;">
@@ -197,23 +216,7 @@ select{
 				</div>
 			</div>
 		</div>
-		<div class="mws-panel grid_8" style="min-width:600px;">
-			<div class="mws-panel-header">
-				<span class="mws-i-24 i-graph">室内平均温度与室外温度曲线图</span>
-				<span style="position:absolute;top:10px;left:300px;">
-					<input type="date" id="startTime2"  style="width:140px" value="" />-
-                <input type="date" id="endTime2" style="width:140px" value="" />	
-				<input type="submit"
-						class="mws-button black" id="wd_search" value="搜索" />
-				</span>
-			</div>
-			<div class="mws-panel-body">
-				<div class="mws-panel-content">
-					<!-- <div id="mws-line-chart" style="width:100%; height:300px; "></div> -->
-					<div id="mws-dashboard-chart-2" style="min-width: 400px; height: 350px"></div>
-				</div>
-			</div>
-		</div>
+		
 
 		<div class="mws-panel grid_4 piediv" style="width: 31%;min-width:350px;">
 			<div class="mws-panel-header">

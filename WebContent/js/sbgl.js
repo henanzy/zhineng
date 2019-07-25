@@ -52,8 +52,6 @@ $(document).ready(function(){
 	tbodydis("",shebList)
 	
 	$("#kf").click(function(){
-
-		 
 			 $('input[name="check"]:checked').each(function (index, item) {
 				 var row=$(this).parent("td").parent("tr");
 				 var td = row.find("td");
@@ -72,16 +70,83 @@ $(document).ready(function(){
 			      				},
 			                     dataType: "json",
 			                      success: function (data) {
-			                    	   
+			                    	   if(data.js=="0"){
+			                    		   alert("开阀成功");
+			                    	   }else{
+			                    		   alert("开阀失败 ")
+			                    	   }
 			                     },
 			  
 			                 })
 			                 
-				    });
-			 
-             //window.location.reload();
-			              
+				    });			 
+             		              
 	});
+	
+	$("#df").click(function(){
+		 $('input[name="check"]:checked').each(function (index, item) {
+			 var row=$(this).parent("td").parent("tr");
+			 var td = row.find("td");
+			 var valad=td[14].innerHTML;
+			 var qgid=td[18].innerHTML;
+			 var fmkd=td[9].innerHTML;
+			 
+			          $.ajax({
+		                     type: "post",
+		                    url: getRootPath()+"/sbglCon/dFm.action",
+		                      dataType:'json',
+		                  	data:{	
+		      					"fmId":valad,
+		      					"qgId":qgid,
+		      					
+		      				},
+		                     dataType: "json",
+		                      success: function (data) {
+		                    	   if(data.js=="0"){
+		                    		   alert("读阀成功");
+		                    	   }else{
+		                    		   alert("读阀失败 ")
+		                    	   }
+		                     },
+		  
+		                 })
+		                 
+			    });			 
+      		              
+});
+
+	$("#gf").click(function(){
+		 $('input[name="check"]:checked').each(function (index, item) {
+			 var row=$(this).parent("td").parent("tr");
+			 var td = row.find("td");
+			 var valad=td[14].innerHTML;
+			 var qgid=td[18].innerHTML;
+			 var fmkd=td[9].innerHTML;
+			 
+			          $.ajax({
+		                     type: "post",
+		                    url: getRootPath()+"/sbglCon/dFm.action",
+		                      dataType:'json',
+		                  	data:{	
+		      					"fmId":valad,
+		      					"qgId":qgid,
+		      					
+		      				},
+		                     dataType: "json",
+		                      success: function (data) {
+		                    	   if(data.js=="0"){
+		                    		   alert("关阀成功");
+		                    	   }else{
+		                    		   alert("关阀失败 ")
+		                    	   }
+		                     },
+		  
+		                 })
+		                 
+			    });			 
+     		              
+});
+	
 	
 $("#search_btn").click(function(){
 		

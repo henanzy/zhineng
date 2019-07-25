@@ -345,7 +345,7 @@ public class sbglController {
 		
 		@RequestMapping("gFm")
 		@ResponseBody
-		public JSONObject gFm( HttpSession session, String fmId, String qgId,String fmkd) throws UnsupportedEncodingException {
+		public JSONObject gFm( HttpSession session, String fmId, String qgId) throws UnsupportedEncodingException {
 			JSONObject kString = null;
 			
 			//日志
@@ -353,8 +353,8 @@ public class sbglController {
 			
 			JSONObject jsonObject=new JSONObject();
 			
-	    	return kString;
-	    	/*String	userName=(String) session.getAttribute("userName");
+	    	//return kString;
+	    	String	userName=(String) session.getAttribute("userName");
 	    	if(userName!=null){
 	    	 userName=new String(userName.getBytes("ISO-8859-1"),"utf-8")+"";
 	    	if(!userName.equals("hnzyxt")){
@@ -366,21 +366,21 @@ public class sbglController {
 				return jsonObject;
 			}else{
 			
-			kString = kfm( fmId, qgId,fmkds);
+			kString = gf( fmId, qgId);
 			return kString;
 			}
 
 		}else{
 			jsonObject.put("js", "5");
 			return jsonObject;
-		}*/
+		}
 		}
 		
 		// 读阀
 		@ResponseBody
 		@RequestMapping("dFm")
-		public JSONObject duFm(HttpSession session ,HttpServletRequest request, String valad, String fmId, String qgId) {
-			MapUtilsDf.getMapUtils().add("dFmParam", valad);
+		public JSONObject duFm(HttpSession session ,HttpServletRequest request, String fmId, String qgId) {
+			MapUtilsDf.getMapUtils().add("dFmParam", fmId);
 			
 	    	
 	    	//根据阀门获取用户信息
@@ -421,7 +421,7 @@ public class sbglController {
 				return jsonObject;
 			} else {
 				MapUtilsDf.getMapUtils().add("dFm", null);
-				jsonObject.put("js", "2");
+				jsonObject.put("js", "5");
 				//jsonObject.put("fmId", "阀门号:" + fmId + "楼栋号:" + buildNo + "单元号:" + cellNo + "户号:" + houseNo);
 				return jsonObject;
 			}
