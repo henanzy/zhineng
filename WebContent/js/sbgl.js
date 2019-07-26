@@ -39,7 +39,7 @@ $(document).ready(function(){
 			async : false,
 			dataType : "json",
 			data : {
-				
+				"xqm":$('#xq').val(),
 			},
 			success : function(data) {
 				
@@ -147,7 +147,105 @@ $(document).ready(function(){
      		              
 });
 	
+	$("#dcgq").click(function(){
+		 $('input[name="check"]:checked').each(function (index, item) {
+			 var row=$(this).parent("td").parent("tr");
+			 var td = row.find("td");
+			 var valad=td[14].innerHTML;
+			 var qgid=td[18].innerHTML;
+			 var fmkd=td[9].innerHTML;
+			 
+			          $.ajax({
+		                     type: "post",
+		                    url: getRootPath()+"/sbglCon/cgqads.action",
+		                      dataType:'json',
+		                  	data:{	
+		      					"fmId":valad,
+		      					"qgId":qgid,
+		      					
+		      				},
+		                     dataType: "json",
+		                      success: function (data) {
+		                    	   if(data=="0"){
+		                    		   alert("读传感器地址成功");
+		                    	   }else{
+		                    		   alert("读传感器地址失败 ")
+		                    	   }
+		                     },
+		  
+		                 })
+		                 
+			    });			 
+     		              
+});
 	
+	$("#xgcgq").click(function(){
+		 $('input[name="check"]:checked').each(function (index, item) {
+			 var row=$(this).parent("td").parent("tr");
+			 var td = row.find("td");
+			 var valad=td[14].innerHTML;
+			 var qgid=td[18].innerHTML;
+			 var fmkd=td[9].innerHTML;
+			 
+			          $.ajax({
+		                     type: "post",
+		                    url: getRootPath()+"/sbglCon/XCgq.action",
+		                      dataType:'json',
+		                  	data:{	
+		      					"fmId":valad,
+		      					"qgId":qgid,
+		      					"CGQId":$("#dz").val(),
+		      				},
+		                     dataType: "json",
+		                      success: function (data) {
+		                    	   if(data=="0"){
+		                    		   alert("修改成功");
+		                    	   }else{
+		                    		   alert("修改失败 ");
+		                    	   }
+		                     },
+		  
+		                 })
+		                 
+			    });			 
+
+});
+	$("#fscs").click(function(){
+		 $('input[name="check"]:checked').each(function (index, item) {
+			 var row=$(this).parent("td").parent("tr");
+			 var td = row.find("td");
+			 var valad=td[14].innerHTML;
+			 var qgid=td[18].innerHTML;
+			 var fmkd=td[9].innerHTML;
+			 
+			          $.ajax({
+		                     type: "post",
+		                    url: getRootPath()+"/sbglCon/FsCs.action",
+		                      dataType:'json',
+		                  	data:{	
+		      					"fmId":valad,
+		      					"qgId":qgid,
+		      					"wdsd":$("#wdsd").val(),
+		      					"tjzq":$("#tjzq").val(),
+		      					"tjcs":$("#tjcs").val(),
+		      					"sdbs":$("#sdbs").val(),
+		      					
+		      					
+		      				},
+		                     dataType: "json",
+		                      success: function (data) {
+		                    	   if(data=="0"){
+		                    		   alert("发送成功");
+		                    	   }else{
+		                    		   alert("发送失败 ")
+		                    	   }
+		                     },
+		  
+		                 })
+		                 
+			    });			 
+    		              
+});
 $("#search_btn").click(function(){
 		
 		var xq = $('#xq').val();

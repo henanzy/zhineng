@@ -300,7 +300,7 @@
 	</update>
 	
 	<select id="geidz" resultMap="YhMap" >
-		select BuildNo ,CellNo,HouseNo from  T_YhInfo where ValAd=#{ValAd}
+		select XqName, BuildNo ,CellNo,HouseNo from  T_YhInfo where ValAd=#{ValAd}
 	</select>
 	
 	<update id="updateCgqId" >

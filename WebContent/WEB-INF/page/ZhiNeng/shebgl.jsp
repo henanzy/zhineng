@@ -194,7 +194,7 @@ nav li,
                         	<span class="mws-report-title" >
 		                                             选择小区：<select id="xq"
 						name="xqName">
-							<option value="" >--选择小区--</option>
+							
 					</select> &nbsp;&nbsp;&nbsp; 
 					
 					楼栋号 <select name="ldh" id="ldh">
@@ -229,7 +229,7 @@ nav li,
 	                                  </select> &nbsp;&nbsp;&nbsp;
 	                          <input type="submit" id="fscs" class="mws-button black"  value="发送参数"/>&nbsp;&nbsp;
 	                          
-	                                                              无线传感器地址：<input type="text" name="" id="" size=12px value=""  />&nbsp;
+	                                                              无线传感器地址：<input type="text" name="" id="dz" size=12px value=""  />&nbsp;
 						    	<input type="submit" id="xgcgq" class="mws-button black"  value="修改无线传感器地址"/>
                               </span>
                           </span>

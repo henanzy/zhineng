@@ -1,5 +1,6 @@
 package com.hnzy.hot.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -80,6 +81,24 @@ public class XxglServiceImpl implements XxglService{
 	public String grbl() {
 		// TODO Auto-generated method stub
 		return xxglDao.grbl();
+	}
+
+	@Override
+	public void InsertRz(String czr, String cz, Date czsj) {
+		// TODO Auto-generated method stub
+		xxglDao.InsertRz(czr, cz, czsj);
+	}
+
+	@Override
+	public void DeleteCgqDz(String id) {
+		// TODO Auto-generated method stub
+		xxglDao.DeleteCgqDz(id);
+	}
+
+	@Override
+	public List<Map<String, Object>> cgqDz() {
+		// TODO Auto-generated method stub
+		return xxglDao.cgqDz();
 	}
 
 

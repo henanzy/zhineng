@@ -68,6 +68,12 @@ select top 1000 * ,CONVERT(varchar(100),czsj , 20)as time from T_RZ where 1=1
  order by czsj desc 
 </select>
 
+<insert id="InsertRz" >
+		insert into T_RZ
+		(czr,cz,czsj)
+		values(#{czr},#{cz},#{czsj})
+</insert>
+
 
 <select id="grbzt" resultMap="XxglMap" >
  select sum(case when y.SFJF='是' then 1 else 0 end) as grmj,
@@ -138,4 +144,14 @@ select count(*) from T_YhInfo where  (yhrb=0 or yhrb=2) and SFJF='否'
 <select id="pjsw" resultType="java.lang.Integer">
 select AVG(f.RoomTemp) from T_YhInfo y,T_FmInfo f where  (y.yhrb=0 or y.yhrb=2) and y.SFJF='是' and f.ValAd =y.ValAd
 </select>
+
+<select id="cgqDz" resultMap="XxglMap">
+select * from dcgq order by id desc
+</select>
+
+<update id="DeleteCgqDz" >
+delete from dcgq
+		where
+		id=#{id}
+</update>
 </mapper>

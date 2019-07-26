@@ -165,4 +165,21 @@ public class XxglController {
 		json.put("tqyb", tqyb+"°C");
 		return json;
 	}
+	
+	@RequestMapping("cgqDz")
+	@ResponseBody
+	public JSONObject cgqDz() throws UnsupportedEncodingException{
+		JSONObject json=new JSONObject();
+		json.put("list", XxglService.cgqDz());
+		return json;
+	}
+	
+	
+	@RequestMapping("DeleteCgqDz")
+	@ResponseBody
+	public JSONObject DeleteCgqDz(String id) throws UnsupportedEncodingException{
+		JSONObject json=new JSONObject();
+		 XxglService.DeleteCgqDz(id);
+		return json;
+	}
 }

@@ -1,6 +1,7 @@
 package com.hnzy.hot.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hnzy.hot.service.JzqService;
 import com.hnzy.hot.service.QgService;
+import com.hnzy.hot.service.XxglService;
 import com.hnzy.hot.service.YhInfoService;
 import com.hnzy.hot.socket.server.ServerSessionMap;
 import com.hnzy.hot.socket.util.CzUtil;
@@ -22,6 +24,7 @@ import com.hnzy.hot.socket.util.MapUtilsDf;
 import com.hnzy.hot.util.JSONSerializer;
 
 import net.sf.json.JSONObject;
+import net.sf.json.util.NewBeanInstanceStrategy;
 
 @RequestMapping("sbglCon")
 @Controller
@@ -35,6 +38,9 @@ public class sbglController {
 	
 	@Autowired
 	private JzqService jzqService;
+	
+	@Autowired
+	private XxglService xxglService;
 	
 	
 	/*设备管理*/
@@ -227,7 +233,10 @@ public class sbglController {
 			// fmId十进制
 			String ja = "F0160900" + qgId + "040" + UppFmd + "FFFF"+sdbs+"FF" + UppWdsd + "" + UppTjzq + "" + UppTjcs
 					+ "";
-			
+			Map map= yhInfoService.geidz(fmId);
+			Date date=new Date();
+			xxglService.InsertRz(userName, "发送参数 ：小区"+map.get("XqName")+"楼栋" +map.get("BuildNo")+"单元"+map.get("CellNo")
+			+"户号"+map.get("HouseNo"), date);
 			boolean sessionmap = cz(ja, pt);
 			try {
 				Thread.sleep(3000);
@@ -256,9 +265,11 @@ public class sbglController {
 		@RequestMapping("kFm")
 		@ResponseBody
 		public JSONObject KFm( HttpSession session, String fmId, String qgId,String fmkd) throws UnsupportedEncodingException {
+			
 			JSONObject kString = null;
+			
 			int fmkds=0;
-			int FmKd=0;
+			
 			
 			if(fmkd.equals("")){
 				fmkds=255;
@@ -269,23 +280,23 @@ public class sbglController {
 			
 			
 			JSONObject jsonObject=new JSONObject();
-			
+			kString = kfm( fmId, qgId,fmkds);
 	    	
 	    	String	userName=(String) session.getAttribute("userName");
 	    	if(userName!=null){
 	    	 userName=new String(userName.getBytes("ISO-8859-1"),"utf-8")+"";
 	    	if(!userName.equals("hnzyxt")){
-	    		/*rz.setCz("阀门打开,阀门地址为:"+ids+"用户地址:"+xqName+"-"+BuildNo+"-"+CellNo+"-"+HouseNo+"阀门开度"+FmKd);
-	    		rz.setCzr((String)session.getAttribute("userName"));
-	    		rz.setCzsj(new Date());
-	    		rzService.insert(rz);*/
+	    		
 			
 	    	}
 			if(userName.equals("供热一处")||userName.equals("供热二处")||userName.equals("供热三处")){
 				jsonObject.put("js", "5");
 				return jsonObject;
 			}else{
-			
+				Map map= yhInfoService.geidz(fmId);
+				Date date=new Date();
+				xxglService.InsertRz(userName, "开阀门 ：小区"+map.get("XqName")+"楼栋" +map.get("BuildNo")+"单元"+map.get("CellNo")
+				+"户号"+map.get("HouseNo"), date);
 			kString = kfm( fmId, qgId,fmkds);
 			return kString;
 			}
@@ -313,10 +324,12 @@ public class sbglController {
 			// 端口号
 			String port =jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqPort").toString();
 			// IP地址和端口号
+			
 			String pt = "/" + ip + ":" + port;
 			// fmId十进制
 			String ja = "F0160900" + qgId + "040" + fmd + "00FFFF00FFFFFF";
-			
+			System.out.println(pt);
+			System.out.println(ja);
 			boolean sessionmap = cz(ja, pt);
 
 			try {
@@ -348,8 +361,8 @@ public class sbglController {
 		public JSONObject gFm( HttpSession session, String fmId, String qgId) throws UnsupportedEncodingException {
 			JSONObject kString = null;
 			
-			//日志
-			kString = gf( fmId, qgId);
+			
+			//kString = gf( fmId, qgId);
 			
 			JSONObject jsonObject=new JSONObject();
 			
@@ -359,7 +372,9 @@ public class sbglController {
 	    	 userName=new String(userName.getBytes("ISO-8859-1"),"utf-8")+"";
 	    	if(!userName.equals("hnzyxt")){
 	    		
-			
+			//日志
+	    		
+	    		
 	    	}
 			if(userName.equals("供热一处")||userName.equals("供热二处")||userName.equals("供热三处")){
 				jsonObject.put("js", "5");
@@ -367,6 +382,10 @@ public class sbglController {
 			}else{
 			
 			kString = gf( fmId, qgId);
+			Map map= yhInfoService.geidz(fmId);
+			Date date=new Date();
+			xxglService.InsertRz(userName, "关阀门 ：小区"+map.get("XqName")+"楼栋" +map.get("BuildNo")+"单元"+map.get("CellNo")
+			+"户号"+map.get("HouseNo"), date);
 			return kString;
 			}
 
@@ -431,12 +450,12 @@ public class sbglController {
 		 //修改无线传感器地址
 	    @RequestMapping("XCgq")
 	    @ResponseBody
-	    public String XCgq(HttpSession session,String valad, String fmId, String CGQId,String qgId) throws UnsupportedEncodingException{
+	    public String XCgq(HttpSession session, String fmId, String CGQId,String qgId) throws UnsupportedEncodingException{
 
 	    	
 			String	userName=(String) session.getAttribute("userName");
 			if(userName!=null){
-			 userName=new String(userName.getBytes("ISO-8859-1"),"utf-8")+"";
+			 //userName=new String(userName.getBytes("ISO-8859-1"),"utf-8")+"";
 			if( userName.equals("供热一处")||userName.equals("供热二处")||userName.equals("供热三处")){
 				return"5";
 			}else {
@@ -460,7 +479,12 @@ public class sbglController {
 
 	    			// fmId十进制
 	    			String ja = "F0155300"+qgId+"0"+UppFmd+"679A000"+Cgq+"";
-	    			
+	    			System.out.println(pt);
+	    			System.out.println(ja);
+	    			Map map= yhInfoService.geidz(fmId);
+					Date date=new Date();
+					xxglService.InsertRz(userName, "修改传感器地址 ：小区"+map.get("XqName")+"楼栋" +map.get("BuildNo")+"单元"+map.get("CellNo")
+					+"户号"+map.get("HouseNo"), date);
 	    			boolean sessionmap = cz(ja, pt);
 	    			try {
 	    				Thread.sleep(3000);

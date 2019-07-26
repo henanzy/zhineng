@@ -1,7 +1,10 @@
 package com.hnzy.hot.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 
 public interface XxglService {
 	public List<String> Search(Map<String, Object> map);
@@ -25,4 +28,10 @@ public interface XxglService {
 	public Integer pjsw();
 	
 	public String grbl();
+	
+	public void InsertRz(@Param("czr")String czr,@Param("cz")String cz,@Param("czsj")Date czsj);
+	
+	   public void DeleteCgqDz(String id);
+	   
+	   public List<Map<String, Object>> cgqDz();
 }
