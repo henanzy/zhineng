@@ -321,4 +321,9 @@ public class UserController {
     		return "dingwei/lisgj";
     	}
     	
+    	@RequestMapping("/cgqdz")
+    	public String cgqdz(){
+    		return "ZhiNeng/shebei/cgqdz";
+    	}
+    	
 }

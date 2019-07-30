@@ -146,7 +146,7 @@ select AVG(f.RoomTemp) from T_YhInfo y,T_FmInfo f where  (y.yhrb=0 or y.yhrb=2) 
 </select>
 
 <select id="cgqDz" resultMap="XxglMap">
-select * from dcgq order by id desc
+select  c.id, c.fmid, c.cgqId ,y.XqName,y.BuildNO,y.CellNO,y.HouseNO from dcgq c,T_YhInfo y where c.fmId=y.ValAd
 </select>
 
 <update id="DeleteCgqDz" >

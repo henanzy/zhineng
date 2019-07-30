@@ -175,6 +175,9 @@ function hangyzs(){//
 function xitsm(){// 
 	window.open("<%=basePath%>user/xitsm.action?type=系统说明", "Conframe");
 } 
+function cgqdz(){// 
+	window.open("<%=basePath%>user/cgqdz.action?type=系统说明", "Conframe");
+} 
 function wentjd(){// 
 	window.open("<%=basePath%>user/wentjd.action?type=问题解答", "Conframe");
 } 
@@ -280,7 +283,7 @@ ul.ac_kf li a:hover {
 							<li><a class="taglist" onclick="jizqxx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;集中器信息</a></li>
 							
 							<li><a class="taglist" onclick="qugxx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;区管信息</a></li>
-							<!-- <li><a onclick="shuakaxx()" target="Conframel">&nbsp;&nbsp;&nbsp;>&nbsp;刷卡信息</a></li> -->
+							<li><a class="taglist" onclick="cgqdz()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;传感器地址</a></li> 
 							<li><a class="taglist" onclick="rebxx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;热表信息</a></li>
 
 						</ul></li>

@@ -236,7 +236,7 @@ var list;
 
 
 $.ajax({
-		url : "<%=basePath%>jzq/find.action", 
+		url : "<%=basePath%>xxgl/cgqDz.action", 
 		async : false,
 		dataType : "json",
 		data : {
@@ -253,40 +253,30 @@ $.ajax({
 <body>
     <div id="" class="clearfix">
       
-            	<div class="mws-report-container clearfix">
-            
-            	
+            	<!-- <div class="mws-report-container clearfix">                        	
                    	 <p class="mws-report" href="#" style="font-size: 14px;"> 
-                    	
-                        <span class="mws-report-content" style="margin-top: 5px;">
-	                            <input type="submit" class="mws-button black"  id="increase_btn" value="添加"/>                                                     
-                          </span>
                    </p> 
-                </div>
+                </div> -->
                 
 
      	  	<div class="mws-panel grid_8" >
-                	<div class="mws-panel-header">
+                	<div class="mws-panel-header" style="width:68.5%">
                     	<span class="mws-i-24 i-table-1">数据显示</span>
                     </div>
 
-                    <div id="qgxx_table_body" class="mws-panel-body" style="width:99.5%; height:580px; overflow:auto;">
+                    <div id="qgxx_table_body" class="mws-panel-body" style="width:69.5%; height:680px; overflow:auto;">
 
                         <table class="mws-table" >
                             <thead >
                                 <tr>
                                    
-                                     <th class="table-th-css">集中器ID</th>
-                                   
-                                    <th class="table-th-css">集中器ip</th>
-                                    <th class="table-th-css">集中器端口</th>
-                                    <th class="table-th-css">状态</th>
-                                    
-                                    <th class="table-th-css">小区名称</th>
-                                    <th class="table-th-css">换热站名称</th>
-                                    <th class="table-th-css">安装位置</th>
-                                    <th class="table-th-css">更新时间</th>  
-                                     <th class="table-th-css">操作</th>   
+                                    <th class="table-th-css">阀门地址</th>                                  
+                                    <th class="table-th-css">传感器地址</th>
+                                    <th class="table-th-css">小区</th>
+                                    <th class="table-th-css">楼栋</th>
+                                    <th class="table-th-css">单元</th>
+                                    <th class="table-th-css">户号</th>
+                                    <th class="table-th-css">操作</th>
                                 </tr>
                             </thead>
                             <tbody id="jzq_body">
@@ -298,7 +288,7 @@ $.ajax({
                 
          
                    
-		<nav style="width:100%;">
+		<nav style="width:69.5%;">
             <ul style="width:550px;display:flex;justify-content:space-between;margin:0 auto;" >
             	
                 <li id="first">首页</li>
@@ -319,146 +309,10 @@ $.ajax({
             </ul>
          </nav>
      
-        <div id="increase_word">
-			<div class="mws-panel grid_4"
-				style="width: 400px; min-width: 450px; margin: 170px 30%;">
-				<div class="mws-panel-header">
-					<span class="mws-i-24 i-pencil">新增集中器</span> <span class="close"></span>
-				</div>
-				<div class="mws-panel-body" style="height: 350px;">
-					<form class="mws-form" action="Insert.action" method="post">
-						<div class="mws-form-inline"> 
-						
-						<div class="mws-form-row">
-								<label>&emsp;集中器ID：</label>
-
-								<div class="mws-form-item large">
-								 <input type="text" class="mws-textinput increase_word_input" 
-										name="JzqID" value="" autofocus="autofocus" />
-								</div>
-						</div>
-						<div class="mws-form-row">
-								<label>&emsp;集中器IP：</label>
-
-								<div class="mws-form-item large">
-									<input type="text" class="mws-textinput increase_word_input" 
-										name="JzqIp" value="" autofocus="autofocus" />
-								</div>
-						</div>
-						<div class="mws-form-row">
-								<label>&emsp;集中器端口：</label>
-
-								<div class="mws-form-item large">
-									<input type="text" class="mws-textinput increase_word_input" 
-										name="JzqPort" value="" autofocus="autofocus" />
-								</div>
-						</div>
-						
-						<div class="mws-form-row">
-								<label>&emsp;小区名称：</label>
-
-								<div class="mws-form-item large">
-									<input type="text" class="mws-textinput increase_word_input" 
-										name="XqName" value="" autofocus="autofocus" />
-								</div>
-						</div>
-						
-						<div class="mws-form-row">
-								<label>&emsp;换热站名称：</label>
-
-								<div class="mws-form-item large">
-									<input type="text" class="mws-textinput increase_word_input" 
-										name="HESName" value="" autofocus="autofocus" />
-								</div>
-						</div>
-						<div class="mws-form-row">
-								<label>&emsp;安装位置：</label>
-
-								<div class="mws-form-item large">
-									<input type="text" class="mws-textinput increase_word_input" 
-										name="InstallAd" value="" autofocus="autofocus" />
-								</div>
-						</div>
-						</div>
-						<input type="submit" id="word_increase_btn"
-							class="mws-button black" value="新增" />
-					</form>
-				</div>
-			</div>
-		</div>
-        <div id="change_word">
-			<div class="mws-panel grid_4"
-				style="width: 400px; min-width: 450px; margin: 170px 30%;">
-				<div class="mws-panel-header">
-					<span class="mws-i-24 i-pencil">修改传感器</span> <span class="close"></span>
-				</div>
-				<div class="mws-panel-body" style="height: 350px;">
-					<form class="mws-form" action="Update.action"  method="post">
-						<div class="mws-form-inline">
- 							<input type="hidden" class="mws-textinput change_word_input"
-							name="id" id="ID" value="" />
-						
-						
-						<div class="mws-form-row">
-								<label>&emsp;集中器ID：</label>
-
-								<div class="mws-form-item large">
-								 <input type="text" class="mws-textinput change_word_input" 
-										name="JzqID" value="" autofocus="autofocus" />
-								</div>
-						</div>
-						<div class="mws-form-row">
-								<label>&emsp;集中器IP：</label>
-
-								<div class="mws-form-item large">
-									<input type="text" class="mws-textinput change_word_input" 
-										name="JzqIp" value="" autofocus="autofocus" />
-								</div>
-						</div>
-						<div class="mws-form-row">
-								<label>&emsp;集中器端口：</label>
-
-								<div class="mws-form-item large">
-									<input type="text" class="mws-textinput change_word_input" 
-										name="JzqPort" value="" autofocus="autofocus" />
-								</div>
-						</div>
-						
-						<div class="mws-form-row">
-								<label>&emsp;小区名称：</label>
-
-								<div class="mws-form-item large">
-									<input type="text" class="mws-textinput change_word_input" 
-										name="XqName" value="" autofocus="autofocus" />
-								</div>
-						</div>
-						
-						<div class="mws-form-row">
-								<label>&emsp;换热站名称：</label>
-
-								<div class="mws-form-item large">
-									<input type="text" class="mws-textinput change_word_input" 
-										name="HESName" value="" autofocus="autofocus" />
-								</div>
-						</div>
-						<div class="mws-form-row">
-								<label>&emsp;安装位置：</label>
-
-								<div class="mws-form-item large">
-									<input type="text" class="mws-textinput change_word_input" 
-										name="InstallAd" value="" autofocus="autofocus" />
-								</div>
-						</div>
-							
-						</div>	
-						<input type="submit" id="word_change_btn"
-							class="mws-button black" value="修改" />
-					</form>
-				</div>
-			</div>
-		</div>
+        
+        
                  
 </div>           
-<script type="text/javascript" src="../js/jzqxx.js"></script>
+<script type="text/javascript" src="../js/cgqdz.js"></script>
 </body>
 </html>
