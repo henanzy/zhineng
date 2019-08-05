@@ -17,7 +17,7 @@ public class YhInfoServiceImpl implements YhInfoService{
 	private YhInfoDao yhnfoDao;
 
 	@Override
-	public List<String> findXq() {
+	public List<Map<String, Object>> findXq() {
 		// TODO Auto-generated method stub
 		return yhnfoDao.findXq();
 	}
@@ -131,13 +131,13 @@ public class YhInfoServiceImpl implements YhInfoService{
 	}
 
 	@Override
-	public List<String> findKdLs(Map<String, Object> map) {
+	public List<Map<String, Object>> findKdLs(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return yhnfoDao.findKdLs(map);
 	}
 
 	@Override
-	public List<String> findHisAvg(Map<String, Object> map) {
+	public List<Map<String, Object>> findHisAvg(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return yhnfoDao.findHisAvg(map);
 	}

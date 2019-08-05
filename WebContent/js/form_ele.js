@@ -42,7 +42,9 @@ $(function () {
 				arr1[3] = json[i].FamKd;
 				arr1[4] = json[i].RoomTemp;
 				arr1[5] = json[i].ValTemp;
-				arr1[6] = json[i].RecordTime;
+				arr1[6] = json[i].Tqyb;
+				arr1[7] = json[i].SFJF;
+				arr1[8] = json[i].RecordTime;
 				
 				bjList.push(arr1);
 			};
@@ -121,7 +123,9 @@ $(function () {
 			arr1[3] = json[i].FamKd;
 			arr1[4] = json[i].RoomTemp;
 			arr1[5] = json[i].ValTemp;
-			arr1[6] = json[i].RecordTime;
+			arr1[6] = json[i].Tqyb;
+			arr1[7] = json[i].SFJF;
+			arr1[8] = json[i].RecordTime;
 			bjList.push(arr1);
 		};
 		wdbj(bjList);
@@ -132,9 +136,16 @@ $(function () {
 				/*arr1[0] = json[i].id;*/
 				arr2[0] = gdls[i].slsj;
 				arr2[1] = gdls[i].Problem;
-				arr2[2] = gdls[i].wxsj;
-				arr2[3] = gdls[i].WC_Name;
-				arr2[4] = gdls[i].BZ;
+				arr2[2] = gdls[i].jdsj;
+				arr2[3] = gdls[i].JS_Name;
+				arr2[4] = gdls[i].wxsj;
+				arr2[5] = gdls[i].WC_Name;
+				if(gdls[i].BZ==null){
+				arr2[6] = "";
+				}else{
+					arr2[6] = gdls[i].BZ;	
+				}
+				
 				
 				gdlsList.push(arr2);
 			};

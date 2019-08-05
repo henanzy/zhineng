@@ -232,7 +232,70 @@ $(function () {
 		
 	// 小区楼栋选择
 	
-
+	$("#xq").change(function(){
+		$("#kdline").val($("#xq").val());
+		$("#wdline").val($("#xq").val());	
+		$.ajax({
+			url : getRootPath()+"/yhInfo/findHisAvg.action", 
+			async : false,
+			dataType : "json",
+			data : {
+				"xqm":$("#wdline").val(),
+				"startTime":$("#startTime2").val(),
+				"endTime":$("#endTime2").val(),
+			},
+			success : function(data) {
+				
+				wdzb=data.list;
+			}
+		});
+		 var wd1 = [];
+		 var sw1 = [];
+		 var wdtime1 = [];
+		 var data=[];
+		 for (var i = 0 ; i < wdzb.length ; i ++) {
+				
+				/*arr1[0] = json[i].id;*/
+				wd1.push(parseFloat(wdzb[i].Tqyb));
+				sw1.push(parseFloat(wdzb[i].Avg));
+				wdtime1.push(wdzb[i].time);
+				
+			};
+			var wddata = [
+				{name:$("#wdline").val().replace("（智慧供热区域）",""),sw:sw1},
+				{name:"室外温度",wd:wd1}
+			];
+			onesw(options,wddata,'mws-dashboard-chart-2',wdtime1)
+			
+				$.ajax({
+			url : getRootPath()+"/yhInfo/findXqKdLs.action", 
+			async : false,
+			dataType : "json",
+			data : {
+				"xqm":$("#kdline").val(),
+				"startTime":$("#startTime1").val(),
+				"endTime":$("#endTime1").val(),
+			},
+			success : function(data) {
+				
+				kdzb=data.list;
+			}
+		});
+		 var kd1 = [];
+		 var time1 = [];
+		 
+		 for (var i = 0 ; i < kdzb.length ; i ++) {
+				var arr = [];
+				/*arr1[0] = json[i].id;*/
+				kd1.push(parseFloat(kdzb[i].KdYb.replace("%","")));
+				
+				time1.push(kdzb[i].time);
+				
+			};
+			var xqname=$("#kdline").val().replace("（智慧供热区域）","");
+			var data={name:xqname,kd:kd1};
+			onewd(options,data,'mws-dashboard-chart-1',time1)
+		});
 	// 工单搜索
 	$("#search_btn").click(function(){
 		var compareWordList = [];

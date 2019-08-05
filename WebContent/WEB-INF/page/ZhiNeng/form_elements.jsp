@@ -329,10 +329,10 @@ $(document).ready(function(){
 
 
 		<div class="mws-panel grid_4"
-			style="width: 48%; float: left;">
+			style="width: 98%; float: left;">
 			<div class="mws-panel-header">
 				<span class="mws-i-24 i-table-1">横向比较</span>
-				<span style="position:absolute;top:10px;right:30px;">
+				<span style="position:absolute;top:10px;left:130px;">
 					<select id="wdbj">
 						<option value="tc" >同层</option>
 						<option value="tdy" >同单元</option>
@@ -351,6 +351,8 @@ $(document).ready(function(){
 							<th class="table-th-css">开度</th>
 							<th class="table-th-css">温度</th>
 							<th class="table-th-css">管道温度</th>
+							<th class="table-th-css">室外温度</th>
+							<th class="table-th-css">是否缴费</th>
 							<th class="table-th-css">采集时间</th>
 						</tr>
 					</thead>
@@ -363,7 +365,7 @@ $(document).ready(function(){
 
 
 		<div class="mws-panel grid_8 "
-			style="width: 48%; float: left;">
+			style="width: 98%; float: left;">
 			<div class="mws-panel-header">
 				<span class="mws-i-24 i-table-1">工单记录</span>
 				
@@ -373,8 +375,11 @@ $(document).ready(function(){
 				<table class="mws-table">
 					<thead>
 						<tr>
+						    
 							<th class="table-th-css">受理时间</th>
 							<th class="table-th-css">问题</th>
+							<th class="table-th-css">接单时间</th>
+							<th class="table-th-css">接单人</th>
 							<th class="table-th-css">维修时间</th>
 							<th class="table-th-css">维修人</th>
 							<th class="table-th-css">备注</th>

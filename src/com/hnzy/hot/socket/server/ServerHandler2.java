@@ -8,7 +8,11 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.mina.core.future.CloseFuture;
@@ -19,7 +23,10 @@ import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.hnzy.hot.dao.HanderDao;
+import com.hnzy.hot.service.HanderService;
 import com.hnzy.hot.socket.util.CzUtil;
 import com.hnzy.hot.socket.util.DatabaseUtil;
 import com.hnzy.hot.socket.util.MapUtils;
@@ -74,6 +81,8 @@ public class ServerHandler2 extends IoHandlerAdapter {
 	// 日志文件
 	private static Log logs = LogFactory.getLog(ServerHandler2.class);
 
+	@Autowired
+	private HanderService handerService;
 	/**
 	 * 当一个新客户端连接后触发此方法
 	 * 
@@ -266,147 +275,115 @@ public class ServerHandler2 extends IoHandlerAdapter {
 	String lTemSet;
 
 	public void KfWx(byte[] base) {
-		DatabaseUtil dbUtilS = DatabaseUtil.getInstance();
-		Connection conncw = dbUtilS.getConnection();
+		
+		// 接收数据
+		String stringH = Utils.bytesToHexString(base);
+		String varAd = stringH.substring(6, 14);
+		// 转换十进制
+		int Fms = Integer.parseInt("" + varAd + "", 16);
+		// 根据阀门地址查找区管地址,IP地址端口号
+		// 更新
+		
+		handerService.UpdateType("微信开", Fms);
+		
+
+		
+		Map<String, Object> map=handerService.fmxx(Fms).get(0);
+		
+		
+		
+			jzqPort = (String) map.get("jzqPort");
+			qgID = (String) map.get("QgID");
+			JzqIP = (String) map.get("JzqIP");
+			hTemSet = (String) map.get("HTemSet");
+			mTemSet = (String) map.get("MTemSet");
+			lTemSet = (String) map.get("LTemSet");
+		
+		// 参数十进制转换为十六进制
+		int WDsd = Integer.valueOf(hTemSet);
+		int TJzq = Integer.valueOf(mTemSet);
+		int TJcs = Integer.valueOf(lTemSet);
+		String Wdsd = "00" + Integer.toHexString(WDsd);
+		String subwdsd = Wdsd.substring(Wdsd.length() - 2);
+		String Tjzq = "00" + Integer.toHexString(TJzq);
+		String subtjzq = Tjzq.substring(Tjzq.length() - 2);
+		String Tjcs = "00" + Integer.toHexString(TJcs);
+		String subtjcs = Tjcs.substring(Tjcs.length() - 2);
+		String UppWdsd = CzUtil.Uppercase(subwdsd).toString();
+		String UppTjzq = CzUtil.Uppercase(subtjzq).toString();
+		String UppTjcs = CzUtil.Uppercase(subtjcs).toString();
+		String ja = "F0160900" + qgID + "04" + varAd + "01FFFF01" + UppWdsd + "" + UppTjzq + "" + UppTjcs + "";
+		// 微信开阀门
+		// String ja = "F0160900" + qgID + "04" + varAd + "01FFFF01FFFFFF";
+		// IP地址和端口号
+		String pt = "/" + JzqIP + ":" + jzqPort;
+		log.info("微信开阀门发送数据：" + ja);
+		boolean sessionmap = cz(ja, pt);
 		try {
-			// 接收数据
-			String stringH = Utils.bytesToHexString(base);
-			String varAd = stringH.substring(6, 14);
-			// 转换十进制
-			int Fms = Integer.parseInt("" + varAd + "", 16);
-			// 根据阀门地址查找区管地址,IP地址端口号
-			// 更新
-			String Upsql = "update T_FmInfo set Type='微信开' where ValAd='" + Fms + "'";
-			pswK = conncw.prepareStatement(Upsql);
-
-			rswK = pswK.executeUpdate();
-
-			String sqlcx = "select distinct fm.HTemSet,fm.MTemSet,fm.LTemSet,fm.QgID,jzq.JzqIP,jzq.JzqPort"
-					+ " from T_FmInfo fm,T_QgInfo qg,T_JzqInfo jzq "
-					+ " where fm.QgID=qg.QgID and qg.JzqID=jzq.JzqID and fm.ValAd='" + Fms + "'";
-			pswK = conncw.prepareStatement(sqlcx);
-			rstwK = pswK.executeQuery();
-			int col = rstwK.getMetaData().getColumnCount();
-			while (rstwK.next()) {
-				jzqPort = rstwK.getString("jzqPort");
-				qgID = rstwK.getString("QgID");
-				JzqIP = rstwK.getString("JzqIP");
-				hTemSet = rstwK.getString("HTemSet");
-				mTemSet = rstwK.getString("MTemSet");
-				lTemSet = rstwK.getString("LTemSet");
-			}
-			// 参数十进制转换为十六进制
-			int WDsd = Integer.valueOf(hTemSet);
-			int TJzq = Integer.valueOf(mTemSet);
-			int TJcs = Integer.valueOf(lTemSet);
-			String Wdsd = "00" + Integer.toHexString(WDsd);
-			String subwdsd = Wdsd.substring(Wdsd.length() - 2);
-			String Tjzq = "00" + Integer.toHexString(TJzq);
-			String subtjzq = Tjzq.substring(Tjzq.length() - 2);
-			String Tjcs = "00" + Integer.toHexString(TJcs);
-			String subtjcs = Tjcs.substring(Tjcs.length() - 2);
-			String UppWdsd = CzUtil.Uppercase(subwdsd).toString();
-			String UppTjzq = CzUtil.Uppercase(subtjzq).toString();
-			String UppTjcs = CzUtil.Uppercase(subtjcs).toString();
-			String ja = "F0160900" + qgID + "04" + varAd + "01FFFF01" + UppWdsd + "" + UppTjzq + "" + UppTjcs + "";
-			// 微信开阀门
-			// String ja = "F0160900" + qgID + "04" + varAd + "01FFFF01FFFFFF";
-			// IP地址和端口号
-			String pt = "/" + JzqIP + ":" + jzqPort;
-			log.info("微信开阀门发送数据：" + ja);
-			boolean sessionmap = cz(ja, pt);
-			try {
-				Thread.sleep(9000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			// fmId十进制
-			String jas = "F00F0400" + qgID + "04" + varAd;
-			log.info("微信读阀发送数据：" + jas);
-			boolean sessionmap1 = cz(jas, pt);
-		} catch (SQLException e1) {
-
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			DatabaseUtil.close(rstwK, pswK, conncw);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			Thread.sleep(9000);
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		// fmId十进制
+		String jas = "F00F0400" + qgID + "04" + varAd;
+		log.info("微信读阀发送数据：" + jas);
+		boolean sessionmap1 = cz(jas, pt);
+		
 	}
 
 	public void GfWx(byte[] base) {
+		
+		// 接收数据
+		String stringH = Utils.bytesToHexString(base);
+		String varAd = stringH.substring(6, 14);
+		// 转换十进制
+		int Fms = Integer.parseInt("" + varAd + "", 16);
+		
+
+		handerService.UpdateType("微信关", Fms);
+		
+		
+		Map<String, Object> map=handerService.fmxx(Fms).get(0);
+		
+		
+		
+		jzqPort = (String) map.get("jzqPort");
+		qgID = (String) map.get("QgID");
+		JzqIP = (String) map.get("JzqIP");
+		hTemSet = (String) map.get("HTemSet");
+		mTemSet = (String) map.get("MTemSet");
+		lTemSet = (String) map.get("LTemSet");
+		// 参数十进制转换为十六进制
+		int WDsd = Integer.valueOf(hTemSet);
+		int TJzq = Integer.valueOf(mTemSet);
+		int TJcs = Integer.valueOf(lTemSet);
+		String Wdsd = "00" + Integer.toHexString(WDsd);
+		String subwdsd = Wdsd.substring(Wdsd.length() - 2);
+		String Tjzq = "00" + Integer.toHexString(TJzq);
+		String subtjzq = Tjzq.substring(Tjzq.length() - 2);
+		String Tjcs = "00" + Integer.toHexString(TJcs);
+		String subtjcs = Tjcs.substring(Tjcs.length() - 2);
+		String UppWdsd = CzUtil.Uppercase(subwdsd).toString();
+		String UppTjzq = CzUtil.Uppercase(subtjzq).toString();
+		String UppTjcs = CzUtil.Uppercase(subtjcs).toString();
+		// fmId十进制
+		String ja = "F0160900" + qgID + "04" + varAd + "00FFFF00" + UppWdsd + "" + UppTjzq + "" + UppTjcs + "";
+		// 微信关阀门
+		// String ja = "F0160900" + qgID + "04" + varAd + "00FFFF00FFFFFF";
+		// IP地址和端口号
+		String pt = "/" + JzqIP + ":" + jzqPort;
+		log.info("微信关阀门发送数据：" + ja);
+		boolean sessionmap = cz(ja, pt);
 		try {
-			DatabaseUtil dbUtil = DatabaseUtil.getInstance();
-			Connection conncg = dbUtil.getConnection();
-			// 接收数据
-			String stringH = Utils.bytesToHexString(base);
-			String varAd = stringH.substring(6, 14);
-			// 转换十进制
-			int Fms = Integer.parseInt("" + varAd + "", 16);
-			String sqlcx = "select distinct fm.HTemSet,fm.MTemSet,fm.LTemSet,fm.QgID,jzq.JzqIP,jzq.JzqPort"
-					+ " from T_FmInfo fm,T_QgInfo qg,T_JzqInfo jzq "
-					+ " where fm.QgID=qg.QgID and qg.JzqID=jzq.JzqID and fm.ValAd='" + Fms + "'";
-			// 更新
-			String Upsql = "update T_FmInfo set Type='微信关' where ValAd='" + Fms + "'";
-
-			pswG = conncg.prepareStatement(Upsql);
-
-			rswG = pswG.executeUpdate();
-
-			pswG = conncg.prepareStatement(sqlcx);
-			rstwG = pswG.executeQuery();
-			int col = rstwG.getMetaData().getColumnCount();
-			while (rstwG.next()) {
-				jzqPort = rstwG.getString("jzqPort");
-				qgID = rstwG.getString("QgID");
-				JzqIP = rstwG.getString("JzqIP");
-				hTemSet = rstwG.getString("HTemSet");
-				mTemSet = rstwG.getString("MTemSet");
-				lTemSet = rstwG.getString("LTemSet");
-			}
-			// 参数十进制转换为十六进制
-			int WDsd = Integer.valueOf(hTemSet);
-			int TJzq = Integer.valueOf(mTemSet);
-			int TJcs = Integer.valueOf(lTemSet);
-			String Wdsd = "00" + Integer.toHexString(WDsd);
-			String subwdsd = Wdsd.substring(Wdsd.length() - 2);
-			String Tjzq = "00" + Integer.toHexString(TJzq);
-			String subtjzq = Tjzq.substring(Tjzq.length() - 2);
-			String Tjcs = "00" + Integer.toHexString(TJcs);
-			String subtjcs = Tjcs.substring(Tjcs.length() - 2);
-			String UppWdsd = CzUtil.Uppercase(subwdsd).toString();
-			String UppTjzq = CzUtil.Uppercase(subtjzq).toString();
-			String UppTjcs = CzUtil.Uppercase(subtjcs).toString();
-			// fmId十进制
-			String ja = "F0160900" + qgID + "04" + varAd + "00FFFF00" + UppWdsd + "" + UppTjzq + "" + UppTjcs + "";
-			// 微信关阀门
-			// String ja = "F0160900" + qgID + "04" + varAd + "00FFFF00FFFFFF";
-			// IP地址和端口号
-			String pt = "/" + JzqIP + ":" + jzqPort;
-			log.info("微信关阀门发送数据：" + ja);
-			boolean sessionmap = cz(ja, pt);
-			try {
-				Thread.sleep(9000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			// fmId十进制
-			String jas = "F00F0400" + qgID + "04" + varAd;
-			log.info("微信读阀发送数据：" + jas);
-			boolean sessionmap1 = cz(jas, pt);
-			try {
-				DatabaseUtil.close(rstwG, pswG, conncg);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			Thread.sleep(9000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
+		// fmId十进制
+		String jas = "F00F0400" + qgID + "04" + varAd;
+		log.info("微信读阀发送数据：" + jas);
+		boolean sessionmap1 = cz(jas, pt);
+		
 
 	}
 
@@ -487,30 +464,29 @@ public class ServerHandler2 extends IoHandlerAdapter {
 						jfzt = "否";
 					}
 					// 更新数据库
-					String Upsql = "update T_YhInfo set YHBM='" + YHBM + "',SFJF='" + jfzt + "' where IDNum='" + khId
-							+ "'";
+					
+					handerService.UpdateJfzt(YHBM, jfzt, khId);
 					// 执行更新sqlserver
-					psS = connc.prepareStatement(Upsql);
-					rs = psS.executeUpdate();
+					
+					
 					logs.info("卡号----------：" + khId);
 					// 查找阀门是否开关
-					String SqlSelect = "select distinct fm.Status,fm.QgID,fm.RoomTemp,yh.Yhfl,yh.ValAd,yh.SFJF from T_YhInfo yh,T_FmInfo fm where yh.ValAd=fm.ValAd and yh.YHBM='"
-							+ YHBM + "'";
+					
 					// 执行查询sql
-					psS = connc.prepareStatement(SqlSelect);
-					rstS = psS.executeQuery();
-					int coln = rstS.getMetaData().getColumnCount();
+					
+					
 					String valAd = null;
 					String qgID = null;
 					String SFJF = null;
 					double roomTemp = 0;
-					while (rstS.next()) {
-						valAd = rstS.getString("ValAd");
-						qgID = rstS.getString("QgID");
-						Yhfl = rstS.getString("Yhfl");
-						roomTemp = rstS.getDouble("RoomTemp");
-						SFJF = rstS.getString("SFJF");
-					}//多个阀门可循环
+					Map<String, Object> map =handerService.fmkg(YHBM).get(0);
+					
+						valAd = (String) map.get("ValAd");
+						qgID = (String) map.get("QgID");
+						Yhfl = (String) map.get("Yhfl");
+						roomTemp = (Double) map.get("RoomTemp");
+						SFJF = (String) map.get("SFJF");
+					
 					if (valAd != null) {
 						logs.info("刷卡器阀门地址--------：" + valAd);
 						MapUtilsSkq.getMapUtils().add("skqfmid", valAd);
@@ -577,10 +553,9 @@ public class ServerHandler2 extends IoHandlerAdapter {
 									SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 									String date = df.format(new Date());
 									sessionmap = cz(jaString, clientIp);
-									String SkqInsert = "insert into Skq (SkqSbh,Kh,fmState,skSuccess,SfJf,DateTime) values('"
-											+ dkqId + "','" + khId + "','语音提示已关闭','成功','已交费','" + date + "')";
-									psS = connc.prepareStatement(SkqInsert);
-									psS.execute();
+									
+									handerService.InsertSkq(dkqId+"", khId, "语音提示已关闭", "成功", "已交费", date);
+									
 
 									logs.info("关阀门--刷卡器发送数据" + jaString);
 									cz(jaString, clientIp);
@@ -620,10 +595,9 @@ public class ServerHandler2 extends IoHandlerAdapter {
 										int dkqId = Integer.parseInt("" + DkqId + "", 16);
 										SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 										String date = df.format(new Date());
-										String SkqInsert = "insert into Skq (SkqSbh,Kh,fmState,skSuccess,SfJf,DateTime) values('"
-												+ dkqId + "','" + khId + "','开阀门','成功','已交费','" + date + "')";
-										psS = connc.prepareStatement(SkqInsert);
-										psS.execute();
+										
+										handerService.InsertSkq(dkqId+"", khId, "开阀门", "成功", "已交费", date);
+										
 										try {
 											Thread.sleep(3000);
 										} catch (InterruptedException e) {
@@ -647,10 +621,9 @@ public class ServerHandler2 extends IoHandlerAdapter {
 										int dkqId = Integer.parseInt("" + DkqId + "", 16);
 										SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 										String date = df.format(new Date());
-										String SkqInsert = "insert into Skq (SkqSbh,Kh,fmState,skSuccess,SfJf,DateTime) values('"
-												+ dkqId + "','" + khId + "','开阀门','通讯失败','已交费','" + date + "')";
-										psS = connc.prepareStatement(SkqInsert);
-										psS.execute();
+
+										handerService.InsertSkq(dkqId+"", khId, "开阀门", "通讯失败", "已交费", date);
+
 									}
 								}
 							} else if (dfStatus != null && dfStatus.equals("开") && fmID != null
@@ -668,10 +641,9 @@ public class ServerHandler2 extends IoHandlerAdapter {
 									SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 									String date = df.format(new Date());
 									sessionmap = cz(jaString, clientIp);
-									String SkqInsert = "insert into Skq (SkqSbh,Kh,fmState,skSuccess,SfJf,DateTime) values('"
-											+ dkqId + "','" + khId + "','语音提示已开阀','成功','已交费','" + date + "')";
-									psS = connc.prepareStatement(SkqInsert);
-									psS.execute();
+
+									handerService.InsertSkq(dkqId+"", khId, "语音提示已开阀", "成功", "已交费", date);
+
 								} else {
 
 									MapUtils.getMapUtils().add("df", null);
@@ -703,10 +675,9 @@ public class ServerHandler2 extends IoHandlerAdapter {
 										int dkqId = Integer.parseInt("" + DkqId + "", 16);
 										SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 										String date = df.format(new Date());
-										String SkqInsert = "insert into Skq (SkqSbh,Kh,fmState,skSuccess,SfJf,DateTime) values('"
-												+ dkqId + "','" + khId + "','关阀门','成功','已交费','" + date + "')";
-										psS = connc.prepareStatement(SkqInsert);
-										psS.execute();
+	
+										handerService.InsertSkq(dkqId+"", khId, "关阀门", "成功", "已交费", date);
+
 										try {
 											Thread.sleep(3000);
 										} catch (InterruptedException e) {
@@ -732,10 +703,10 @@ public class ServerHandler2 extends IoHandlerAdapter {
 										int dkqId = Integer.parseInt("" + DkqId + "", 16);
 										SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 										String date = df.format(new Date());
-										String SkqInsert = "insert into Skq (SkqSbh,Kh,fmState,skSuccess,SfJf,DateTime) values('"
-												+ dkqId + "','" + khId + "','','通讯失败','已交费','" + date + "')";
-										psS = connc.prepareStatement(SkqInsert);
-										psS.execute();
+
+										handerService.InsertSkq(dkqId+"", khId, "", "通讯失败", "已交费", date);
+										
+
 									}
 									// 1未交费
 								}
@@ -744,10 +715,9 @@ public class ServerHandler2 extends IoHandlerAdapter {
 								int dkqId = Integer.parseInt("" + DkqId + "", 16);
 								SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 								String date = df.format(new Date());
-								String SkqInsert = "insert into Skq (SkqSbh,Kh,fmState,skSuccess,SfJf,DateTime) values('"
-										+ dkqId + "','" + khId + "','','通讯失败','已交费','" + date + "')";
-								psS = connc.prepareStatement(SkqInsert);
-								psS.execute();
+								
+								handerService.InsertSkq(dkqId+"", khId, "", "通讯失败", "已交费", date);
+							
 							}
 							try {
 
@@ -759,10 +729,9 @@ public class ServerHandler2 extends IoHandlerAdapter {
 							int dkqId = Integer.parseInt("" + DkqId + "", 16);
 							SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 							String date = df.format(new Date());
-							String SkqInsert = "insert into Skq (SkqSbh,Kh,fmState,skSuccess,SfJf,DateTime) values('"
-									+ dkqId + "','" + khId + "','','失败','未交费','" + date + "')";
-							psS = connc.prepareStatement(SkqInsert);
-							psS.execute();
+							
+							handerService.InsertSkq(dkqId+"", khId, "", "失败", "未交费", date);
+							
 							try {
 								Thread.sleep(3000);
 							} catch (InterruptedException e) {
@@ -778,10 +747,9 @@ public class ServerHandler2 extends IoHandlerAdapter {
 						int dkqId = Integer.parseInt("" + DkqId + "", 16);
 						SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						String date = df.format(new Date());
-						String SkqInsert = "insert into Skq (SkqSbh,Kh,fmState,skSuccess,SfJf,DateTime) values('"
-								+ dkqId + "','" + khId + "','','失败','未交费','" + date + "')";
-						psS = connc.prepareStatement(SkqInsert);
-						psS.execute();
+						
+						handerService.InsertSkq(dkqId+"", khId, "", "失败", "未交费", date);
+						
 						try {
 							Thread.sleep(3000);
 						} catch (InterruptedException e) {
@@ -797,10 +765,9 @@ public class ServerHandler2 extends IoHandlerAdapter {
 					int dkqId = Integer.parseInt("" + DkqId + "", 16);
 					SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					String date = df.format(new Date());
-					String SkqInsert = "insert into Skq (SkqSbh,Kh,fmState,skSuccess,SfJf,DateTime) values('"
-							+ dkqId + "','" + khId + "','','失败','未交费','" + date + "')";
-					psS = connc.prepareStatement(SkqInsert);
-					psS.execute();
+
+					handerService.InsertSkq(dkqId+"", khId, "", "失败", "未交费", date);
+					
 					try {
 						Thread.sleep(3000);
 					} catch (InterruptedException e) {
@@ -992,24 +959,19 @@ public class ServerHandler2 extends IoHandlerAdapter {
 			String sT = stringHandler.substring(16, 18);
 
 			if (sT.equals("01")) {
-				String sql = "update T_QgInfo set QgStatus='1',RecordTime='" + time + "' where QgID='" + qgId + "'";
-
-				try {
-					psq = conncsq.prepareStatement(sql);
-					rsq = psq.executeUpdate();
+				
+				handerService.UpdateQg("1", time, qgId);
+			
+					
 					// 根据区管地址更新区管的IP和port
-					String UpSql = "update T_JzqInfo  set JzqIp='" + Ip + "',JzqPort='" + port
-							+ "' from T_JzqInfo jzq,T_QgInfo qg  where qg.QgID='" + qgId + "' and jzq.JzqID=qg.JzqID";
-					psq = conncsq.prepareStatement(UpSql);
-					rsq = psq.executeUpdate();
+
+					handerService.UpdateJzq(Ip, port+"", qgId);
+				
 					logs.info("更新区管地址的IP和Port" + qgId);
 					logs.info("区管查询成功：" + stringHandler);
 					MapUtils.getMapUtils().add("qg", "success");
 					logs.info("区管查询成功");
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			
 
 			} else {
 				MapUtils.getMapUtils().add("qg", "fail");
@@ -1059,15 +1021,10 @@ public class ServerHandler2 extends IoHandlerAdapter {
 		if (start.equals("F0") && end.equals("FF") && je.equals("" + jy + "")) {
 
 								// 根据集中器ID更新集中器端口
-								String sql = "update T_JzqInfo set JzqPort='" + port + "',JzqIP='" + Ip
-										+ "', Status='1',UpdateTime='" + time + "' where JzqID='" + JzqId + "'";
-								try {
-									psJ = conncsJ.prepareStatement(sql);
-									rsJ = psJ.executeUpdate();
-								} catch (SQLException e) {
-									e.printStackTrace();
-								}
-			//				}
+
+								handerService.UpdateJzqDk(port+"", Ip, "1", time, JzqId);
+							
+
 							MapUtils.getMapUtils().add("jzq", "success");
 							logs.info("集中器查询状态成功接收数据：" + stringHandler);
 		} else {
@@ -1136,26 +1093,11 @@ public class ServerHandler2 extends IoHandlerAdapter {
 			if (cgqwd.equals("01")) {
 				ycString += "失联";
 			}
-			String Insql = "insert into T_AlarmInfor values ('阀门','" + fmId + "','" + ycString + "','" + time + "')";
-			String Upsql = "update T_AlarmInforsX set ErrInfor='" + ycString + "',RecordTime='" + time
-					+ "' where DeviceID='" + fmId + "'";
-			try {
-				psG = conncsG.prepareStatement(Insql);
-				psG.execute();
-				psG = conncsG.prepareStatement(Upsql);
-				rs = psG.executeUpdate();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
+			handerService.InsertAlarmInfor(fmId+"", ycString, time);	
+			handerService.UpdateAlarmInforsX(ycString, time, fmId+"");		
+		}
 
-		}
-		try {
-			DatabaseUtil.close(rstG, psG, conncsG);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	// 读取传感器地址
@@ -1281,53 +1223,66 @@ public class ServerHandler2 extends IoHandlerAdapter {
 					fmJF = "是";
 				}
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String date = df.format(new Date());
-				String sqlcx = "select top 1 Tqyb from T_Cbtq order by id desc ";
-				try {
-					psC = conncsC.prepareStatement(sqlcx);
-					rstC = psC.executeQuery();
-					int col = rstC.getMetaData().getColumnCount();
-					while (rstC.next()) {
-						tqyb = rstC.getInt("Tqyb");
-					}
+				String date = df.format(new Date());				
+														
+						tqyb = handerService.getTqyb();
+					
 					if (Double.valueOf(FmRoomTemp).intValue() < 40) {
-
-						String Upsql = "update T_FmInfo set QgID='" + qgID + "',Status='" + fmState + "',FamKd='" + Fmkd
-								+ "',LockSt='" + fmLock + "',JFSt='" + fmJF + "',valTemp='" + FmTemp + "',RoomTemp='"
-								+ FmRoomTemp + "',HTemSet='" + hTemSet + "',MTemSet='" + mTemSet + "',LTemSet='"
-								+ lTemSet + "',RecordTime='" + date + "',Tqyb='" + tqyb + "' where ValAd='" + FmID
-								+ "'";
-						psC = conncsC.prepareStatement(Upsql);
-						rsC = psC.executeUpdate();
+						
+						Map<String, Object> map = new HashMap<String, Object>();
+						map.put("QgID",qgID);
+						map.put("Status",fmState);
+						map.put("FamKd",Fmkd);
+						map.put("LockSt",fmLock);
+						map.put("JFSt",fmJF);
+						map.put("valTemp",FmTemp);
+						map.put("RoomTemp",FmRoomTemp);
+						map.put("HTemSet",hTemSet);
+						map.put("mTemSet",mTemSet);
+						map.put("LTemSet",lTemSet);
+						map.put("RecordTime",date);
+						map.put("Tqyb",tqyb);
+						map.put("ValAd",FmID);
+						handerService.UpdateFmInfo(map);
+						
+						
 					}
 					Calendar cale = null;
 					cale = Calendar.getInstance();
 					String year = String.valueOf(dateYear.get(Calendar.YEAR));
 					int yf = cale.get(Calendar.MONTH) + 1;
+					Map<String, Object> map1= new HashMap<String, Object>();
+					map1.put("FmID", FmID);
+					map1.put("fmState", fmState);
+					map1.put("Fmkd", Fmkd);
+					map1.put("fmLock", fmLock);
+					map1.put("FmTemp", FmTemp);
+					map1.put("FmRoomTemp", FmRoomTemp);
+					map1.put("hTemSet", hTemSet);
+					map1.put("mTemSet", mTemSet);
+					map1.put("lTemSet", lTemSet);
+					map1.put("date", date);
+					map1.put("tqyb", tqyb);
 					if (year.equals("2018") || year.equals("2019") && yf < 4) {
-						Insql = "insert into T_FmHistory18 values ('" + FmID + "','" + fmState + "','" + Fmkd + "','"
-								+ fmLock + "','" + fmJF + "'," + "'" + FmTemp + "','" + FmRoomTemp + "','" + hTemSet
-								+ "','" + mTemSet + "','" + lTemSet + "','" + date + "','" + tqyb + "')";
-						psC = conncsC.prepareStatement(Insql);
+						map1.remove("table");
+						map1.put("table", "T_FmHistory18");
+						handerService.InsertFmls(map1);
 					} else if (year.equals("2019") && yf >= 3 || year.equals("2020") && yf < 4) {
-						Insql = "insert into T_FmHistory19 values ('" + FmID + "','" + fmState + "','" + Fmkd + "','"
-								+ fmLock + "','" + fmJF + "'," + "'" + FmTemp + "','" + FmRoomTemp + "','" + hTemSet
-								+ "','" + mTemSet + "','" + lTemSet + "','" + date + "','" + tqyb + "')";
-						psC = conncsC.prepareStatement(Insql);
+						map1.remove("table");
+						map1.put("table", "T_FmHistory19");
+						handerService.InsertFmls(map1);
 
 					} else if (year.equals("2020") && yf >= 3 || year.equals("2021") && yf < 4) {
-						Insql = "insert into T_FmHistory20 values ('" + FmID + "','" + fmState + "','" + Fmkd + "','"
-								+ fmLock + "','" + fmJF + "'," + "'" + FmTemp + "','" + FmRoomTemp + "','" + hTemSet
-								+ "','" + mTemSet + "','" + lTemSet + "','" + date + "','" + tqyb + "')";
-						psC = conncsC.prepareStatement(Insql);
+						map1.remove("table");
+						map1.put("table", "T_FmHistory20");
+						handerService.InsertFmls(map1);
 					} else if (year.equals("2021") && yf >= 3 || year.equals("2022") && yf < 4) {
-						Insql = "insert into T_FmHistory21 values ('" + FmID + "','" + fmState + "','" + Fmkd + "','"
-								+ fmLock + "','" + fmJF + "'," + "'" + FmTemp + "','" + FmRoomTemp + "','" + hTemSet
-								+ "','" + mTemSet + "','" + lTemSet + "','" + date + "','" + tqyb + "')";
-						psC = conncsC.prepareStatement(Insql);
+						map1.remove("table");
+						map1.put("table", "T_FmHistory21");
+						handerService.InsertFmls(map1);
 					}
 
-					psC.execute();
+					
 					if (MapUtilsSkq.getMapUtils().get("skqfmid") != null
 							&& MapUtilsSkq.getMapUtils().get("skqfmid").equals("" + FmID + "")) {
 						logs.info("skq读阀阀门地址----" + MapUtilsSkq.getMapUtils().get("skqfmid"));
@@ -1344,10 +1299,7 @@ public class ServerHandler2 extends IoHandlerAdapter {
 						MapUtilsDf.getMapUtils().add("PldFm", "success");
 					}
 					logs.info("读阀成功");
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 
 			} else if (stringHandler.length() > 52) {
 				if (stringHandler.contains("FFF")) {
@@ -1462,51 +1414,61 @@ public class ServerHandler2 extends IoHandlerAdapter {
 			}
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String date = df.format(new Date());
-			String sqlcx = "select top 1 Tqyb from T_Cbtq order by id desc ";
-			try {
-				psC = connc.prepareStatement(sqlcx);
-				rstC = psC.executeQuery();
-				int col = rstC.getMetaData().getColumnCount();
-				while (rstC.next()) {
-					tqyb = rstC.getInt("Tqyb");
-				}
+
+				tqyb = handerService.getTqyb();
+				
 				if (Double.valueOf(FmRoomTemp).intValue() < 40) {
 
-					String Upsql = "update T_FmInfo set QgID='" + qgID + "',Status='" + fmState + "',FamKd='" + Fmkd
-							+ "',LockSt='" + fmLock + "',JFSt='" + fmJF + "',valTemp='" + FmTemp + "',RoomTemp='"
-							+ FmRoomTemp + "',HTemSet='" + hTemSet + "',MTemSet='" + mTemSet + "',LTemSet='" + lTemSet
-							+ "',RecordTime='" + date + "',Tqyb='" + tqyb + "' where ValAd='" + FmID + "'";
-					psC = connc.prepareStatement(Upsql);
-					rsC = psC.executeUpdate();
+					Map<String, Object> map = new HashMap<String, Object>();
+					map.put("QgID",qgID);
+					map.put("Status",fmState);
+					map.put("FamKd",Fmkd);
+					map.put("LockSt",fmLock);
+					map.put("JFSt",fmJF);
+					map.put("valTemp",FmTemp);
+					map.put("RoomTemp",FmRoomTemp);
+					map.put("HTemSet",hTemSet);
+					map.put("mTemSet",mTemSet);
+					map.put("LTemSet",lTemSet);
+					map.put("RecordTime",date);
+					map.put("Tqyb",tqyb);
+					map.put("ValAd",FmID);
+					handerService.UpdateFmInfo(map);
 				}
 				Calendar cale = null;
 				cale = Calendar.getInstance();
 				String year = String.valueOf(dateYear.get(Calendar.YEAR));
 				int yf = cale.get(Calendar.MONTH) + 1;
+				Map<String, Object> map1= new HashMap<String, Object>();
+				map1.put("FmID", FmID);
+				map1.put("fmState", fmState);
+				map1.put("Fmkd", Fmkd);
+				map1.put("fmLock", fmLock);
+				map1.put("FmTemp", FmTemp);
+				map1.put("FmRoomTemp", FmRoomTemp);
+				map1.put("hTemSet", hTemSet);
+				map1.put("mTemSet", mTemSet);
+				map1.put("lTemSet", lTemSet);
+				map1.put("date", date);
+				map1.put("tqyb", tqyb);
 				if (year.equals("2018") || year.equals("2019") && yf < 4) {
-					String Insql = "insert into T_FmHistory18 values ('" + FmID + "','" + fmState + "','" + Fmkd + "','"
-							+ fmLock + "','" + fmJF + "'," + "'" + FmTemp + "','" + FmRoomTemp + "','" + hTemSet + "','"
-							+ mTemSet + "','" + lTemSet + "','" + date + "','" + tqyb + "')";
-					psC = connc.prepareStatement(Insql);
-				} else if (year.equals("2019") && yf > 4 || year.equals("2020") && yf < 4) {
-					String Insql = "insert into T_FmHistory19 values ('" + FmID + "','" + fmState + "','" + Fmkd + "','"
-							+ fmLock + "','" + fmJF + "'," + "'" + FmTemp + "','" + FmRoomTemp + "','" + hTemSet + "','"
-							+ mTemSet + "','" + lTemSet + "','" + date + "','" + tqyb + "')";
-					psC = connc.prepareStatement(Insql);
+					map1.remove("table");
+					map1.put("table", "T_FmHistory18");
+					handerService.InsertFmls(map1);
+				} else if (year.equals("2019") && yf >= 3 || year.equals("2020") && yf < 4) {
+					map1.remove("table");
+					map1.put("table", "T_FmHistory19");
+					handerService.InsertFmls(map1);
 
-				} else if (year.equals("2020") && yf > 4 || year.equals("2021") && yf < 4) {
-					String Insql = "insert into T_FmHistory20 values ('" + FmID + "','" + fmState + "','" + Fmkd + "','"
-							+ fmLock + "','" + fmJF + "'," + "'" + FmTemp + "','" + FmRoomTemp + "','" + hTemSet + "','"
-							+ mTemSet + "','" + lTemSet + "','" + date + "','" + tqyb + "')";
-					psC = connc.prepareStatement(Insql);
-				} else if (year.equals("2021") && yf > 4 || year.equals("2022") && yf < 4) {
-					String Insql = "insert into T_FmHistory21 values ('" + FmID + "','" + fmState + "','" + Fmkd + "','"
-							+ fmLock + "','" + fmJF + "'," + "'" + FmTemp + "','" + FmRoomTemp + "','" + hTemSet + "','"
-							+ mTemSet + "','" + lTemSet + "','" + date + "','" + tqyb + "')";
-					psC = connc.prepareStatement(Insql);
+				} else if (year.equals("2020") && yf >= 3 || year.equals("2021") && yf < 4) {
+					map1.remove("table");
+					map1.put("table", "T_FmHistory20");
+					handerService.InsertFmls(map1);
+				} else if (year.equals("2021") && yf >= 3 || year.equals("2022") && yf < 4) {
+					map1.remove("table");
+					map1.put("table", "T_FmHistory21");
+					handerService.InsertFmls(map1);
 				}
-
-				psC.execute();
 				if (MapUtilsSkq.getMapUtils().get("skqfmid") != null
 						&& MapUtilsSkq.getMapUtils().get("skqfmid").equals("" + FmID + "")) {
 					logs.info("skq读阀阀门地址----" + MapUtilsSkq.getMapUtils().get("skqfmid"));
@@ -1528,10 +1490,7 @@ public class ServerHandler2 extends IoHandlerAdapter {
 					MapUtilsDf.getMapUtils().add("PldFm", "success");
 				}
 				logs.info("读阀成功");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		
 
 		} else {
 			MapUtilsDf.getMapUtils().add("dFm", "fail");
@@ -1573,10 +1532,10 @@ public class ServerHandler2 extends IoHandlerAdapter {
 						logs.info("开阀成功：" + stringHandler);
 						if (Status.equals("00")) {
 							String params = "kFm";
-							String sql = "update T_FmInfo set Status='开' where ValAd='" + pm + "'";
-							try {
-								psK = conncK.prepareStatement(sql);
-								rsK = psK.executeUpdate();
+							
+							handerService.UpdateStatus("开", pm);
+							
+								
 								logs.info("开阀是否成功====" + rs);
 								if (MapUtils.getMapUtils().get("kfSuc") != null && rs == 1
 										&& MapUtils.getMapUtils().get("kfSuc").equals("" + pm + "")) {
@@ -1590,10 +1549,7 @@ public class ServerHandler2 extends IoHandlerAdapter {
 								logs.info("开阀是否成功====" + rs);
 								MapUtils.getMapUtils().add("Kfsuc", "kf");
 								logs.info("开阀成功");
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+
 
 						} else {
 							MapUtils.getMapUtils().add("sb", "fail");
@@ -1613,18 +1569,13 @@ public class ServerHandler2 extends IoHandlerAdapter {
 						logs.info("批量开阀成功：" + stringHandler);
 						if (Status.equals("00")) {
 
-							String sql = "update T_FmInfo set Status='开' where QgID='" + subQg + "'";
-							try {
-								psK = conncK.prepareStatement(sql);
-								rsK = psK.executeUpdate();
+							handerService.PlUpdateStatus("开", subQg);
+
 								if (MapUtils.getMapUtils().get("PlKf").equals("" + subQg + "")) {
 									MapUtils.getMapUtils().add(params, "success");
 								}
 								logs.info("批量开阀成功");
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+
 
 						} else {
 							MapUtils.getMapUtils().add("sb", "fail");
@@ -1642,20 +1593,14 @@ public class ServerHandler2 extends IoHandlerAdapter {
 					if (start.equals("F0") && end.equals("FF") && je.equals("" + jy + "")) {
 						logs.info("批量关阀成功：" + stringHandler);
 						if (Status.equals("00")) {
-
-							String sql = "update T_FmInfo set Status='关' where QgID='" + subQg + "'";
-							try {
-								psK = conncK.prepareStatement(sql);
-								rsK = psK.executeUpdate();
+							
+							handerService.PlUpdateStatus("关", subQg);
+							
 								if (MapUtils.getMapUtils().get("PlGf").equals("" + subQg + "")) {
 
 									MapUtils.getMapUtils().add(params, "success");
 								}
 								logs.info("批量关阀成功");
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
 
 						} else {
 							MapUtils.getMapUtils().add("sb", "fail");
@@ -1676,12 +1621,10 @@ public class ServerHandler2 extends IoHandlerAdapter {
 						logs.info("关阀成功：" + stringHandler);
 						if (Status.equals("00")) {
 							String params = "gFm";
+							
+							 handerService.UpdateStatus("关", pm);
 
-							String sql = "update T_FmInfo set Status='关' where ValAd='" + pm + "'";
-							try {
-								psK = conncK.prepareStatement(sql);
-								rsK = psK.executeUpdate();
-								if (rsK == 1 && MapUtils.getMapUtils().get("gfSuc").equals("" + pm + "")) {
+								if (MapUtils.getMapUtils().get("gfSuc").equals("" + pm + "")) {
 									MapUtils.getMapUtils().add(params, "success");
 								} else {
 									MapUtils.getMapUtils().add("sb", "fail");
@@ -1689,10 +1632,7 @@ public class ServerHandler2 extends IoHandlerAdapter {
 								logs.info("关阀是否成功====" + rs);
 								MapUtils.getMapUtils().add("Gfsuc", "Gf");
 								logs.info("关阀成功");
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+						
 
 						} else {
 							MapUtils.getMapUtils().add("sb", "fail");

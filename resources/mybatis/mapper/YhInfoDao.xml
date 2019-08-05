@@ -222,7 +222,8 @@
 	
 	
 	<select id="gdjl" resultMap="YhMap">
-		select * ,CONVERT(varchar(100),TJ_Time , 20)as slsj,CONVERT(varchar(100),WC_Time , 20)as wxsj from T_KfInfo  k  where 1=1
+		select * ,CONVERT(varchar(100),TJ_Time , 20)as slsj,CONVERT(varchar(100),JS_Time , 20)as jdsj,
+		CONVERT(varchar(100),WC_Time , 20)as wxsj from T_KfInfo  k  where 1=1
 		
 		 <if test="xqm!=null and xqm!=''">
         and k.XqName=#{xqm}

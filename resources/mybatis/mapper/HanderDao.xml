@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.hot.dao.HanderDao">
+	<resultMap id="HanderMap" type="java.util.HashMap"></resultMap>
+	
+	<select id="fmxx" resultMap="HanderMap">
+		select distinct fm.HTemSet,fm.MTemSet,fm.LTemSet,fm.QgID,jzq.JzqIP,jzq.JzqPort 
+		from T_FmInfo fm,T_QgInfo qg,T_JzqInfo jzq
+		where fm.QgID=qg.QgID and qg.JzqID=jzq.JzqID and fm.ValAd=#{ValAd}
+	</select>
+	
+	<update id="UpdateType">
+		update T_FmInfo set Type=#{Type} where ValAd=#{ValAd}
+	</update>
+	
+	<update id="UpdateJfzt">
+		update T_YhInfo set YHBM=#{YHBM},SFJF=#{SFJF} where IDNum=#{IDNum}
+	</update>
+	
+	<select id="fmkg" resultMap="HanderMap">
+		select distinct fm.Status,fm.QgID,fm.RoomTemp,yh.Yhfl,yh.ValAd,yh.SFJF
+		 from T_YhInfo yh,T_FmInfo fm where yh.ValAd=fm.ValAd and yh.YHBM=#{YHBM}
+	</select>
+	
+	<insert id="InsertSkq">
+		insert into Skq (SkqSbh,Kh,fmState,skSuccess,SfJf,DateTime) values(#{SkqSbh},#{Kh},#{fmState},#{skSuccess},#{SfJf},#{DateTime})
+	</insert>
+	
+	<update id="UpdateQg">
+		update T_QgInfo set QgStatus=#{QgStatus},RecordTime=#{RecordTime} where QgID=#{QgID}
+	</update>
+	
+	<update id="UpdateJzq">
+		update T_JzqInfo  set JzqIp=#{JzqIp},JzqPort=#{JzqPort} from T_JzqInfo jzq,T_QgInfo qg  where qg.QgID=#{QgID} and jzq.JzqID=qg.JzqID
+	</update>
+	
+	<update id="UpdateJzqDk">
+		update T_JzqInfo set JzqPort=#{JzqPort},JzqIp=#{JzqIp}, Status=#{Status},UpdateTime=#{UpdateTime} where JzqID={JzqID}
+	</update>
+	
+	<insert id="InsertAlarmInfor">
+		insert into T_AlarmInfor values('阀门',#{fmId},#{ycString},#{time})
+	</insert>
+	
+	<update id="UpdateAlarmInforsX">
+		update T_AlarmInforsX set ErrInfor=#{ErrInfor},RecordTime=#{time} where DeviceID=#{DeviceID}
+	</update>
+	
+	<select id="getTqyb" resultType="java.lang.Integer">
+		select top 1 Tqyb from T_Cbtq order by id desc
+	</select>
+	
+	<update id="UpdateFmInfo">
+		update T_FmInfo set QgID=#{QgID},Status=#{Status},FamKd=#{FamKd},LockSt=#{LockSt},JFSt=#{JFSt},
+		valTemp=#{valTemp},RoomTemp=#{RoomTemp},HTemSet=#{HTemSet},MTemSet=#{mTemSet},LTemSet=#{LTemSet},
+		RecordTime=#{RecordTime},Tqyb=#{Tqyb} where ValAd=#{ValAd}
+	</update>
+	
+	<insert id="InsertFmls">
+		insert into #{table} values(#{FmID},#{fmState},#{Fmkd},#{fmLock},#{fmJF},#{FmTemp},#{FmRoomTemp},#{hTemSet},#{mTemSet},
+		#{lTemSet},#{date},#{tqyb})		
+	</insert>
+	
+	<update id="UpdateStatus">
+		update T_FmInfo set Status=#{Status} where ValAd=#{ValAd}
+	</update>
+	
+	<update id="PlUpdateStatus">
+		update T_FmInfo set Status=#{Status} where QgID=#{QgID}
+	</update>
+</mapper>

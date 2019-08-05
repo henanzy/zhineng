@@ -215,21 +215,7 @@
 	    
     }); 
     
-    var list;
-
-    $.ajax({
-    		url : "<%=basePath%>yhInfo/findYh.action", 
-    		async : false,
-    		dataType : "json",
-    		data : {
-    		
-    		},
-    		success : function(data) {
-    			
-    			list=data.list;	   
-    		}
-
-    	});
+   
 </script>
 <body>
 	<div id="" class="clearfix">
@@ -244,7 +230,7 @@
 					
 					<select id="xq"
 						name="xqName">
-							<option value="" >--选择小区--</option>
+							
 					</select> &nbsp;&nbsp;&nbsp; 
 					
 					楼栋号 <select name="ldh" id="ldh">
@@ -373,13 +359,36 @@ var xq;
 			
 			 for(var i=0; i<xq.length; i++){
 					
-					$("#xq").append("<option value='"+xq[i].XqName+"'>"+xq[i].XqName+"</option>");
+				 if(xq[i].XqName.indexOf("砥柱大厦")>-1)
+					{
+					$("#xq").append("<option value='"+xq[i].XqName+"' selected	>"+xq[i].XqName+"</option>");
+					}else{
+						$("#xq").append("<option value='"+xq[i].XqName+"'>"+xq[i].XqName+"</option>");
+					}
 					
 				}
 		}
 
 	});
- 
+ $.ajax({
+		url : "<%=basePath%>yhInfo/findLd.action", 
+		async : false,
+		dataType : "json",
+		data : {
+			"xqm" : $("#xq").val(),
+		},
+		success : function(data) {
+			$("#ldh option:gt(0)").remove();
+			$("#dyh option:gt(0)").remove();
+			$("#hh option:gt(0)").remove();
+			var ld=data.Ld;
+			for(var i=0; i<ld.length; i++){
+				
+				$("#ldh").append("<option value='"+ld[i].BuildNo+"'>"+ld[i].BuildNo+"</option>");
+			}	
+		}
+
+	});
  $("#xq").change(function(){
 	 $.ajax({
 			url : "<%=basePath%>yhInfo/findLd.action", 
@@ -403,7 +412,25 @@ var xq;
 		
 		
 	});
- 
+ $.ajax({
+		url : "<%=basePath%>yhInfo/findDy.action", 
+		async : false,
+		dataType : "json",
+		data : {
+			"xqm" : $("#xq").val(),
+			"ldh" : $("#ldh").val(),
+		},
+		success : function(data) {
+			$("#dyh option:gt(0)").remove();
+			$("#hh option:gt(0)").remove();
+			var dy=data.Dy;
+			for(var i=0; i<dy.length; i++){
+				
+				$("#dyh").append("<option value='"+dy[i].CellNo+"'>"+dy[i].CellNo+"</option>");
+			}	
+		}
+
+	});
  $("#ldh").change(function(){
 	 $.ajax({
 			url : "<%=basePath%>yhInfo/findDy.action", 
@@ -427,7 +454,21 @@ var xq;
 		
 		
 	});
+ var list;
 
+ $.ajax({
+ 		url : "<%=basePath%>yhInfo/findYh.action", 
+ 		async : false,
+ 		dataType : "json",
+ 		data : {
+ 			"xqm":$("#xq").val(),
+ 		},
+ 		success : function(data) {
+ 			
+ 			list=data.list;	   
+ 		}
+
+ 	});
  </script>
 </body>
 </html>

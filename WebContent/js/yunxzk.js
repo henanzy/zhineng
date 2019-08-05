@@ -9,6 +9,7 @@ function getRootPath(){
 
 $(function () {
 
+
 	
 	var options = {
 	        chart: {
@@ -41,8 +42,8 @@ $(function () {
 		dataType : "json",
 		data : {
 			"xqm":$("#xq").val(),
-			"startTime":$("#startTime1").val(),
-			"endTime":$("#endTime1").val(),
+			"startTime":$("#startTime2").val(),
+			"endTime":$("#endTime2").val(),
 		},
 		success : function(data) {
 			
@@ -62,38 +63,8 @@ $(function () {
 		};
 		
 
-	$("#kd_search").click(function(){
-		$.ajax({
-			url : getRootPath()+"/yhInfo/findXqKdLs.action", 
-			async : false,
-			dataType : "json",
-			data : {
-				"xqm":$("#xq").val(),
-				"startTime":$("#startTime1").val(),
-				"endTime":$("#endTime1").val(),
-			},
-			success : function(data) {
-				
-				kdzb=data.list;
-			}
-		});
-		 var kd1 = [];
-		 var time1 = [];
-		 
-		 for (var i = 0 ; i < kdzb.length ; i ++) {
-				var arr = [];
-				/*arr1[0] = json[i].id;*/
-				kd1.push(parseFloat(kdzb[i].KdYb.replace("%","")));
-				
-				time1.push(kdzb[i].time);
-				
-			};
-			var xqname=$("#xq").val().replace("（智慧供热区域）","");
-			var data={name:xqname,kd:kd1};
-			onewd(options,data,'mws-dashboard-chart-1',time1)
-	 });
-	
-	var xqdata = {name:"枫桥水岸",kd:kd};
+
+	var xqdata = {name:$("#xq").val(),kd:kd};
 //	 allwd(options,xqdata,'mws-dashboard-chart-1')
 	onewd(options,xqdata,'mws-dashboard-chart-1',time)
 //	 阀门开度与室外温度曲线
@@ -130,40 +101,193 @@ var wdzb=[];
 			{name:"室外温度",wd:wd}
 		];
 		onesw(options,wddata,'mws-dashboard-chart-2',wdtime)
-		/*allsw(options,wddata,'mws-dashboard-chart-2')*/
+		
 		 
 		 $("#wd_search").click(function(){
-			 $.ajax({
-					url : getRootPath()+"/yhInfo/findHisAvg.action", 
-					async : false,
-					dataType : "json",
-					data : {
-						"xqm":$("#xq").val(),
-						"startTime":$("#startTime2").val(),
-						"endTime":$("#endTime2").val(),
-					},
-					success : function(data) {
-						
-						wdzb=data.list;
-					}
-				});
-				 var wd1 = [];
-				 var sw1 = [];
-				 var wdtime1 = [];
-				 var data=[];
-				 for (var i = 0 ; i < wdzb.length ; i ++) {
-						
-						/*arr1[0] = json[i].id;*/
-						wd1.push(parseFloat(wdzb[i].Tqyb));
-						sw1.push(parseFloat(wdzb[i].Avg));
-						wdtime1.push(wdzb[i].time);
-						
+			 if($("#xq").val()==""){
+				 var xqavgList=[];
+				 var xqkdList=[];
+				 $.ajax({
+						url : getRootPath()+"/yhInfo/findAllAvg.action", 
+						async : false,
+						dataType : "json",
+						data : {
+							
+							"startTime":$("#startTime2").val(),
+							"endTime":$("#endTime2").val(),
+						},
+						success : function(data) {
+							
+							xqavgList=data.xqavgList;
+						}
+					});
+				 
+				 var series=[];
+				 var wdtime = [];
+				 var tqyb = [];
+				 for( var j = 0 ; j < xqavgList[0].length ; j ++){
+		        	 
+		        	 tqyb.push(xqavgList[0][j].Tqyb);
+		         }
+				 for (var i = 0 ; i < xqavgList.length ; i ++) {
+					 if(xqavgList[i].length==0){
+						 continue;
+					 }
+					 var avg=[]
+					 for( var j = 0 ; j < xqavgList[i].length ; j ++){
+			        	 avg.push(parseFloat(xqavgList[i][j].Avg))
+			        	 wdtime.push(xqavgList[i][j].time);
+			        	 
+			         }
+					 var xq;
+					 
+					 if(xqavgList[i].length==0){
+						 xq=""
+					 }else{
+						 xq=xqavgList[i][0].XqName;
+					 }
+					 series.push({
+						 marker: {
+
+				             enabled: false,
+				         },
+							 name:xq+"室内温度",
+							 data:avg,
+							 tooltip: {
+				                  valueSuffix: '°C'
+				              }
+				         
+				         
+					 });
 					};
-					var wddata = [
-						{name:$("#xq").val().replace("（智慧供热区域）",""),sw:sw1},
-						{name:"室外温度",wd:wd1}
-					];
-					onesw(options,wddata,'mws-dashboard-chart-2',wdtime1)
+					series.push({
+						 marker: {
+
+				             enabled: false,
+				         },
+							 name:"室外温度",
+							 data:tqyb,
+							 tooltip: {
+				                  valueSuffix: '°C'
+				              }
+				         
+				         
+					 });
+					allsw(options,'mws-dashboard-chart-2',wdtime,series)
+					 $.ajax({
+							url : getRootPath()+"/yhInfo/findAllKdLs.action", 
+							async : false,
+							dataType : "json",
+							data : {
+								
+								"startTime":$("#startTime2").val(),
+								"endTime":$("#endTime2").val(),
+							},
+							success : function(data) {
+								
+								xqkdList=data.xqkdList;
+							}
+						});
+					 
+					 var kdseries=[];
+					 var kdtime = [];
+					 
+					 
+					 for (var i = 0 ; i < xqkdList.length ; i ++) {
+						 if(xqkdList[i].length==0){
+							 continue;
+						 }
+						 var kd = [];
+						 for( var j = 0 ; j < xqkdList[i].length ; j ++){
+							 kd.push(parseFloat(xqkdList[i][j].KdYb.replace("%","")))
+				        	 kdtime.push(xqkdList[i][j].time);
+				        	 
+				         }
+						 var kdxq;
+						 
+							 kdxq=xqkdList[i][0].XqName;
+						 
+						 kdseries.push({
+							 marker: {
+
+					             enabled: false,
+					         },
+								 name:kdxq+"开度100%占比",
+								 data:kd,
+								 tooltip: {
+					                  valueSuffix: '%'
+					              }
+					         
+					         
+						 });
+						};
+					allwd(options,"mws-dashboard-chart-1",kdtime,kdseries)
+			 }else{
+				 $.ajax({
+						url : getRootPath()+"/yhInfo/findHisAvg.action", 
+						async : false,
+						dataType : "json",
+						data : {
+							"xqm":$("#xq").val(),
+							"startTime":$("#startTime2").val(),
+							"endTime":$("#endTime2").val(),
+						},
+						success : function(data) {
+							
+							wdzb=data.list;
+						}
+					});
+					 var wd1 = [];
+					 var sw1 = [];
+					 var wdtime1 = [];
+					 var data=[];
+					 for (var i = 0 ; i < wdzb.length ; i ++) {
+							
+							
+							wd1.push(parseFloat(wdzb[i].Tqyb));
+							sw1.push(parseFloat(wdzb[i].Avg));
+							wdtime1.push(wdzb[i].time);
+							
+						};
+						var wddata = [
+							{name:$("#xq").val().replace("（智慧供热区域）",""),sw:sw1},
+							{name:"室外温度",wd:wd1}
+						];
+						onesw(options,wddata,'mws-dashboard-chart-2',wdtime1)
+						$.ajax({
+			url : getRootPath()+"/yhInfo/findXqKdLs.action", 
+			async : false,
+			dataType : "json",
+			data : {
+				"xqm":$("#xq").val(),
+				"startTime":$("#startTime2").val(),
+				"endTime":$("#endTime2").val(),
+			},
+			success : function(data) {
+				
+				kdzb=data.list;
+			}
+		});
+		 var kd1 = [];
+		 var time1 = [];
+		 
+		 for (var i = 0 ; i < kdzb.length ; i ++) {
+				var arr = [];
+				/*arr1[0] = json[i].id;*/
+				kd1.push(parseFloat(kdzb[i].KdYb.replace("%","")));
+				
+				time1.push(kdzb[i].time);
+				
+			};
+			var xqname=$("#xq").val().replace("（智慧供热区域）","");
+			var data={name:xqname,kd:kd1};
+			onewd(options,data,'mws-dashboard-chart-1',time1)
+			 }
+			
+			 
+					
+					
+			
 		 });
 
 		var sdwd=[]
@@ -242,70 +366,12 @@ var wdzb=[];
 		tfmbar(optbar,"","","","pie-3",0);
 		$("#xq").change(function(){
 			var xq = $('#xq').val();
-			$.ajax({
-				url : getRootPath()+"/yhInfo/findXqKdLs.action", 
-				async : false,
-				dataType : "json",
-				data : {
-					"xqm":$("#xq").val(),
-					"startTime":$("#startTime1").val(),
-					"endTime":$("#endTime1").val(),
-				},
-				success : function(data) {
-					
-					kdzb=data.list;
-				}
-			});
-			 var kd1 = [];
-			 var time1 = [];
-			 
-			 for (var i = 0 ; i < kdzb.length ; i ++) {
-					var arr = [];
-					/*arr1[0] = json[i].id;*/
-					kd1.push(parseFloat(kdzb[i].KdYb.replace("%","")));
-					
-					time1.push(kdzb[i].time);
-					
-				};
-				var xqname=$("#xq").val().replace("（智慧供热区域）","");
-				var data={name:xqname,kd:kd1};
-				onewd(options,data,'mws-dashboard-chart-1',time1)
-				
-				$.ajax({
-					url : getRootPath()+"/yhInfo/findHisAvg.action", 
-					async : false,
-					dataType : "json",
-					data : {
-						"xqm":$("#xq").val(),
-						"startTime":$("#startTime2").val(),
-						"endTime":$("#endTime2").val(),
-					},
-					success : function(data) {
-						
-						wdzb=data.list;
-					}
-				});
-				 var wd1 = [];
-				 var sw1 = [];
-				 var wdtime1 = [];
-				
-				 for (var i = 0 ; i < wdzb.length ; i ++) {
-						
-						/*arr1[0] = json[i].id;*/
-						wd1.push(parseFloat(wdzb[i].Tqyb));
-						sw1.push(parseFloat(wdzb[i].Avg));
-						wdtime1.push(wdzb[i].time);
-						
-					};
-					var wddata = [
-						{name:$("#xq").val().replace("（智慧供热区域）",""),sw:sw1},
-						{name:"室外温度",wd:wd1}
-					];
-					onesw(options,wddata,'mws-dashboard-chart-2',wdtime1)
+			
 					tgrbar(optbar,xq,"","","pie-1",0);
 					twdbar(optbar,xq,"","","pie-2",0);
 					tfmbar(optbar,xq,"","","pie-3",0);
 					//散点图
+					if(xq!=""){
 					var ser_sdwd=[];
 					var ser_valad=[];
 					$.ajax({
@@ -328,7 +394,7 @@ var wdzb=[];
 					});
 					var ser_swsdt = {name:$("#xq").val(),wd:ser_sdwd};
 					oneswsdt("containers_swsdt",ser_swsdt,ser_valad);
-
+					}
 		});
 		
 		
@@ -481,7 +547,10 @@ function onewd(options,xqdata,con,time){
 				 data:xqdata.kd,
 				 tooltip : {
 						valueSuffix : '%'
-					}			 
+					}	,marker: {
+
+			             enabled: false,
+			         },		 
 			 })
 			
 
@@ -489,6 +558,30 @@ function onewd(options,xqdata,con,time){
 	// 图表初始化函数
 	var chart = Highcharts.chart(con, options);
 }
+
+function allwd(options,con,time,series){
+	options.xAxis = {
+			title: {
+				text: '时间'
+			},
+			categories: time,
+			tickInterval: 10,
+			labels: {
+			    formatter:function(){
+			     return this.value.substring(0,10);
+			    }
+			  }
+		};
+	options.series = series;
+	
+			
+			
+
+	
+	// 图表初始化函数
+	var chart = Highcharts.chart(con, options);
+}
+
 function onesw(options,wddata,con,time){
 
 	options.xAxis = {
@@ -505,13 +598,20 @@ function onesw(options,wddata,con,time){
 		};
 	
 	options.series = [
-		 {
+		
+		 { marker: {
+
+             enabled: false,
+         },
 			 name:wddata[0].name+"室内温度",
 			 data:wddata[0].sw,
 			 tooltip: {
                   valueSuffix: '°C'
               }
-		 },{
+		 },{marker: {
+
+             enabled: false,
+         },
 			 name:"室外温度",
 			 data:wddata[1].wd,
 			 tooltip: {
@@ -524,20 +624,27 @@ function onesw(options,wddata,con,time){
 	// 图表初始化函数
 	var chart = Highcharts.chart(con, options);
 }
+function allsw(options,con,time,series){
 
-//阀门开度室外温度 -all
+	options.xAxis = {
+			title: {
+				text: '时间'
+			},
+			categories: time,
+			tickInterval: 10,
+			labels: {
+			    formatter:function(){
+			     return this.value.substring(0,10);
+			    }
+			  }
+		};
+	
+	options.series = series;
 
-
-// 阀门开度-一个小区
-  
-
-//室内平均温度与室外温度曲线图--所有
-
-
-//室内平均温度与室外温度曲线图--一个小区
-
-
-
+	
+	// 图表初始化函数
+	var chart = Highcharts.chart(con, options);
+}
 
 function getdz(valad){
 	var dz;
@@ -553,7 +660,7 @@ function getdz(valad){
 		
 		}
 	});
-	return "楼栋号:"+dz.BuildNo+"   单元号:"+dz.CellNo+"   户号:"+dz.HouseNo;
+	return "小区:"+dz.XqName+ "楼栋号:"+dz.BuildNo+"   单元号:"+dz.CellNo+"   户号:"+dz.HouseNo;
 }
 //室温散点图--一个小区
 function oneswsdt(containers,swsdt,valad){
@@ -569,15 +676,11 @@ function oneswsdt(containers,swsdt,valad){
 				text: ''
 			},
 			xAxis: {
-				title: {
-					
-					text: '阀门地址'
-				},
-				categories: valad,
-				tickInterval: 20,
-				startOnTick: true,
-				endOnTick: true,
-				showLastLabel: true
+				
+				 labels: {
+		                enabled: false
+		            } 
+				
 			},
 			
 			yAxis: {
@@ -604,7 +707,7 @@ function oneswsdt(containers,swsdt,valad){
 			plotOptions: {
 				scatter: {
 					marker: {
-						radius: 5,
+						radius: 3,
 						states: {
 							hover: {
 								enabled: true,
@@ -623,8 +726,8 @@ function oneswsdt(containers,swsdt,valad){
 						headerFormat: '<b>{series.name}</b><br>',
 						pointFormatter: 
 							function() {
-						    return '<tr><td style="color: {series.color}">'+ getdz(this.x)  +' </td>' +
-					        '<td style="text-align: right"><b>'+ this.y +'℃</b></td></tr>'
+						    return '<tr><td style="color: {series.color}">'+ getdz(this.x)  +' </td></tr>' +
+					        '<tr><td style="text-align: right"><b>'+ this.y +'℃</b></td></tr>'
 						},
 					}
 				}
@@ -632,7 +735,7 @@ function oneswsdt(containers,swsdt,valad){
 			
 		}; 
 	optsd.subtitle.text =  swsdt.name + "室内温度",
-	 optsd.xAxis.title.text = "阀门地址";
+	
 		optsd.series = [ {
 			name : swsdt.name + "室内温度",
 			data : swsdt.wd

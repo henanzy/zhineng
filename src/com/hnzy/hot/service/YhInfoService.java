@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 public interface YhInfoService {
-    public List<String> findXq();
+    public List<Map<String, Object>> findXq();
 	
 	public List<String> findLd(Map<String, Object> map);
 	
@@ -44,9 +44,9 @@ public interface YhInfoService {
 	
 	public List<String> findFmkdLs(Map<String, Object> map);
 	
-	public List<String> findKdLs(Map<String, Object> map);
+	public List<Map<String, Object>> findKdLs(Map<String, Object> map);
 	
-	public List<String> findHisAvg(Map<String, Object> map);
+	public List<Map<String, Object>> findHisAvg(Map<String, Object> map);
 	
 	public List<String> findTc(Map<String, Object> map);
 	

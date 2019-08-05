@@ -242,7 +242,7 @@
 						 小区 	
 					<select id="xq"
 						name="xqName">
-							<option value="" >--选择小区--</option>
+							
 					</select> &nbsp;&nbsp;&nbsp; 
 					
 					楼栋号 <select name="ldh" id="ldh">
@@ -300,7 +300,15 @@
 		<div class="mws-panel grid_8" style="min-width:600px;">
 			<div class="mws-panel-header">
 				<span class="mws-i-24 i-graph">平均温度曲线图</span>
+				<span style="position:absolute;top:10px;left:200px;">
+				
+					<input type="date" id="startTime1"  style="width:140px" value="" />-
+                <input type="date" id="endTime1" style="width:140px" value="" />	
+				<input type="submit"
+						class="mws-button black" id="wd_search" value="搜索" />
+				</span>
 			</div>
+			
 			<div class="mws-panel-body">
 				<div class="mws-panel-content">
 					<div id="pjwdline" style="width: 100%; height: 300px;"></div>
@@ -343,15 +351,37 @@ var xq;
 			 xq=data.Xq;
 			
 			 for(var i=0; i<xq.length; i++){
+					if(xq[i].XqName.indexOf("砥柱大厦")>-1)
+						{
+						$("#xq").append("<option value='"+xq[i].XqName+"' selected	>"+xq[i].XqName+"</option>");
+						}else{
+							$("#xq").append("<option value='"+xq[i].XqName+"'>"+xq[i].XqName+"</option>");
+						}
 					
-					$("#xq").append("<option value='"+xq[i].XqName+"'>"+xq[i].XqName+"</option>");
 					
 				}
 		}
 
 	});
+ $.ajax({
+		url : "<%=basePath%>yhInfo/findLd.action", 
+		async : false,
+		dataType : "json",
+		data : {
+			"xqm" : $("#xq").val(),
+		},
+		success : function(data) {
+			$("#ldh option:gt(0)").remove();
+			$("#dyh option:gt(0)").remove();
+			$("#hh option:gt(0)").remove();
+			var ld=data.Ld;
+			for(var i=0; i<ld.length; i++){
+				
+				$("#ldh").append("<option value='"+ld[i].BuildNo+"'>"+ld[i].BuildNo+"</option>");
+			}	
+		}
 
- 
+	});
  $("#xq").change(function(){
 	 $.ajax({
 			url : "<%=basePath%>yhInfo/findLd.action", 
@@ -375,7 +405,26 @@ var xq;
 		
 		
 	});
- 
+
+ $.ajax({
+		url : "<%=basePath%>yhInfo/findDy.action", 
+		async : false,
+		dataType : "json",
+		data : {
+			"xqm" : $("#xq").val(),
+			"ldh" : $("#ldh").val(),
+		},
+		success : function(data) {
+			$("#dyh option:gt(0)").remove();
+			$("#hh option:gt(0)").remove();
+			var dy=data.Dy;
+			for(var i=0; i<dy.length; i++){
+				
+				$("#dyh").append("<option value='"+dy[i].CellNo+"'>"+dy[i].CellNo+"</option>");
+			}	
+		}
+
+	});
  $("#ldh").change(function(){
 	 $.ajax({
 			url : "<%=basePath%>yhInfo/findDy.action", 
@@ -400,15 +449,18 @@ var xq;
 		
 	});
  
- 
-
- 
-
- 
-
-
-
-
+ var time = new Date();
+         var day = ("0" + time.getDate()).slice(-2);
+         var month = ("0" + (time.getMonth() + 1)).slice(-2);
+         var today = time.getFullYear() + "-" + (month) + "-" + (day);
+         $('#endTime1').val(today);
+        
+         
+                 
+                 var month1 = ("0" + (time.getMonth() )).slice(-2);
+                 var today1 = time.getFullYear() + "-" + (month1) + "-" + (day);
+                 $('#startTime1').val(today1);
+                 
  </script>
 
 </body>

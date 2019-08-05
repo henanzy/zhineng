@@ -120,9 +120,9 @@ select{
 
 <body >
 
-	<div id="" class="clearfix"  style="min-width:1600px;">
+	<div id="" class="clearfix" >
 
-		<div class="mws-report-container clearfix" style="min-width:1600px;">
+		<div class="mws-report-container clearfix" >
 
 			<p class="mws-report" href="#">
 				<span class="mws-report-icon mws-ic" style="background:url(../images/yxgl/area.png) no-repeat center"></span> <span
@@ -158,22 +158,7 @@ select{
 			</p>
 		</div>
 		
-		<div class="mws-report-container clearfix" >
-			
-			<p class="mws-report" style="width:98% !important"  href="#" style="font-size: 14px;">
-				<span class="mws-report-icon mws-ic" style="background:url(../images/yxgl/search.png) no-repeat center"></span> 
-				<span class="mws-report-content" style="margin-top: 10px;"> 
-				<span class="mws-report-title">
-						 小区 	
-					 &nbsp;&nbsp;&nbsp; 
-					
-					
-					<!-- <input type="submit" class="mws-button black" id="search_btn" value="搜索" /> -->
-				</span>
-				</span>
-			</p>
-			
-		</div>
+	
 		
 		<div class="mws-panel grid_8" style="min-width:600px;">
 			<div class="mws-panel-header">
@@ -181,7 +166,7 @@ select{
 				<span style="position:absolute;top:10px;left:300px;">
 				<select id="xq"
 						name="xqName">
-							
+							<option value="">全部</option>
 					</select>&nbsp;&nbsp;&nbsp;
 					<input type="date" id="startTime2"  style="width:140px" value="" />-
                 <input type="date" id="endTime2" style="width:140px" value="" />	
@@ -203,12 +188,7 @@ select{
 				
 				</span>
 				
-				<span style="position:absolute;top:10px;left:300px;">
-				<input type="date" id="startTime1"  style="width:140px" value="" />-
-                <input type="date" id="endTime1" style="width:140px" value="" />	
-				<input type="submit"
-						class="mws-button black" id="kd_search" value="搜索" />
-				</span>
+				
 			</div>
 			<div class="mws-panel-body">
 				<div class="mws-panel-content">
@@ -218,7 +198,7 @@ select{
 		</div>
 		
 
-		<div class="mws-panel grid_4 piediv" style="width: 31%;min-width:350px;">
+		<div class="mws-panel grid_4 piediv" style="width: 31%;">
 			<div class="mws-panel-header">
 				<span class="mws-i-24 i-chart">供热面积饼状图</span>
 				
@@ -230,7 +210,7 @@ select{
 			</div>
 		</div>
 
-		<div class="mws-panel grid_4 piediv" style="width: 32%;min-width:350px;">
+		<div class="mws-panel grid_4 piediv" style="width: 31%;">
 			<div class="mws-panel-header">
 				<span class="mws-i-24 i-chart-2">室内温度饼状图</span>
 				
@@ -242,7 +222,7 @@ select{
 			</div>
 		</div>
 
-		<div class="mws-panel grid_4 piediv" style="width: 31%;min-width:350px;">
+		<div class="mws-panel grid_4 piediv" style="width: 31%;">
 			<div class="mws-panel-header">
 				<span class="mws-i-24 i-chart-2">阀门开度饼状图</span>
 				
@@ -314,7 +294,12 @@ var xq;
 			
 			 for(var i=0; i<xq.length; i++){
 					
-					$("#xq").append("<option value='"+xq[i].XqName+"'>"+xq[i].XqName+"</option>");
+					if(xq[i].XqName.indexOf("砥柱大厦")>-1)
+					{
+					$("#xq").append("<option value='"+xq[i].XqName+"' selected	>"+xq[i].XqName+"</option>");
+					}else{
+						$("#xq").append("<option value='"+xq[i].XqName+"'>"+xq[i].XqName+"</option>");
+					}
 					
 					
 				}

@@ -195,7 +195,17 @@ html,body{
 		color:#fff;
 		border-radius:4px;
 	}
-	
+	#hh{
+		width:60px;
+		height:24px;
+		line-height:24px;
+		border-radius:4px;
+		background-color:rgba(43,45,49,0.8);
+		color:#fff;
+		cursor:pointer;
+		text-align:center;
+		padding:0 4px;
+	}
 
 	nav li,
 	select{
@@ -294,27 +304,7 @@ html,body{
 	    
     }); 
 </script>
-<script type="text/javascript">
-var list;
 
-$.ajax({
-		url : "<%=basePath%>yhInfo/findYh.action", 
-		async : false,
-		dataType : "json",
-		data : {
-		
-		},
-		success : function(data) {
-			
-			list=data.list;	   
-		}
-
-	});
-
- 
-
-
-</script>
 </head>
 <body>
 	<!--  右边主容器 start  -->
@@ -417,58 +407,7 @@ $.ajax({
 			
 		</div>
 
-
-		<div class="mws-panel grid_8" style="width: 48%; float: left; min-width:500px">
-			<div class="mws-panel-header" style="height:60px">
-				<span class="mws-i-24 i-graph" style="display:block;height:35px">小区开度100%比例曲线图</span>
-				
-				<span style="color:black">
-				选择小区：
-
-					<select id="kdline">
-						
-					</select>
-				<input type="date" id="startTime1"  style="width:140px" value="" />-
-                <input type="date" id="endTime1" style="width:140px" value="" />	
-				<input type="submit"
-						class="mws-button black" id="kd_search" value="搜索" />
-				</span>
-			</div>
-			<div class="mws-panel-body">
-				<div class="mws-panel-content">
-					<div id="mws-dashboard-chart-1" style="width: 100%; height: 315px;"></div>
-				</div>
-			</div>
-		</div>
-
-
-
-		<div class="mws-panel grid_8 " style="width: 48%; float: left; min-width:500px">
-			<div class="mws-panel-header" style="height:60px">
-				<span class="mws-i-24 i-graph" style="display:block;height:35px">小区平均室温与室外温度曲线图</span>
-				
-				<span style="color:black">
-				选择小区：
-
-					<select id="wdline">
-						
-					</select>
-				<input type="date" id="startTime2"  style="width:140px" value="" />-
-                <input type="date" id="endTime2" style="width:140px" value="" />	
-				<input type="submit"
-						class="mws-button black" id="wd_search" value="搜索" />
-				</span>
-			</div>
-			<div class="mws-panel-body">
-				<div class="mws-panel-content">
-					<div id="mws-dashboard-chart-2" style="width: 100%; height: 315px;"></div>
-				</div>
-			</div>
-		</div>
-
-		<div style="clear:both;"></div>
-		
-		<div class="mws-panel grid_8 "
+<div class="mws-panel grid_8 "
 			style="width: 98%; padding-left: 12px; margin: 0px 0px 10px 0px; min-width:650px">
 			<div class="mws-panel-header">
 				&nbsp;
@@ -477,9 +416,9 @@ $.ajax({
 			<div class="search">
 				<p>
 					<span>选择小区：
-						<select id="xq"
+						<select id="xq" style="width:260px"
 						name="xqName">
-							<option value="" >--选择小区--</option>
+						
 					</select>
 					</span>
 					<span>楼栋号：
@@ -558,13 +497,56 @@ $.ajax({
                      
             </ul>
          </nav>
-		
-		
+         <div style="clear:both;"></div>
+		<div class="mws-panel grid_8" style="width: 48%; float: left; min-width:500px">
+			<div class="mws-panel-header" style="height:60px">
+				<span class="mws-i-24 i-graph" style="display:block;height:35px">小区开度100%比例曲线图</span>
+				
+				<span style="color:black">
+				选择小区：
+
+					<select id="kdline">
+						
+					</select>
+				<input type="date" id="startTime1"  style="width:140px" value="" />-
+                <input type="date" id="endTime1" style="width:140px" value="" />	
+				<input type="submit"
+						class="mws-button black" id="kd_search" value="搜索" />
+				</span>
+			</div>
+			<div class="mws-panel-body">
+				<div class="mws-panel-content">
+					<div id="mws-dashboard-chart-1" style="width: 100%; height: 315px;"></div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="mws-panel grid_8 " style="width: 48%; float: left; min-width:500px">
+			<div class="mws-panel-header" style="height:60px">
+				<span class="mws-i-24 i-graph" style="display:block;height:35px">小区平均室温与室外温度曲线图</span>
+				
+				<span style="color:black">
+				选择小区：
+
+					<select id="wdline">
+						
+					</select>
+				<input type="date" id="startTime2"  style="width:140px" value="" />-
+                <input type="date" id="endTime2" style="width:140px" value="" />	
+				<input type="submit"
+						class="mws-button black" id="wd_search" value="搜索" />
+				</span>
+			</div>
+			<div class="mws-panel-body">
+				<div class="mws-panel-content">
+					<div id="mws-dashboard-chart-2" style="width: 100%; height: 315px;"></div>
+				</div>
+			</div>
+		</div>
 
 		
-
-		
-
 	</div>
 
 
@@ -616,16 +598,41 @@ var xq;
 			 xq=data.Xq;
 			
 			 for(var i=0; i<xq.length; i++){
+				 if(xq[i].XqName.indexOf("砥柱大厦")>-1)
+					{
+					$("#xq").append("<option value='"+xq[i].XqName+"' selected	>"+xq[i].XqName+"</option>");
+					$("#wdline").append("<option value='"+xq[i].XqName+"' selected >"+xq[i].XqName+"</option>");
+					$("#kdline").append("<option value='"+xq[i].XqName+"' selected >"+xq[i].XqName+"</option>");
+					}else{
+						$("#xq").append("<option value='"+xq[i].XqName+"'>"+xq[i].XqName+"</option>");
+						$("#wdline").append("<option value='"+xq[i].XqName+"'>"+xq[i].XqName+"</option>");
+						$("#kdline").append("<option value='"+xq[i].XqName+"'>"+xq[i].XqName+"</option>");
+					}
 					
-					$("#xq").append("<option value='"+xq[i].XqName+"'>"+xq[i].XqName+"</option>");
-					$("#wdline").append("<option value='"+xq[i].XqName+"'>"+xq[i].XqName+"</option>");
-					$("#kdline").append("<option value='"+xq[i].XqName+"'>"+xq[i].XqName+"</option>");
 					
 				}
 		}
 
 	});
- 
+ $.ajax({
+		url : "<%=basePath%>yhInfo/findLd.action", 
+		async : false,
+		dataType : "json",
+		data : {
+			"xqm" : $("#xq").val(),
+		},
+		success : function(data) {
+			$("#ldh option:gt(0)").remove();
+			$("#dyh option:gt(0)").remove();
+			$("#hh option:gt(0)").remove();
+			var ld=data.Ld;
+			for(var i=0; i<ld.length; i++){
+				
+				$("#ldh").append("<option value='"+ld[i].BuildNo+"'>"+ld[i].BuildNo+"</option>");
+			}	
+		}
+
+	});
  $("#xq").change(function(){
 	 $.ajax({
 			url : "<%=basePath%>yhInfo/findLd.action", 
@@ -649,7 +656,25 @@ var xq;
 		
 		
 	});
- 
+ $.ajax({
+		url : "<%=basePath%>yhInfo/findDy.action", 
+		async : false,
+		dataType : "json",
+		data : {
+			"xqm" : $("#xq").val(),
+			"ldh" : $("#ldh").val(),
+		},
+		success : function(data) {
+			$("#dyh option:gt(0)").remove();
+			$("#hh option:gt(0)").remove();
+			var dy=data.Dy;
+			for(var i=0; i<dy.length; i++){
+				
+				$("#dyh").append("<option value='"+dy[i].CellNo+"'>"+dy[i].CellNo+"</option>");
+			}	
+		}
+
+	});
  $("#ldh").change(function(){
 	 $.ajax({
 			url : "<%=basePath%>yhInfo/findDy.action", 
@@ -673,7 +698,21 @@ var xq;
 		
 		
 	});
+ var list;
 
+ $.ajax({
+ 		url : "<%=basePath%>yhInfo/findYh.action", 
+ 		async : false,
+ 		dataType : "json",
+ 		data : {
+ 			"xqm":$("#xq").val(),
+ 		},
+ 		success : function(data) {
+ 			
+ 			list=data.list;	   
+ 		}
+
+ 	});
  </script>   
 </body>
 </html>

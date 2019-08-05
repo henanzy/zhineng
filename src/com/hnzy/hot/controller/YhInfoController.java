@@ -1,7 +1,9 @@
 package com.hnzy.hot.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -318,6 +320,28 @@ public class YhInfoController {
 		return json;
 	}
    
+   @RequestMapping("findAllKdLs")
+   @ResponseBody
+	public JSONObject findAllKdLs(String startTime,String endTime) throws UnsupportedEncodingException{
+	   JSONObject json=new JSONObject();
+		Map<String, Object> map = new HashMap<String, Object>();
+	List<Map<String, Object>> list = yhInfoService.findXq();
+	List<List<Map<String, Object>>> xqkdList=new ArrayList<List<Map<String, Object>>>();
+	for (int i = 0; i < list.size(); i++) {
+		map.clear();
+		map.put("xqm", list.get(i).get("XqName"));
+		map.put("startTime", startTime);
+		map.put("endTime", endTime);
+		Map<Object, Object> xqavg = new HashMap<>();
+		
+		xqkdList.add(yhInfoService.findKdLs(map));
+	}
+		json.put("xqkdList", xqkdList);
+		
+		
+		return json;
+	}
+   
    @RequestMapping("findHisAvg")
    @ResponseBody
 	public JSONObject findHisAvg(String xqm,String startTime,String endTime) throws UnsupportedEncodingException{
@@ -337,7 +361,27 @@ public class YhInfoController {
 		
 		return json;
 	}
-   
+   @RequestMapping("findAllAvg")
+   @ResponseBody
+	public JSONObject findAllAvg(String startTime,String endTime) throws UnsupportedEncodingException{
+		JSONObject json=new JSONObject();
+		Map<String, Object> map = new HashMap<String, Object>();
+	List<Map<String, Object>> list = yhInfoService.findXq();
+	List<List<Map<String, Object>>> xqavgList=new ArrayList<List<Map<String, Object>>>();
+	for (int i = 0; i < list.size(); i++) {
+		map.clear();
+		map.put("xqm", list.get(i).get("XqName"));
+		map.put("startTime", startTime);
+		map.put("endTime", endTime);
+		Map<Object, Object> xqavg = new HashMap<>();
+		
+		xqavgList.add(yhInfoService.findHisAvg(map));
+	}
+		json.put("xqavgList", xqavgList);
+		
+		
+		return json;
+	}
    
    @RequestMapping("findTc")
 	@ResponseBody

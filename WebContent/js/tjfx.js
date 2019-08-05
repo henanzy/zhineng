@@ -14,7 +14,7 @@ $(document).ready(function(){
 		
 	];
 	
-	
+
 
 	//表格写入函数
 	
@@ -90,6 +90,13 @@ $(document).ready(function(){
        title:{
        	text:null
        },
+       tooltip: {
+			crosshairs: [{
+				width: 1,
+				color:'#aaaaaa'
+			}],
+			shared: true
+		},
        subtitle: {            // 标题
        },
        xAxis: {  // x 轴分类
@@ -108,7 +115,7 @@ $(document).ready(function(){
    		line: {
    			dataLabels: {
    				// 开启数据标签
-   				enabled: true          
+   				enabled: false          
    			}
    			// 关闭鼠标跟踪，对应的提示框、点击事件会失效
    			//enableMouseTracking: false
@@ -117,16 +124,74 @@ $(document).ready(function(){
    };
 	
 //		平均温度曲线
-		var homedata = [
-			{name:"砥柱大厦",wd:[24,22,23,24,24,21,22,21,23,23,23,22]},
-			{name:"金领时代",wd:[20.0, 21, 19, 20, 22, 18, 21, 19, 18,20,21, 19]},
-			{name:"室外温度",wd:[6,10,6,8,11,12,12,15,15,13,11,12]}
 		
+		var wdzb=[];
+		$.ajax({
+			url : getRootPath()+"/yhInfo/findHisAvg.action", 
+			async : false,
+			dataType : "json",
+			data : {
+				"xqm":$("#xq").val(),
+				"startTime":$("#startTime1").val(),
+				"endTime":$("#endTime1").val(),
+			},
+			success : function(data) {
+				
+				wdzb=data.list;
+			}
+		});
+		 var wd = [];
+		 var sw = [];
+		 var wdtime = [];
+		
+		 for (var i = 0 ; i < wdzb.length ; i ++) {
+				
+				/*arr1[0] = json[i].id;*/
+				wd.push(parseFloat(wdzb[i].Tqyb));
+				sw.push(parseFloat(wdzb[i].Avg));
+				wdtime.push(wdzb[i].time);
+				
+			};
+			var wddata = [
+				{name:$("#xq").val().replace("（智慧供热区域）",""),sw:sw},
+				{name:"室外温度",wd:wd}
 			];
-	
-		 onesnwwd(options,homedata,"pjwdline",0);
+			onesw(options,wddata,'pjwdline',wdtime)
 		
-		 
+		
+		 $("#wd_search").click(function(){
+			 $.ajax({
+					url : getRootPath()+"/yhInfo/findHisAvg.action", 
+					async : false,
+					dataType : "json",
+					data : {
+						"xqm":$("#xq").val(),
+						"startTime":$("#startTime1").val(),
+						"endTime":$("#endTime1").val(),
+					},
+					success : function(data) {
+						
+						wdzb=data.list;
+					}
+				});
+				 var wd1 = [];
+				 var sw1 = [];
+				 var wdtime1 = [];
+				 var data=[];
+				 for (var i = 0 ; i < wdzb.length ; i ++) {
+						
+						/*arr1[0] = json[i].id;*/
+						wd1.push(parseFloat(wdzb[i].Tqyb));
+						sw1.push(parseFloat(wdzb[i].Avg));
+						wdtime1.push(wdzb[i].time);
+						
+					};
+					var wddata = [
+						{name:$("#xq").val().replace("（智慧供热区域）",""),sw:sw1},
+						{name:"室外温度",wd:wd1}
+					];
+					onesw(options,wddata,'pjwdline',wdtime1)
+		 });
 			// 工单搜索
 			$("#search_btn").click(function(){
 				var xq = $('#xq').val();
@@ -135,19 +200,45 @@ $(document).ready(function(){
 			
 				
 				
-						tgrbar(optbar,xq,ld,dy,"pie-1",m);
+						tgrbar(optbar,xq,ld,dy,"pie-1",0);
 				
 				
-						twdbar(optbar,xq,ld,dy,"pie-2",m);
+						twdbar(optbar,xq,ld,dy,"pie-2",0);
 				
 
-						tfmbar(optbar,xq,ld,dy,"pie-3",m);
+						tfmbar(optbar,xq,ld,dy,"pie-3",0);
 				
-				for(var m = 0; m < homedata.length; m++){
-					if(homedata[m].name == xq){
-						 onesnwwd(options,homedata,"pjwdline",m);
-					}
-				}
+						 $.ajax({
+								url : getRootPath()+"/yhInfo/findHisAvg.action", 
+								async : false,
+								dataType : "json",
+								data : {
+									"xqm":$("#xq").val(),
+									"startTime":$("#startTime1").val(),
+									"endTime":$("#endTime1").val(),
+								},
+								success : function(data) {
+									
+									wdzb=data.list;
+								}
+							});
+							 var wd1 = [];
+							 var sw1 = [];
+							 var wdtime1 = [];
+							 var data=[];
+							 for (var i = 0 ; i < wdzb.length ; i ++) {
+									
+									/*arr1[0] = json[i].id;*/
+									wd1.push(parseFloat(wdzb[i].Tqyb));
+									sw1.push(parseFloat(wdzb[i].Avg));
+									wdtime1.push(wdzb[i].time);
+									
+								};
+								var wddata = [
+									{name:$("#xq").val().replace("（智慧供热区域）",""),sw:sw1},
+									{name:"室外温度",wd:wd1}
+								];
+								onesw(options,wddata,'pjwdline',wdtime1)
 				
 			});
 			
@@ -259,38 +350,48 @@ $(document).ready(function(){
 	
 });
 
+function onesw(options,wddata,con,time){
 
+	options.xAxis = {
+			title: {
+				text: '时间'
+			},
+			categories: time,
+			tickInterval: 10,
+			labels: {
+			    formatter:function(){
+			     return this.value.substring(0,10);
+			    }
+			  }
+		};
+	
+	options.series = [
+		
+		 { marker: {
 
-//平均温度曲线图
-function onesnwwd(options,homedata,container,m) {
-	
-	options.xAxis.categories = [ fDateTime(12), fDateTime(11),fDateTime(10), fDateTime(9), fDateTime(8), fDateTime(7),
-			fDateTime(6), fDateTime(5), fDateTime(4), fDateTime(3),fDateTime(2), fDateTime(1), fDateTime(0) ];
-	options.xAxis.title.text = "day";
-	options.series = [];
-	for(var i = 0;i < homedata.length;i++){
-		if( homedata[i].name == homedata[m].name){
-			 options.subtitle.text = homedata[i].name + "小区信息";
-			 options.series.push({
-				 name:homedata[i].name+"平均温度",
-				 data:homedata[i].wd,
-				 tooltip : {
-						valueSuffix : '°C'
-					}
-			 })
-		}else if( homedata[i].name == "室外温度"){
-			options.series.push({
-				 name:"室外温度",
-				 data:homedata[i].wd,
-				 tooltip : {
-						valueSuffix : '°C'
-					}
-			 })
-		}
-	}
-	
-		var chart = Highcharts.chart(container, options);
-}     
+             enabled: false,
+         },
+			 name:wddata[0].name+"室内温度",
+			 data:wddata[0].sw,
+			 tooltip: {
+                  valueSuffix: '°C'
+              }
+		 },{marker: {
+
+             enabled: false,
+         },
+			 name:"室外温度",
+			 data:wddata[1].wd,
+			 tooltip: {
+                  valueSuffix: '°C'
+              }
+		 }
+	 ];
+	// 图表初始化函数
+	var chart = Highcharts.chart(con, options);
+}
+
+   
 
 
 
