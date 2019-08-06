@@ -1,66 +1,68 @@
 $(document).ready(function() {
 
 
-
-	
-	var questionList =[["测试1","测试内容1","测试","2019-03-09 22:38:26"],["测试1","测试内容1","测试","2019-03-09 22:38:26"]
+	var nationalList = [];
+	/*var nationalList = [["测试1","测试内容1","测试","2019-03-09 22:38:26"],["测试1","测试内容1","测试","2019-03-09 22:38:26"]
 	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
 	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
 	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
 	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
 	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
-	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]];
-	/*function jsArrChange(json){
+	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]];*/
+	function jsArrChange(json){
 		for (var i = 0 ; i < json.length ; i ++) {
 			var arr1 = [];
 			arr1[0] = json[i].title;
 			arr1[1] = json[i].contents;
 			arr1[2] = json[i].author;
 			arr1[3] = json[i].tm;
-			arr1[4] = json[i].id;
+			arr1[4] = json[i].ID;
 			
-			questionList.push(arr1);
+			nationalList.push(arr1);
 		};
 	}
-	jsArrChange(zskList);*/
+	jsArrChange(zskList);
+	
+	
 	
 
 	
-	var questionTbody = document.getElementById("question_body");
-	for(var i = 0;i < questionList.length;i ++){
-		var questionTr = document.createElement("tr");
+	var naTbody = document.getElementById("na_body");
+	for(var i = 0;i < nationalList.length;i ++){
+		var naTr = document.createElement("tr");
 		if(i%2 == 1){
-			questionTr.className = "gradeX odd";
+			naTr.className = "gradeX odd";
 		}else if(i%2 == 0){
-			questionTr.className = "gradeX even";
+			naTr.className = "gradeX even";
 		}
-		questionTr.innerHTML += "<td><input type='checkbox' value='"+questionList[i][4]+"' name='check'/></td>";
+		naTr.innerHTML += "<td><input type='checkbox' value='"+nationalList[i][4]+"' name='check'/></td>";
 
 		
-		for(var j = 0;j < questionList[i].length;j ++){
+		for(var j = 0;j < nationalList[i].length;j ++){
 
-			questionList[i][j] = questionList[i][j]+"";
+			nationalList[i][j] = nationalList[i][j]+"";
+			
 
 			if(j == 0){
-				questionTr.innerHTML += "<td><a href='#'>" + questionList[i][j] + "<a/></td>";
+				naTr.innerHTML += "<td><a href='#'>" + nationalList[i][j] + "<a/></td>";
 				continue;
 			}
 
 			if(j == 1||j==4){
 
-				questionTr.innerHTML += "<td style='display:none;'>" + questionList[i][j] + "</td>";
+				naTr.innerHTML += "<td style='display:none;'>" + nationalList[i][j] + "</td>";
 				continue;
 			}
 			
-			questionTr.innerHTML += "<td>" + questionList[i][j] + "</td>";
+			naTr.innerHTML += "<td>" + nationalList[i][j] + "</td>";
 		
 		}
-		questionTr.innerHTML += "<td><input class='del_btn question_del' type='button' value='删除' /><input class='mod_btn' type='button' value='修改' /></td>";
-		questionTbody.appendChild(questionTr);
+		naTr.innerHTML += "<td><input class='del_btn na_del' type='button' value='删除' /><input class='mod_btn' type='button' value='修改' /></td>";
+		naTbody.appendChild(naTr);
 	
 	}
 	//全选
-	var allCheck = $(".all_question_option input[name='check']");
+	var allCheck = $(".all_na_option input[name='check']");
 
 	allCheck.click(function(){
 		$("input[type='checkbox']").prop("checked",$(this).prop("checked"));
@@ -89,7 +91,7 @@ $(document).ready(function() {
 			                 })
 			              });
 	});
-	$("#question_option_del").click(function(){
+	$("#na_option_del").click(function(){
 
 		 layer.confirm('确认删除么', function(index) {
 			 $('input[name="check"]:checked').each(function (index, item) {
@@ -100,7 +102,7 @@ $(document).ready(function() {
 			                      dataType:'json',
 			                  	data:{	
 			      					"id":$(this).val(),
-			      					"type":"国家法规",
+			      					"type":"问题解答",
 			      				},
 			                     dataType: "json",
 			                      success: function (data) {
@@ -111,14 +113,14 @@ $(document).ready(function() {
 			                 
 				    });
 			 layer.close(index);
-           window.location.reload();
+            window.location.reload();
 			              });
 	});
 	//新增文章
-	$("#question_option_cr").click(function(){
-		$(".question_crea").show();
+	$("#na_option_cr").click(function(){
+		$(".na_crea").show();
 		var nowTime = getTime();
-		$(".question_crea input[name='tm']").val(nowTime);
+		$(".na_crea input[name='tm']").val(nowTime);
 	});
 	
 	//修改文章
@@ -127,11 +129,11 @@ $(document).ready(function() {
 	});
 
 	//关闭修改
-	$(".question_modify .close").click(function(){
-		$(".question_modify").hide();
+	$(".na_modify .close").click(function(){
+		$(".na_modify").hide();
 	});
-	$(".question_crea .close").click(function(){
-		$(".question_crea").hide();
+	$(".na_crea .close").click(function(){
+		$(".na_crea").hide();
 	});
 	$(".wz_look .close").click(function(){
 		$(".wz_look").hide();
@@ -144,9 +146,7 @@ $(document).ready(function() {
 })   
 
 function wz_change(p){
-	
-	
-	$(".question_modify").show();
+	$(".na_modify").show();
 	var xintd = $(p).parent().parent().children();
 	//修改数据
 	var changenewsList = [];
@@ -159,7 +159,7 @@ function wz_change(p){
 		changenewsList.push(xintd[x].innerHTML);
 	}
 	
-	var changeInput = $(".question_modify .question_modify_input");
+	var changeInput = $(".na_modify .na_modify_input");
 	for(var i = 0;i < changeInput.length;i ++){
 		changeInput[i].value = changenewsList[i];
 	}

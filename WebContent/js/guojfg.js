@@ -1,28 +1,28 @@
 $(document).ready(function() {
 
 
-	/*var nationalList = [];*/
-	var nationalList = [["测试1","测试内容1","测试","2019-03-09 22:38:26"],["测试1","测试内容1","测试","2019-03-09 22:38:26"]
+	var nationalList = [];
+	/*var nationalList = [["测试1","测试内容1","测试","2019-03-09 22:38:26"],["测试1","测试内容1","测试","2019-03-09 22:38:26"]
 	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
 	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
 	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
 	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
 	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
-	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]];
-	/*function jsArrChange(json){
+	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]];*/
+	function jsArrChange(json){
 		for (var i = 0 ; i < json.length ; i ++) {
 			var arr1 = [];
 			arr1[0] = json[i].title;
 			arr1[1] = json[i].contents;
 			arr1[2] = json[i].author;
 			arr1[3] = json[i].tm;
-			arr1[4] = json[i].id;
+			arr1[4] = json[i].ID;
 			
 			nationalList.push(arr1);
 		};
 	}
 	jsArrChange(zskList);
-	*/
+	
 	
 	
 
@@ -41,12 +41,7 @@ $(document).ready(function() {
 		for(var j = 0;j < nationalList[i].length;j ++){
 
 			nationalList[i][j] = nationalList[i][j]+"";
-//			if(newsList[i][j].length > 15){
-//				var new_newsList = newsList[i][j].slice(0,14);
-//				newsTr.innerHTML += "<td>" + new_newsList + "···</td>";
-//			}else{
-//				newsTr.innerHTML += "<td>" + newsList[i][j] + "</td>";
-//			}
+			
 
 			if(j == 0){
 				naTr.innerHTML += "<td><a href='#'>" + nationalList[i][j] + "<a/></td>";
@@ -96,7 +91,7 @@ $(document).ready(function() {
 			                 })
 			              });
 	});
-	$("#na_del").click(function(){
+	$("#na_option_del").click(function(){
 
 		 layer.confirm('确认删除么', function(index) {
 			 $('input[name="check"]:checked').each(function (index, item) {

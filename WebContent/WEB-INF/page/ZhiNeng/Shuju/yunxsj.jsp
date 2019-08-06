@@ -228,18 +228,22 @@
 				 <span class="mws-report-content" style="margin-top: 5px;">
 				<span class="mws-report-title"> 选择小区 
 					
-					<select id="xq"
+					<span>选择小区：
+						<select id="xq" style="width:150px"
 						name="xqName">
-							
-					</select> &nbsp;&nbsp;&nbsp; 
-					
-					楼栋号 <select name="ldh" id="ldh">
-							<option value="" >--选择楼栋--</option>
-					</select> &nbsp;&nbsp;&nbsp; 
-					
-					单元号 <select name="dyh" id="dyh">
-							<option value="" >--选择单元--</option>
-					</select> &nbsp;&nbsp;&nbsp; 
+						
+					</select>
+					</span>
+					<span>楼栋号：
+						<select name="ldh" id="ldh" style="width:70px">
+							<option value="" >楼栋</option>
+					</select>
+					</span>
+					<span>单元号：
+						<select name="dyh" id="dyh" style="width:70px">
+							<option value="" >单元</option>
+					</select>
+					</span>
 					
 					户号<input type="text" name="hh" id="hh" size=6px
 						value="" /> &nbsp;&nbsp;&nbsp; 

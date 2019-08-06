@@ -1,129 +1,68 @@
 $(document).ready(function() {
 
-	//轮播图
 
-	var slideBox = $(".slideBox");
-	var ul = slideBox.find("ul");
-	var oneWidth = slideBox.find("ul li").eq(0).width();
-	var number = slideBox.find(".spanBox span"); //注意分号 和逗号的用法
-	var timer = null;
-	var sw = 0;
-	//每个span绑定click事件，完成切换颜色和动画，以及读取参数值
-	number.on("click", function() {
-		$(this).addClass("active").siblings("span").removeClass("active");
-		sw = $(this).index();
-		ul.animate({
-			"right" : oneWidth * sw, //ul标签的动画为向左移动；
-		});
-	});
-	//左右按钮的控制效果
-	$(".next").stop(true, true).click(function() {
-		sw++;
-		if (sw == number.length) {
-			sw = 0
-		}
-		;
-		number.eq(sw).trigger("click");
-	});
-	$(".prev").stop(true, true).click(function() {
-		sw--;
-		if (sw == number.length) {
-			sw = 0
-		}
-		;
-		number.eq(sw).trigger("click");
-	});
-	//定时器的使用，自动开始
-	timer = setInterval(function() {
-		sw++;
-		if (sw == number.length) {
-			sw = 0
-		}
-		;
-		number.eq(sw).trigger("click");
-	}, 2000);
-	//hover事件完成悬停和，左右图标的动画效果
-	slideBox.hover(function() {
-		$(".next,.prev").animate({
-			"opacity" : 1,
-		}, 200);
-		clearInterval(timer);
-	}, function() {
-		$(".next,.prev").animate({
-			"opacity" : 0.5,
-		}, 500);
-		timer = setInterval(function() {
-			sw++;
-			if (sw == number.length) {
-				sw = 0
-			}
-			;
-			number.eq(sw).trigger("click");
-		}, 2000);
-	})
-	
-	
-	
-
-	var newsList = [["测试1","测试内容1","测试","2019-03-09 22:38:26"],["测试1","测试内容1","测试","2019-03-09 22:38:26"]
+	var nationalList = [];
+	/*var nationalList = [["测试1","测试内容1","测试","2019-03-09 22:38:26"],["测试1","测试内容1","测试","2019-03-09 22:38:26"]
 	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
 	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
 	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
 	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
 	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
-	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]];
-	/*function jsArrChange(json){
+	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]];*/
+	function jsArrChange(json){
 		for (var i = 0 ; i < json.length ; i ++) {
 			var arr1 = [];
 			arr1[0] = json[i].title;
 			arr1[1] = json[i].contents;
 			arr1[2] = json[i].author;
 			arr1[3] = json[i].tm;
+			arr1[4] = json[i].ID;
 			
-			newsList.push(arr1);
+			nationalList.push(arr1);
 		};
 	}
-	jsArrChange(zskList);*/
+	jsArrChange(zskList);
+	
+	
 	
 
-
 	
-	var newsTbody = document.getElementById("news_body");
-	for(var i = 0;i < newsList.length;i ++){
-		var newsTr = document.createElement("tr");
+	var naTbody = document.getElementById("na_body");
+	for(var i = 0;i < nationalList.length;i ++){
+		var naTr = document.createElement("tr");
 		if(i%2 == 1){
-			newsTr.className = "gradeX odd";
+			naTr.className = "gradeX odd";
 		}else if(i%2 == 0){
-			newsTr.className = "gradeX even";
+			naTr.className = "gradeX even";
 		}
-		newsTr.innerHTML += "<td><input type='checkbox' name='check'/></td>";
+		naTr.innerHTML += "<td><input type='checkbox' value='"+nationalList[i][4]+"' name='check'/></td>";
 
 		
-		for(var j = 0;j < newsList[i].length;j ++){
+		for(var j = 0;j < nationalList[i].length;j ++){
 
-		
+			nationalList[i][j] = nationalList[i][j]+"";
+			
 
-			newsList[i][j] = newsList[i][j]+"";
-//			if(newsList[i][j].length > 15){
-//				var new_newsList = newsList[i][j].slice(0,14);
-//				newsTr.innerHTML += "<td>" + new_newsList + "···</td>";
-//			}else{
-//				newsTr.innerHTML += "<td>" + newsList[i][j] + "</td>";
-//			}
-			if(j == 1){
-				newsTr.innerHTML += "<td style='display:none;'>" + newsList[i][j] + "</td>";
+			if(j == 0){
+				naTr.innerHTML += "<td><a href='#'>" + nationalList[i][j] + "<a/></td>";
+				continue;
+			}
+
+			if(j == 1||j==4){
+
+				naTr.innerHTML += "<td style='display:none;'>" + nationalList[i][j] + "</td>";
 				continue;
 			}
 			
-			newsTr.innerHTML += "<td>" + newsList[i][j] + "</td>";
+			naTr.innerHTML += "<td>" + nationalList[i][j] + "</td>";
 		
 		}
-		newsTr.innerHTML += "<td><input class='del_btn qiy_del' type='button' value='删除' /><input class='mod_btn' type='button' value='修改' /></td>";
-		newsTbody.appendChild(newsTr);
+		naTr.innerHTML += "<td><input class='del_btn na_del' type='button' value='删除' /><input class='mod_btn' type='button' value='修改' /></td>";
+		naTbody.appendChild(naTr);
 	
 	}
 	//全选
-	var allCheck = $(".all_option input[name='check']");
+	var allCheck = $(".all_na_option input[name='check']");
 
 	allCheck.click(function(){
 		$("input[type='checkbox']").prop("checked",$(this).prop("checked"));
@@ -131,15 +70,57 @@ $(document).ready(function() {
 	});
 	
 	//删除按钮
-	$(".qiy_del").click(function(){
-		confirm("确定删除这些文章吗？");
+	$(".del_btn").click(function(){
+		var xintr = $(this).parent().parent().children();
+		var id=xintr[5].innerHTML
+		 layer.confirm('确认删除么', function(index) {
+			                 $.ajax({
+			                     type: "post",
+			                    url: "deleteZsk.action",
+			                      dataType:'json',
+			                  	data:{	
+			      					"id":id,
+			      					"type":"企业条例",
+			      				},
+			                     dataType: "json",
+			                      success: function (data) {
+			                    	   layer.close(index);
+			                          window.location.reload();
+			                     },
+			  
+			                 })
+			              });
 	});
-	
+	$("#na_option_del").click(function(){
+
+		 layer.confirm('确认删除么', function(index) {
+			 $('input[name="check"]:checked').each(function (index, item) {
+				          console.log($(this).val())
+				          $.ajax({
+			                     type: "post",
+			                    url: "deleteZsk.action",
+			                      dataType:'json',
+			                  	data:{	
+			      					"id":$(this).val(),
+			      					"type":"企业条例",
+			      				},
+			                     dataType: "json",
+			                      success: function (data) {
+			                    	   
+			                     },
+			  
+			                 })
+			                 
+				    });
+			 layer.close(index);
+            window.location.reload();
+			              });
+	});
 	//新增文章
-	$("#option_cr").click(function(){
-		$(".wz_crea").show();
+	$("#na_option_cr").click(function(){
+		$(".na_crea").show();
 		var nowTime = getTime();
-		$(".wz_crea input[name='tm']").val(nowTime);
+		$(".na_crea input[name='tm']").val(nowTime);
 	});
 	
 	//修改文章
@@ -148,30 +129,61 @@ $(document).ready(function() {
 	});
 
 	//关闭修改
-	$(".wz_modify .close").click(function(){
-		$(".wz_modify").hide();
-		$(".wz_crea").hide();
+	$(".na_modify .close").click(function(){
+		$(".na_modify").hide();
 	});
-	$(".wz_crea .close").click(function(){
-		$(".wz_crea").hide();
+	$(".na_crea .close").click(function(){
+		$(".na_crea").hide();
 	});
-
+	$(".wz_look .close").click(function(){
+		$(".wz_look").hide();
+	});
+	
+	//修改文章
+	$("td a").click(function(){
+		wz_look(this)
+	});
 })   
 
 function wz_change(p){
-	$(".wz_modify").show();
+	$(".na_modify").show();
 	var xintd = $(p).parent().parent().children();
 	//修改数据
 	var changenewsList = [];
-	for(var x = 1 ; x < 5 ; x ++){
+
+	for(var x = 1 ; x < 6; x ++){
+		if(x == 1){
+			changenewsList.push(xintd[x].childNodes[0].innerHTML)
+			continue;
+		}
 		changenewsList.push(xintd[x].innerHTML);
 	}
 	
-	var changeInput = $(".wz_modify .wz_modify_input");
+	var changeInput = $(".na_modify .na_modify_input");
 	for(var i = 0;i < changeInput.length;i ++){
 		changeInput[i].value = changenewsList[i];
 	}
 }
+
+
+function wz_look(p){
+	$(".wz_look").show();
+	var xintd = $(p).parent().parent().children();
+	//修改数据
+	var changenewsList = [];
+	for(var x = 1 ; x < 5 ; x ++){
+		if(x == 1){
+			changenewsList.push(xintd[x].childNodes[0].innerHTML);
+			continue;
+		}
+		changenewsList.push(xintd[x].innerHTML);
+	}
+	$(".wz_look_title").html(changenewsList[0]);
+	$(".wz_look_content").html(changenewsList[1]);
+	$(".wz_look_autor").html(changenewsList[2]);
+	$(".wz_look_time").html(changenewsList[3]);
+}
+
 
 function getTime() {  
 	var nS = new Date();

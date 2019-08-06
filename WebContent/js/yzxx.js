@@ -47,7 +47,7 @@ $("#search_btn").click(function(){
 		
 		})*/
 		
-	setTimeout(function(){}, 1000);
+	
 	var xq = $('#xq').val();
 	var ld = $('#ldh').val();
 	var dy = $('#dyh').val();

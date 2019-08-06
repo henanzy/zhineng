@@ -164,22 +164,19 @@ function caidsz(){//
  
 /* 知识库 */
 function qiytl(){// 
-    window.open("<%=basePath%>user/qiytl.action?type=企业条例", "Conframe");
+    window.open("<%=basePath%>ZskCon/getQytl.action?type=企业条例", "Conframe");
 } 
 function guojfg(){// 
-	window.open("<%=basePath%>user/guojfg.action?type=国家法规", "Conframe");
+	window.open("<%=basePath%>ZskCon/getQytl.action?type=国家法规", "Conframe");
 } 
 function hangyzs(){// 
-	window.open("<%=basePath%>user/hangyzs.action?type=行业知识", "Conframe");
+	window.open("<%=basePath%>ZskCon/getQytl.action?type=行业知识", "Conframe");
 } 
 function xitsm(){// 
-	window.open("<%=basePath%>user/xitsm.action?type=系统说明", "Conframe");
-} 
-function cgqdz(){// 
-	window.open("<%=basePath%>user/cgqdz.action?type=系统说明", "Conframe");
+	window.open("<%=basePath%>ZskCon/getQytl.action?type=系统说明", "Conframe");
 } 
 function wentjd(){// 
-	window.open("<%=basePath%>user/wentjd.action?type=问题解答", "Conframe");
+	window.open("<%=basePath%>ZskCon/getQytl.action?type=问题解答", "Conframe");
 } 
  	/* 员工定位 */
 function shisdw(){// 

@@ -371,7 +371,7 @@ var wdzb=[];
 					twdbar(optbar,xq,"","","pie-2",0);
 					tfmbar(optbar,xq,"","","pie-3",0);
 					//散点图
-					if(xq!=""){
+					if(xq!=""/*1==1*/){
 					var ser_sdwd=[];
 					var ser_valad=[];
 					$.ajax({
@@ -392,12 +392,11 @@ var wdzb=[];
 							}
 						}
 					});
+					
 					var ser_swsdt = {name:$("#xq").val(),wd:ser_sdwd};
 					oneswsdt("containers_swsdt",ser_swsdt,ser_valad);
 					}
-		});
-		
-		
+		});				
  });
 
 function tfmbar(optbar,xq,ld,dy,pie,m){

@@ -132,6 +132,17 @@
    		text-align: center;
    		font-size: 18px;
 	}
+	#hh{
+		width:60px;
+		height:24px;
+		line-height:24px;
+		border-radius:4px;
+		background-color:rgba(43,45,49,0.8);
+		color:#fff;
+		cursor:pointer;
+		text-align:center;
+		padding:0 4px;
+	}
 	#increase_word .close::before,
 	#change_word .close::before {
 	    content: "\2716";
@@ -321,20 +332,23 @@ $.ajax({
             	<div class="mws-report-container clearfix">
             
             	
-                   	 <p class="mws-report" href="#" style="font-size: 14px;padding:10px;min-width:1100px;"> 
-                    	 选择小区 	
-					<select id="xq"
+                   	 <p class="mws-report" href="#" style="font-size: 14px;padding:10px;min-width:1100px;height:60px"> 
+                    <span>选择小区：
+						<select id="xq" style="width:150px"
 						name="xqName">
-							<option value="" >--选择小区--</option>
-					</select> &nbsp;&nbsp;&nbsp; 
-					
-					楼栋号 <select name="ldh" id="ldh">
-							<option value="" >--选择楼栋--</option>
-					</select> &nbsp;&nbsp;&nbsp; 
-					
-					单元号 <select name="dyh" id="dyh">
-							<option value="" >--选择单元--</option>
-					</select> &nbsp;&nbsp;&nbsp; 
+						
+					</select>
+					</span>
+					<span>楼栋号：
+						<select name="ldh" id="ldh" style="width:70px">
+							<option value="" >楼栋</option>
+					</select>
+					</span>
+					<span>单元号：
+						<select name="dyh" id="dyh" style="width:70px">
+							<option value="" >单元</option>
+					</select>
+					</span>
 					
 					户号<input type="text" name="hh" id="hh" size=6px
 						value="" /> &nbsp;&nbsp;&nbsp; 
@@ -345,10 +359,9 @@ $.ajax({
 							<option value="重点监控" >重点监控</option>
 							<option value="特殊情况" >特殊情况</option>
 					</select> &nbsp;&nbsp;&nbsp; 	
-                        <span class="mws-report-content" style="margin-top: 5px;">
-                        <input type="submit" id="search_btn" class="mws-button black"  value="搜索"/>&nbsp;&nbsp;&nbsp;
-	                    <input type="submit" class="mws-button black"  id="increase_btn" value="添加"/>                                                     
-                          </span>
+					 <input type="submit" id="search_btn" class="mws-button black"  value="搜索"/>&nbsp;&nbsp;&nbsp;
+	                    <input type="submit" class="mws-button black"  id="increase_btn" value="添加"/>  
+                       
                    </p> 
                 </div>
                 

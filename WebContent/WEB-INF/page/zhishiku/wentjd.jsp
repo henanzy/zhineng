@@ -8,13 +8,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
 
-
-
-<!-- Required Stylesheets -->
 <link rel="stylesheet" type="text/css" href="../js/layui/css/layui.css" media="screen" />	
 <script type="text/javascript" src="../js/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="../js/layui/layui.js"></script>
 <script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<!-- Required Stylesheets -->
 <link rel="stylesheet" type="text/css" href="../css/reset.css"
 	media="screen" />
 <link rel="stylesheet" type="text/css" href="../css/text.css"
@@ -95,31 +93,30 @@
 <script type="text/javascript" src="../js/demo.js"></script>
 <script type="text/javascript" src="../js/themer.js"></script>
 
-<script type="text/javascript" src="../js/wentjd.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/wentjd.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../css/guojfg.css" media="screen" />
 
 </head>
-<script type="text/javascript">
+ <script type="text/javascript">
 var zskList = ${zskList};
-
-
 </script>
+
+<script type="text/javascript" src="../js/wentjd.js"></script>
 <body>
 
-	<div id="" class="clearfix" style="overflow-x: hidden;width:96%;height:900px;min-width:1100px;">
+	<div id="" class="clearfix" style="overflow-x: hidden;width:96%;height:1000;min-width:1100px;">
 		
-		<div class="question_new">
+		<div class="national_new">
 			<div class="mws-panel grid_8 "
 			style="width: 98%; padding-left: 12px; margin: 0px 0px 30px 0px; min-width:500px">
 				<div class="mws-panel-header">
-					<span class="mws-i-24 i-table-1">问题说明</span>
+					<span class="mws-i-24 i-table-1">问题解答</span>
 				</div>
-				<div class="all_question_option">
+				<div class="all_na_option">
 					<input type="checkbox" name="check"/><span>全选</span>
-					<input id="question_option_del" class="question_del" type="button" value="删除" />
-					<input id="question_option_cr" type="button" value="新增" />
+					<input id="na_option_del"   class="na_del" type="button" value="删除" />
+					<input id="na_option_cr" type="button" value="新增" />
 				</div>
-				<div id="question_table_body" class="mws-panel-body"
+				<div id="na_table_body" class="mws-panel-body"
 					style="overflow: auto !important; height: 700px;">
 					<table class="mws-table">
 						<thead>
@@ -131,7 +128,7 @@ var zskList = ${zskList};
 								<th class="table-th-css">操作</th>
 							</tr>
 						</thead>
-						<tbody id="question_body">
+						<tbody id="na_body">
 							
 							
 						</tbody>
@@ -140,38 +137,35 @@ var zskList = ${zskList};
 			</div>
 		</div>
 		
-		<div class="question_crea" style="min-width:1000px;overflow-x: hidden;">
-			<div class="question_crea_body">
+		<div class="na_crea" style="min-width:1000px;overflow-x: hidden;">
+			<div class="na_crea_body">
 				<span class="close"></span>
-				<h5>新增说明</h5>
-				
+				<h5>新增</h5>
 				<form action="addZsk.action"  method="post">
-					<p><label><span>文章标题：</span><input class="trade_modify_input" type="text" required="required" autofocus="autofocus" name="title" value="" /></label></p>
-					<p><label><span>文章内容：</span><textarea class="trade_modify_input" name="contents" required="required"></textarea></label></p>
-					<p><label><span>作者：</span><input class="trade_modify_input" required="required" type="text" name="author" value="" /></label></p>
-					<p><label><span>发布时间：</span><input class="trade_modify_input" required="required" readonly="readonly" type="text" name="tm" value="" /></label></p>
+					<p><label><span>文章标题：</span><input type="text" required="required" autofocus="autofocus" name="title" value="" /></label></p>
+					<p><label><span>文章内容：</span><textarea required="required" name="contents"></textarea></label></p>
+					<p><label><span>作者：</span><input required="required" type="text" name="author" value="" /></label></p>
+					<p><label><span>发布时间：</span><input required="required" type="text" name="tm" value="" /></label></p>
 					<input type="hidden" name="zsktype" value="问题解答"/>
-					
-					 <p><input id="wz_crea_btn" type="submit" value="提交" /></p>
+		            <p><input id="wz_crea_btn" type="submit" value="提交" /></p>
 				
 				</form>
 			</div>
 		</div>
 		
-		<div class="question_modify" style="min-width:1000px;overflow-x: hidden;">
-			<div class="question_modify_body">
+		<div class="na_modify" style="min-width:1000px;overflow-x: hidden;">
+			<div class="na_modify_body">
 				<span class="close"></span>
-				<h5>说明修改</h5>
+				<h5>修改</h5>
 				<form action="updateZsk.action" method="POST">
-					<p><label><span>文章标题：</span><input class="question_modify_input" type="text" required="required" autofocus="autofocus" name="title" value="" /></label></p>
-					<p><label><span>文章内容：</span><textarea class="question_modify_input" name="contents" required="required"></textarea></label></p>
-					<p><label><span>作者：</span><input class="question_modify_input" required="required" type="text" name="author" value="" /></label></p>
-					<p><label><span>发布时间：</span><input class="question_modify_input" required="required" readonly="readonly" type="text" name="tm" value="" /></label></p>
+					<p><label><span>文章标题：</span><input class="na_modify_input" type="text" required="required" autofocus="autofocus" name="title" value="" /></label></p>
+					<p><label><span>文章内容：</span><textarea class="na_modify_input" name="contents" required="required"></textarea></label></p>
+					<p><label><span>作者：</span><input class="na_modify_input" required="required" type="text" name="author" value="" /></label></p>
+					<p><label><span>发布时间：</span><input class="na_modify_input" required="required" readonly="readonly" type="text" name="tm" value="" /></label></p>
 					<input type="hidden" name="zsktype" value="问题解答"/>
-					<input class="question_modify_input"  readonly="readonly" type="hidden" name="Id" value="" />
-					<p class="question_mod_p"><input id="question_mod_btn" type="submit" value="确定修改" /></p>
+					<input class="na_modify_input"  readonly="readonly" type="hidden" name="id" value="" />
+					<p class="na_mod_p"><input id="wz_mod_btn" type="submit" value="确定修改" /></p>
 				</form>
-				
 			</div>
 		</div>
 		
@@ -185,10 +179,11 @@ var zskList = ${zskList};
 							发布时间：<span class="wz_look_time"></span>
 						</p>
 					</div>
-					<p class="wz_look_content"></p>
+					<textarea class="wz_look_content" readonly="readonly"></textarea>
 					
 			</div>
 		</div>
+		
 		
 	</div> 
 	

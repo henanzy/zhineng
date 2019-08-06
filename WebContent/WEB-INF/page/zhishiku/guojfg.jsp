@@ -113,7 +113,7 @@ var zskList = ${zskList};
 				</div>
 				<div class="all_na_option">
 					<input type="checkbox" name="check"/><span>全选</span>
-					<input id="na_option_del"  id="na_del" class="na_del" type="button" value="删除" />
+					<input id="na_option_del"   class="na_del" type="button" value="删除" />
 					<input id="na_option_cr" type="button" value="新增" />
 				</div>
 				<div id="na_table_body" class="mws-panel-body"
@@ -163,7 +163,7 @@ var zskList = ${zskList};
 					<p><label><span>作者：</span><input class="na_modify_input" required="required" type="text" name="author" value="" /></label></p>
 					<p><label><span>发布时间：</span><input class="na_modify_input" required="required" readonly="readonly" type="text" name="tm" value="" /></label></p>
 					<input type="hidden" name="zsktype" value="国家法规"/>
-					<input class="na_modify_input"  readonly="readonly" type="hidden" name="Id" value="" />
+					<input class="na_modify_input"  readonly="readonly" type="hidden" name="id" value="" />
 					<p class="na_mod_p"><input id="wz_mod_btn" type="submit" value="确定修改" /></p>
 				</form>
 			</div>
@@ -179,7 +179,7 @@ var zskList = ${zskList};
 							发布时间：<span class="wz_look_time"></span>
 						</p>
 					</div>
-					<p class="wz_look_content"></p>
+					<textarea class="wz_look_content" readonly="readonly"></textarea>
 					
 			</div>
 		</div>

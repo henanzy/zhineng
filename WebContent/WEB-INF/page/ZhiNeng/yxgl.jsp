@@ -416,19 +416,19 @@ html,body{
 			<div class="search">
 				<p>
 					<span>选择小区：
-						<select id="xq" style="width:260px"
+						<select id="xq" style="width:150px"
 						name="xqName">
 						
 					</select>
 					</span>
 					<span>楼栋号：
-						<select name="ldh" id="ldh">
-							<option value="" >--选择楼栋--</option>
+						<select name="ldh" id="ldh" style="width:70px">
+							<option value="" >楼栋</option>
 					</select>
 					</span>
 					<span>单元号：
-						<select name="dyh" id="dyh">
-							<option value="" >--选择单元--</option>
+						<select name="dyh" id="dyh" style="width:70px">
+							<option value="" >单元</option>
 					</select>
 					</span>
 					<span>户号：
@@ -497,12 +497,16 @@ html,body{
                      
             </ul>
          </nav>
+         <br/>
          <div style="clear:both;"></div>
 		<div class="mws-panel grid_8" style="width: 48%; float: left; min-width:500px">
-			<div class="mws-panel-header" style="height:60px">
+			<div class="mws-panel-header">
 				<span class="mws-i-24 i-graph" style="display:block;height:35px">小区开度100%比例曲线图</span>
 				
-				<span style="color:black">
+				
+			</div>
+			<div class="mws-panel-body">
+			<span>
 				选择小区：
 
 					<select id="kdline">
@@ -513,8 +517,6 @@ html,body{
 				<input type="submit"
 						class="mws-button black" id="kd_search" value="搜索" />
 				</span>
-			</div>
-			<div class="mws-panel-body">
 				<div class="mws-panel-content">
 					<div id="mws-dashboard-chart-1" style="width: 100%; height: 315px;"></div>
 				</div>
@@ -524,10 +526,13 @@ html,body{
 
 
 		<div class="mws-panel grid_8 " style="width: 48%; float: left; min-width:500px">
-			<div class="mws-panel-header" style="height:60px">
+			<div class="mws-panel-header" >
 				<span class="mws-i-24 i-graph" style="display:block;height:35px">小区平均室温与室外温度曲线图</span>
 				
-				<span style="color:black">
+				
+			</div>
+			<div class="mws-panel-body">
+			<span >
 				选择小区：
 
 					<select id="wdline">
@@ -538,8 +543,6 @@ html,body{
 				<input type="submit"
 						class="mws-button black" id="wd_search" value="搜索" />
 				</span>
-			</div>
-			<div class="mws-panel-body">
 				<div class="mws-panel-content">
 					<div id="mws-dashboard-chart-2" style="width: 100%; height: 315px;"></div>
 				</div>
