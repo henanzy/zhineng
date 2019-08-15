@@ -1,5 +1,12 @@
-  <%@ page language="java" contentType="text/html; charset=utf-8"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+	<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+	
+%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -62,7 +69,10 @@
 <script type="text/javascript" src="../js/mws.js"></script>
 <script type="text/javascript" src="../js/demo.js"></script>
 <script type="text/javascript" src="../js/themer.js"></script>
-
+<script type="text/javascript" src="../js/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../js/layui/layui.js"></script>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<link rel="stylesheet" type="text/css" href="../js/layui/css/layui.css" media="screen" />
 <!-- <script type="text/javascript" src="../js/demo.charts.js"></script> -->
 
 <script type="text/javascript" src="../js/xitsz.js"></script>
@@ -71,7 +81,71 @@
 	margin: 0;
 	padding: 0;
 }
-
+ .xinjgd_change,
+	 .xinjgd_del{
+		border:none;
+		background-color:rgb(60,61,61);
+		height:24px;
+		width:40px;
+		margin-right:16px;
+		margin-top:2px;
+		color:#fff;
+		font-size: 12px;
+		border-radius:4px;
+	}
+#increase_word,
+	#change_word{
+		display:none;
+		position: fixed;
+		left: 0;
+	    top:0;
+	    right:0;
+	    bottom:0;
+	    z-index: 100; 
+		background-color:rgba(0,0,0,0.6);
+	}
+	
+	/* 新增修改弹出框关闭按钮 */
+	#increase_word .close,
+	#change_word .close{
+		display:block;
+		background-color:rgb(193,213,43);
+		width:24px;
+		height:24px;
+		color: #fff;
+    	border-radius: 13px;
+		position:absolute;
+		top:14px;
+		right:20px;
+		line-height: 24px;
+   		text-align: center;
+   		font-size: 18px;
+	}
+	#increase_word .close::before,
+	#change_word .close::before {
+	    content: "\2716";
+	}
+	
+	/* 新增修改弹出框input */
+	#increase_word .mws-form-row .increase_word_input,
+	#change_word .mws-form-row .change_word_input {
+		width:200px;
+	}
+	
+	/* 新增修改弹出框label */
+	#increase_word .mws-form-row label,
+	#change_word .mws-form-row label{
+		width:150px;
+	}
+	
+	/* 新增修改弹出框确认按钮 */
+	#increase_word #word_increase_btn,
+	#change_word #word_change_btn{
+		position:relative;
+		top:10px;
+		left:47%;
+	}
+	
 .mws-panel-body{
  width:99.5%; 
  height:450px; 
@@ -129,6 +203,7 @@
                         <ul>
                             <li><a href="#tab-1">用户管理</a></li>
                             <li><a href="#tab-2">权限设置</a></li>
+                            <li><a href="#tab-4">企业架构</a></li>
                             <li><a href="#tab-3">版本升级</a></li>
                         </ul>
                         
@@ -161,6 +236,35 @@
                 </div>
                 
                              </div>
+                             
+                 <div id="tab-4" style="height: 500px">
+                          <button type="button" class="mws-button black" id="increase_btn">添加</button>
+                          
+                          
+                       <hr>
+                        
+                  <div class="mws-panel grid_8"  >
+                
+
+                    <div id="yhgl_table_body" class="mws-panel-body"style="border: 1px solid #BCBCBC; " >
+
+                        <table class="mws-table">
+                            <thead >
+                                <tr>
+                                    
+                                    <th class="table-th-css">公司名称</th>
+                                    <th class="table-th-css">上级公司</th>
+                                    <th class="table-th-css">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="qyjg_body">
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                             </div>            
                         
 <!-- ---分界线--- -->
                   <div id="tab-2" style="height: 500px">
@@ -317,7 +421,97 @@
                                
             </div>
             
+  <div id="increase_word">
+			<div class="mws-panel grid_4"
+				style="width: 400px; min-width: 450px; margin: 20px 30%;">
+				<div class="mws-panel-header">
+					<span class="mws-i-24 i-pencil">新增公司</span> <span class="close"></span>
+				</div>
+				<div class="mws-panel-body" style="height: 150px;">
+					<form class="mws-form" action="" method="post">
+						<div class="mws-form-inline">
+						
+						<div class="mws-form-row">
+								<label>&emsp;公司名称：</label>
 
+								<div class="mws-form-item large">
+								 <input type="text" class="mws-textinput increase_word_input" 
+										name="xzname" id="xzname" value="" autofocus="autofocus" />
+								</div>
+						</div>
+						<div class="mws-form-row">
+								<label>&emsp;上级公司：</label>
 
+								<div class="mws-form-item large">
+									
+										<select style="width:200px" name="sjgs" id="xzsjgs"></select>
+								</div>
+						</div>
+						</div>
+						<input type="button" id="word_increase_btn"
+							class="mws-button black" value="新增" />
+					</form>
+				</div>
+			</div>
+		</div>
+        <div id="change_word">
+			<div class="mws-panel grid_4"
+				style="width: 400px; min-width: 450px; margin: 20px 30%;">
+				<div class="mws-panel-header">
+					<span class="mws-i-24 i-pencil">修改公司</span> <span class="close"></span>
+				</div>
+				<div class="mws-panel-body" style="height: 150px;">
+					<form class="mws-form" action=""  method="post">
+						<div class="mws-form-inline">
+ 							<input type="hidden" class="mws-textinput change_word_input"
+							name="id" id="id" value="" />
+						
+						
+						<div class="mws-form-row">
+								<label>&emsp;公司名称：</label>
+
+								<div class="mws-form-item large">
+								 <input type="text" class="mws-textinput change_word_input" 
+										name="name" id="xgname" value="" autofocus="autofocus" />
+								</div>
+						</div>
+						<div class="mws-form-row">
+								<label>&emsp;上级公司：</label>
+
+								<div class="mws-form-item large">
+									
+										<select style="width:200px" name="sjgs" id="xgsjgs"></select>
+								</div>
+						</div>
+							
+						</div>	
+						<input type="button" id="word_change_btn"
+							class="mws-button black" value="修改" />
+					</form>
+				</div>
+			</div>
+		</div>
+<script type="text/javascript">
+$.ajax({
+	url : "<%=basePath%>user/getgs.action", 
+	async : false,
+	dataType : "json",
+	data : {
+	
+	},
+	success : function(data) {
+		
+		gsList=data.list;	   
+		
+       for(var i=0; i<gsList.length; i++){
+			
+			$("#xzsjgs").append("<option value='"+gsList[i]+"'>"+gsList[i]+"</option>");
+			$("#xgsjgs").append("<option value='"+gsList[i]+"'>"+gsList[i]+"</option>");
+			
+		}
+	}
+
+});
+</script>
 </body>
 </html>

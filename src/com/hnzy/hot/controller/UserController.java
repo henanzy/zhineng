@@ -1,6 +1,7 @@
 package com.hnzy.hot.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,22 +32,44 @@ public class UserController {
 	private YhInfoService yhServer;
 	@ResponseBody
 	@RequestMapping("/login")
-	public JSONObject login(HttpSession session,String username,String password,HttpServletRequest request) throws UnsupportedEncodingException{
+	public JSONObject login(HttpSession session,String username,String password,String type,HttpServletRequest request) throws UnsupportedEncodingException{
 		JSONObject jsonObject= new JSONObject();
 		if (StringUtil.isNoEmpty(username) && StringUtil.isNoEmpty(password)) {
 			username=new String(username.getBytes("ISO-8859-1"),"utf-8")+"";
 			password=new String(password.getBytes("ISO-8859-1"),"utf-8")+"";
 			password=MD5Util.string2MD5(password);
-			System.out.println(password);
+			
 			User info = userServer.findUserByNameAndMD5(username, password);			
 			if(info!=null){
-				
-				request.getSession().setAttribute("admins", info);
-				request.getSession().setAttribute("UserName", info.getUserName());
-				request.getSession().setAttribute("PassWord", info.getPassword());
-				request.getSession().setAttribute("ID", info.getId());
-				
-				jsonObject.put("msg","0");
+				System.out.println(info.getType());
+				if(info.getType().equals(type)){
+					request.getSession().setAttribute("admins", info);
+					request.getSession().setAttribute("UserName", info.getUserName());
+					request.getSession().setAttribute("PassWord", info.getPassword());
+					request.getSession().setAttribute("ID", info.getId());
+					request.getSession().setAttribute("type", type);
+					if(type.equals("qyyh")){
+						request.getSession().setAttribute("gs", type);
+					}else{
+						String str ="";
+						List<String> list =userServer.getgs();
+						for (int i = 0; i < list.size(); i++) {
+							if(i!=list.size()-1){
+								str+=list.get(i)+",";
+							}
+							else {
+								str+=list.get(i);
+							}
+						}
+						
+						request.getSession().setAttribute("gs", str);
+					}
+					request.getSession().setAttribute("ssgs", info.getSsgs());
+					jsonObject.put("msg","0");
+				}
+				else{
+					jsonObject.put("msg", "2"); 
+				}
 				
 			
 		}else {
@@ -88,8 +111,10 @@ public class UserController {
 	//新增登录用户
 	@ResponseBody
 	@RequestMapping("addYh")
-	public JSONObject addYh(HttpServletRequest request,String username,String password) throws UnsupportedEncodingException{
+	public JSONObject addYh(HttpServletRequest request,String username,String password,String type,String ssgs) throws UnsupportedEncodingException{
 		 username=new String(username.getBytes("ISO-8859-1"),"utf-8");
+		 type=new String(type.getBytes("ISO-8859-1"),"utf-8");
+		 ssgs=new String(ssgs.getBytes("ISO-8859-1"),"utf-8");
 		JSONObject json=new JSONObject();
 		 //根据用户名字查找用户是否存在
 		 User user=userServer.findByName(username);
@@ -98,7 +123,7 @@ public class UserController {
 			 json.put("msg","0");
 		 }else{
 			  password=MD5Util.string2MD5(password);
-			 userServer.InsUsePass(username, password);
+			 userServer.InsUsePass(username, password,type);
 			 json.put("msg","1");
 		 }
 		 
@@ -118,9 +143,16 @@ public class UserController {
     	}
     	//跳转到主页面
     			@RequestMapping("ZHome")
-    			public String ZHome(){
-    			
+    			public String ZHome(HttpServletRequest reqeust,HttpSession session){
+    			reqeust.setAttribute("type", session.getAttribute("type"));
+    			String UserName=(String) session.getAttribute("UserName");
+    			if("xmrl".equals(UserName)){
+    				return "navi1";
+    			}
+    			if("dfrl".equals(UserName)){
     				return "navi";
+    			}
+    				return "navi2";
     			}
     			
     			//跳转到主页面
@@ -326,4 +358,55 @@ public class UserController {
     		return "ZhiNeng/shebei/cgqdz";
     	}
     	
+    	@ResponseBody
+    	@RequestMapping("/getgs")
+    	public JSONObject getgs() throws UnsupportedEncodingException{
+    		JSONObject jsonObject= new JSONObject();   		
+    				jsonObject.put("list",userServer.getgs());
+    		return jsonObject;
+    	}
+    	
+    	@ResponseBody
+    	@RequestMapping("/InsGsjg")
+    	public JSONObject InsGsjg(String name, String sjgs) throws UnsupportedEncodingException{
+    		JSONObject jsonObject= new JSONObject();   	
+    		if(name!=null){
+    			name=new String(name.getBytes("ISO-8859-1"),"utf-8");
+    		}
+    		if(sjgs!=null){
+    			sjgs=new String(sjgs.getBytes("ISO-8859-1"),"utf-8");
+    		}
+    				userServer.InsGsjg(name, sjgs);
+    		return jsonObject;
+    	}
+    	
+    	@ResponseBody
+    	@RequestMapping("/selGsjg")
+    	public JSONObject selGsjg() throws UnsupportedEncodingException{
+    		JSONObject jsonObject= new JSONObject();   		
+    				jsonObject.put("list",userServer.selGsjg());
+    		return jsonObject;
+    	}
+    	
+    	@ResponseBody
+    	@RequestMapping("/updateGsjg")
+    	public JSONObject updateGsjg(String name, String sjgs, String id) throws UnsupportedEncodingException{
+    		JSONObject jsonObject= new JSONObject();   		
+    		if(name!=null){
+    			name=new String(name.getBytes("ISO-8859-1"),"utf-8");
+    		}
+    		if(sjgs!=null){
+    			sjgs=new String(sjgs.getBytes("ISO-8859-1"),"utf-8");
+    		}
+    				userServer.updateGsjg(name, sjgs,id);
+    		return jsonObject;
+    	}
+    	
+    	@ResponseBody
+    	@RequestMapping("/deleteGsjg")
+    	public JSONObject deleteGsjg(String id) throws UnsupportedEncodingException{
+    		JSONObject jsonObject= new JSONObject();   		
+    				userServer.deleteGsjg(id);
+    		return jsonObject;
+    	}
 }

@@ -379,6 +379,38 @@
                       lay-verify="required|pass" required/>
            </div>
        </div>
+
+      <div class="layui-form-item">
+           <label class="layui-form-label">用户级别</label>
+           <div class="layui-input-inline" style="width:200px;">
+               <select style="width:200px"  id="type"  class="layui-input-inline">
+                <option value='企业用户'>企业用户</option>
+                <option value='集团用户'>集团用户</option>
+               </select>
+           </div>
+       </div>
+      <div class="layui-form-item">
+           <label class="layui-form-label">所属公司</label>
+           <div class="layui-input-inline" style="width:200px;">
+               <select style="width:200px"  id="ssgs"  class="layui-input-inline">
+                <option value=''>总公司</option>
+                <option value='登封热力'>登封热力</option>
+                <option value='新密热力'>新密热力</option>
+               </select>
+           </div>
+       </div>
+
+      <div class="layui-form-item">
+           <label class="layui-form-label">用户角色</label>
+           <div class="layui-input-inline" style="width:200px;">
+               <select style="width:200px"  id="ssgs"  class="layui-input-inline">
+                <option value=''>超级管理员</option>
+                <option value=''>管理员</option>
+                <option value=''>供热管理员</option>
+                <option value=''>工作人员</option>
+               </select>
+           </div>
+       </div>
        
        <div class="layui-form-item model-form-footer" style="margin-left:130px">
            <button class="layui-btn layui-btn-primary" type="button" id="adYhCancel">取消</button>
@@ -477,16 +509,19 @@ function lisgj(){//
 } 
 
 function xzyh(flag){
+	var form = layui.form
+   
 	if(flag=="1"){
 		layer.msg("用户名已存在");
 	}
 	 layer.open({
 	        type: 1,
 	        title: "新增用户",
-	        area: '400px',
+	        area: ['400px', '500px'] ,
 	        offset: '120px',
 	        content: $("#YhModel").html()
 	    });
+	 form.render();
 	 $("#addYhForm")[0].reset();
 	    $("#adYhCancel").click(function () {
 	        layer.closeAll();
@@ -495,6 +530,9 @@ function xzyh(flag){
 	    $("#addYhSubmit").click(function () {
 	    	var username = $('#username').val();
 			var password = $('#password').val();
+			var type = $('#type').val();
+			var ssgs = $('#ssgs').val();
+			
 			if(username==""||password==""){
 				alert("用户名或密码不为空!");
 				return false;
@@ -506,6 +544,8 @@ function xzyh(flag){
 					data : {
 						"username" : username,
 						"password" : password,
+						"type" : type,
+						"ssgs" : ssgs,
 					},
 					success : function(data) {
 	
@@ -642,7 +682,7 @@ function xgmm(flag) {
                 </div>
                 <div id="mws-user-functions">
                     <div id="mws-username">
-                        Hello,河南众源
+                       
                     </div>
                     <ul>
                         <li><a href="#" onclick="xgmm(0)">更改密码</a></li>
@@ -702,6 +742,21 @@ function xgmm(flag) {
 
 
 	<script type="text/javascript">
+	var UserName="<%=request.getSession().getAttribute("UserName")%>"
+	var type="<%=request.getSession().getAttribute("type")%>"
+	
+	var str;
+	
+	if (type=="qyyh"){
+		
+		str="企业用户"
+	}else{
+		str="集团用户"
+	}
+	if(UserName!="null"){
+		
+		$("#mws-username").html("Hello,"+UserName +"&nbsp;"+str);
+	}
 	var list;
 	$.ajax({
 		url : "<%=basePath%>yhInfo/szt.action", 
@@ -881,7 +936,31 @@ function xgmm(flag) {
 	});	 
 	
 	 
+	$.ajax({
+		url : "<%=basePath%>user/getgs.action", 
+		async : false,
+		dataType : "json",
+		data : {
+		
+		},
+		success : function(data) {
+			
+			gsList=data.list;	   
+			
+           for(var i=0; i<gsList.length; i++){
+				if(gsList[i]=="总公司"){
+					$("#ssgs").append("<option value=''>"+gsList[i]+"</option>");
+				}else{
+					$("#ssgs").append("<option value='"+gsList[i]+"'>"+gsList[i]+"</option>");
+				}
+				
+				
+			}
+           var form = layui.form
+           form.render();
+		}
 
+	});
         
   </script>
 

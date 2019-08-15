@@ -415,8 +415,14 @@ html,body{
 			</div>
 			<div class="search">
 				<p>
+				    <span>选择公司：
+					<select id="ssgs" style="width:150px"
+						name="ssgs">
+						
+					</select>
+					</span>
 					<span>选择小区：
-						<select id="xq" style="width:150px"
+					<select id="xq" style="width:150px"
 						name="xqName">
 						
 					</select>
@@ -556,6 +562,32 @@ html,body{
 
 <script type="text/javascript" src="../js/echarts-3.5.3/highcharts.js"></script>
 <script type="text/javascript">
+
+var ssgs="<%=request.getSession().getAttribute("ssgs")%>"
+if(ssgs!="null"){
+	$("#ssgs").append("<option value='"+ssgs+"'>"+ssgs+"</option>");
+}else{
+	var gsList
+	$.ajax({
+			url : "<%=basePath%>user/getgs.action", 
+			async : false,
+			dataType : "json",
+			data : {
+			
+			},
+			success : function(data) {
+				
+				gsList=data.list;	   
+				
+               for(var i=0; i<gsList.length; i++){
+					
+					$("#ssgs").append("<option value='"+gsList[i]+"'>"+gsList[i]+"</option>");
+					
+				}
+			}
+
+		});
+}
 
 $.ajax({
 	url : "<%=basePath%>xxgl/xtzl.action", 

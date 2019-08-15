@@ -202,7 +202,7 @@
 	</select>
 	
 	<select id="findFmkdLs" resultMap="YhMap">
-		select* from (select top 120 FamKd,Tqyb,CONVERT(varchar(100), f.RecordTime , 20)as time,RoomTemp,ValTemp  from T_FmHistory19  f, T_YhInfo y where y.ValAd=f.ValAd
+		select * ,CONVERT(varchar(100), f.RecordTime , 20)as time,RoomTemp,ValTemp  from T_FmHistory18  f, T_YhInfo y where y.ValAd=f.ValAd
 		
 		<if test="xqm!=null and xqm!=''">
         and y.XqName=#{xqm}
@@ -216,8 +216,13 @@
         <if test="hh!=null and hh!=''">
 	    and y.HouseNO=#{hh}
         </if>
-       
-		order by   RecordTime desc) as t order by t.time asc
+       <if test="startTime!=null and startTime!=''">
+	    and f.RecordTime &gt;= #{startTime}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+	     and f.RecordTime &lt;=#{endTime}
+        </if> 
+		 order by f.RecordTime asc
 	</select>
 	
 	

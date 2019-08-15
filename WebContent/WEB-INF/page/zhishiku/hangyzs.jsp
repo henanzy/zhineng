@@ -147,7 +147,7 @@ var zskList = ${zskList};
 					<p><label><span>作者：</span><input required="required" type="text" name="author" value="" /></label></p>
 					<p><label><span>发布时间：</span><input required="required" type="text" name="tm" value="" /></label></p>
 					<input type="hidden" name="zsktype" value="行业知识"/>
-		            <p><input id="wz_crea_btn" type="submit" value="提交" /></p>
+		            <p style="text-align:center"><input id="wz_crea_btn" type="submit" value="提交" /></p>
 				
 				</form>
 			</div>
@@ -174,7 +174,7 @@ var zskList = ${zskList};
 				<span class="close"></span>
 					<div>
 						<h5 class="wz_look_title"></h5>
-						<p>
+						<p style="text-align:center"> 
 							作者：<span class="wz_look_autor"></span>
 							发布时间：<span class="wz_look_time"></span>
 						</p>

@@ -12,6 +12,7 @@
 		<meta charset="utf-8" />
 		<title>首页</title>
 		<script src="../js/jquery-1.7.1.min.js"></script>
+		
 		<style>
 			*{
 				margin: 0;
@@ -482,11 +483,13 @@
 		</style>
 	</head>
 	<body>
+	
+	
 		<div id="overall">
 			<div id="navi">
 				<div id="icon"><img src="../images/navimap/moreicon.png" /></div>
 				<div id="title"> ZYIS-H 智慧供热平台</div>
-				<div id="login"><sapn class="login_user"><img src="../images/navimap/loginuser.png" />智慧用户</sapn><span class="login_interval"> | </span><sapn class="login_out"><img src="../images/navimap/loginout.png" />退出</sapn></div>
+				<div id="login"><span class="login_user"><img src="../images/navimap/loginuser.png" /></span><span id="user" class="login_user"></sapn><span class="login_interval"> | </span><sapn class="login_out"><img src="../images/navimap/loginout.png" />退出</sapn></div>
 				<div id="line"></div>
 			</div>
 			
@@ -562,15 +565,15 @@
 			
 				<ul id="demo_menu1" class="sidebar-menu">
 					  <li style="margin-left: 0px;"><a
-						href="http://192.144.169.217:8090/xingxhrz/user/home.action">换热站管理</a></li>
+						href="http://192.144.169.217:8090/xingxhrz/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">换热站管理</a></li>
 						<li style="margin-left: 0px;"><a
-						href="<%=basePath%>user/home.action?fl=nhjk">智能入户</a></li>
+						href="<%=basePath%>user/home.action?fl=nhjk&type=<%=request.getSession().getAttribute("type")%>">智能入户</a></li>
 						<li style="margin-left: 0px;"><a
-						href="http://192.144.169.217:8090/rebiao/user/home.action">热表集抄</a></li>
+						href="http://192.144.169.217:8090/rebiao/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">热表集抄</a></li>
 					<li style="margin-left: 0px;"><a
-						href="http://192.144.169.217:8090/kefu/user/home.action">客服管理</a></li>
+						href="http://192.144.169.217:8090/kefu/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">客服管理</a></li>
 					<li style="margin-left: 0px;"><a
-						href="http://192.144.169.217:8090/jfgl/user/home.action">缴费管理</a></li>
+						href="http://192.144.169.217:8090/jfgl/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">缴费管理</a></li>
 						<li style="margin-left: 0px;"><a
 						href="<%=basePath%>user/home.action?fl=nhfx">能耗分析</a></li>
 						<li style="margin-left: 0px;"><a
@@ -584,6 +587,18 @@
 		</div>
 		
 		<script>
+		var user="<%=request.getSession().getAttribute("UserName")%>"
+		var type1="<%=request.getSession().getAttribute("type")%>"
+		var str;
+		
+		if (type1=="qyyh"){
+			
+			str="企业用户"
+		}else{
+			str="集团用户"
+		}
+		$("#user").html(user+"&nbsp;&nbsp;"+str);
+		
 			$(function(){
 				$("#bannerleftopen").click(function(){
 					$(this).hide();

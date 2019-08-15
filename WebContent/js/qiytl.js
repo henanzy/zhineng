@@ -2,13 +2,7 @@ $(document).ready(function() {
 
 
 	var nationalList = [];
-	/*var nationalList = [["测试1","测试内容1","测试","2019-03-09 22:38:26"],["测试1","测试内容1","测试","2019-03-09 22:38:26"]
-	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
-	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
-	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
-	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
-	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
-	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]];*/
+
 	function jsArrChange(json){
 		for (var i = 0 ; i < json.length ; i ++) {
 			var arr1 = [];
@@ -24,7 +18,9 @@ $(document).ready(function() {
 	jsArrChange(zskList);
 	
 	
-	
+	$("#xgzt").change(function(){
+		$(".na_modify_input").css("font-family",$("#xgzt").val());
+	});
 
 	
 	var naTbody = document.getElementById("na_body");
@@ -119,6 +115,7 @@ $(document).ready(function() {
 	//新增文章
 	$("#na_option_cr").click(function(){
 		$(".na_crea").show();
+		
 		var nowTime = getTime();
 		$(".na_crea input[name='tm']").val(nowTime);
 	});
@@ -147,6 +144,7 @@ $(document).ready(function() {
 
 function wz_change(p){
 	$(".na_modify").show();
+	//$(".na_modify_input").addClass("STKaiti");
 	var xintd = $(p).parent().parent().children();
 	//修改数据
 	var changenewsList = [];

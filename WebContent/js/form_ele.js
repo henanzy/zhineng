@@ -181,6 +181,8 @@ $(function () {
 				"ldh":ld,
 				"dyh":dy,
 				"hh":hh,
+				"startTime":$("#startTime").val(),
+				"endTime":$("#endTime").val(),
 				
 				
 			},
@@ -280,13 +282,19 @@ function linechar(sssjv,data,options,xz){
 			tickInterval: 3
 		};
 		options.series = [
-			 {
+			 {marker: {
+
+	             enabled: false,
+	         },
 				 name:"用户开度",
 				 data:data[0].kd,
 				 tooltip: {
 	                   valueSuffix: '%'
 	               }
-			 },{
+			 },{marker: {
+
+	             enabled: false,
+	         },
 				 name:"室外温度",
 				 data:data[0].wd,
 				 tooltip: {
@@ -294,7 +302,10 @@ function linechar(sssjv,data,options,xz){
 	               }
 			 }
 			 
-			 ,{
+			 ,{marker: {
+
+	             enabled: false,
+	         },
 				 name:"室内温度",
 				 data:data[0].roomwd,
 				 tooltip: {
@@ -302,7 +313,10 @@ function linechar(sssjv,data,options,xz){
 	               }
 			 }
 			 
-			 ,{
+			 ,{marker: {
+
+	             enabled: false,
+	         },
 				 name:"管道温度",
 				 data:data[0].valwd,
 				 tooltip: {
@@ -319,19 +333,28 @@ function linechar(sssjv,data,options,xz){
 				tickInterval:7
 			};
 		options.series = [
-			 {
+			 {marker: {
+
+	             enabled: false,
+	         },
 				 name:"用户开度",
 				 data:data[0].kd,
 				 tooltip: {
 	                   valueSuffix: '%'
 	               }
-			 },{
+			 },{marker: {
+
+	             enabled: false,
+	         },
 				 name:"室外温度",
 				 data:data[0].wd,
 				 tooltip: {
 	                   valueSuffix: '°C'
 	               }
-			 }, {
+			 }, {marker: {
+
+	             enabled: false,
+	         },
 				 name:"室内温度",
 				 data:data[0].roomwd,
 				 tooltip: {
@@ -339,7 +362,10 @@ function linechar(sssjv,data,options,xz){
 	               }
 			 }
 			 
-			 ,{
+			 ,{marker: {
+
+	             enabled: false,
+	         },
 				 name:"管道温度",
 				 data:data[0].valwd,
 				 tooltip: {

@@ -3,6 +3,8 @@ package com.hnzy.hot.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,11 @@ public class JzqController {
 	private JzqService jzqService;
 
 	@RequestMapping("/jizqxx")
-    public String jizqxx(){
+    public String jizqxx(HttpSession session){
+		String type =(String) session.getAttribute("type");
+		if("jtyh".equals(type)){
+			return "ZhiNeng/shebei/jizqxx_jt";
+		}
     	return "ZhiNeng/shebei/jizqxx";
     }
 	

@@ -231,7 +231,7 @@
 <body>
 
 
-	<div id="" class="clearfix"  style="min-width:1600px;">
+	<div id="" class="clearfix">
 
 		<div class="mws-report-container clearfix">
 			
@@ -239,6 +239,13 @@
 				<span class="mws-report-icon mws-ic" style="background:url(../images/yxgl/search.png) no-repeat center"></span> 
 				<span class="mws-report-content" style="margin-top: 10px;"> 
 				<span class="mws-report-title">
+				<span>选择公司：
+					<select id="ssgs" style="width:150px"
+						name="ssgs">
+						
+					</select>
+				</span> 
+						 
 						 小区 	
 					<select id="xq"
 						name="xqName">
@@ -262,7 +269,7 @@
 
 
 
-		<div class="mws-panel grid_4" style="width: 31%;min-width:350px;">
+		<div class="mws-panel grid_4" style="width: 31%;">
 			<div class="mws-panel-header">
 				<span class="mws-i-24 i-chart">供热面积饼状图</span>
 			</div>
@@ -273,7 +280,7 @@
 			</div>
 		</div>
 
-		<div class="mws-panel grid_4" style="width: 32%;min-width:350px;">
+		<div class="mws-panel grid_4" style="width: 32%;">
 			<div class="mws-panel-header">
 				<span class="mws-i-24 i-chart-2">室内温度饼状图</span>
 			</div>
@@ -284,7 +291,7 @@
 			</div>
 		</div>
 
-		<div class="mws-panel grid_4" style="width: 31%;min-width:350px;">
+		<div class="mws-panel grid_4" style="width: 31%;">
 			<div class="mws-panel-header">
 				<span class="mws-i-24 i-chart-2">阀门开度饼状图</span>
 			</div>
@@ -334,7 +341,31 @@
 
 </script>
 <script type="text/javascript">
+var ssgs="<%=request.getSession().getAttribute("ssgs")%>"
+if(ssgs!="null"){
+	$("#ssgs").append("<option value='"+ssgs+"'>"+ssgs+"</option>");
+}else{
+	var gsList
+	$.ajax({
+			url : "<%=basePath%>user/getgs.action", 
+			async : false,
+			dataType : "json",
+			data : {
+			
+			},
+			success : function(data) {
+				
+				gsList=data.list;	   
+				
+               for(var i=0; i<gsList.length; i++){
+					
+					$("#ssgs").append("<option value='"+gsList[i]+"'>"+gsList[i]+"</option>");
+					
+				}
+			}
 
+		});
+}
 	
 var xq;
 

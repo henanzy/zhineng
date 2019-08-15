@@ -162,8 +162,14 @@ select{
 		
 		<div class="mws-panel grid_8" style="min-width:600px;">
 			<div class="mws-panel-header">
-				<span class="mws-i-24 i-graph">室内平均温度与室外温度曲线图</span>
-				<span style="position:absolute;top:10px;left:300px;">
+				<span class="mws-i-24 i-graph">温度曲线图</span>
+				<span style="position:absolute;top:10px;left:180px;">
+				选择公司：
+					<select id="ssgs" style="width:150px"
+						name="ssgs">
+						
+					</select>
+				
 				<select id="xq"
 						name="xqName">
 							<option value="">全部</option>
@@ -248,7 +254,31 @@ select{
 
 	</div>
 <script type="text/javascript">
+var ssgs="<%=request.getSession().getAttribute("ssgs")%>"
+if(ssgs!="null"){
+	$("#ssgs").append("<option value='"+ssgs+"'>"+ssgs+"</option>");
+}else{
+	var gsList
+	$.ajax({
+			url : "<%=basePath%>user/getgs.action", 
+			async : false,
+			dataType : "json",
+			data : {
+			
+			},
+			success : function(data) {
+				
+				gsList=data.list;	   
+				
+               for(var i=0; i<gsList.length; i++){
+					
+					$("#ssgs").append("<option value='"+gsList[i]+"'>"+gsList[i]+"</option>");
+					
+				}
+			}
 
+		});
+}
 $.ajax({
 	url : "<%=basePath%>xxgl/xtzl.action", 
 	async : false,

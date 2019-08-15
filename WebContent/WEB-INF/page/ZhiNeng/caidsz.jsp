@@ -171,11 +171,38 @@
                                     <td class="center">
                                         <input type="checkbox" value="1" id="1"/>
 		  				                <input type="hidden"  value="#" />
-		  				                <label for="1">运行管理</label>
+		  				                <label for="1">换热站管理</label>
                                     </td>
                                     <td>
-                                      <input type="checkbox" value="17" id="17"/><label for="17">树状图</label>
+                                      <input type="checkbox" value="17" id="17"/><label for="17">运行总览</label>
 		                		      <input type="hidden" value="#"/>
+		                		       <input type="checkbox" value="17" id="17"/><label for="17">运行设备</label>
+		                		      <input type="hidden" value="#"/>
+		                		       <input type="checkbox" value="17" id="17"/><label for="17">大表集抄</label>
+		                		      <input type="hidden" value="#"/>
+		                		       <input type="checkbox" value="17" id="17"/><label for="17">能耗分析</label>
+		                		      <input type="hidden" value="#"/>
+		                		       <input type="checkbox" value="17" id="17"/><label for="17">在线数据分析</label>
+		                		      <input type="hidden" value="#"/>
+		                		       <input type="checkbox" value="17" id="17"/><label for="17">实时数据</label>
+		                		      <input type="hidden" value="#"/>
+		                		       <input type="checkbox" value="17" id="17"/><label for="17">报警信息</label>
+		                		      <input type="hidden" value="#"/>
+		                		       <input type="checkbox" value="17" id="17"/><label for="17">参数设置</label>
+		                		      <input type="hidden" value="#"/>
+		                		      <input type="checkbox" value="17" id="17"/><label for="17">日报表</label>
+		                		      <input type="hidden" value="#"/>
+		                		      <input type="checkbox" value="17" id="17"/><label for="17">周报表</label>
+		                		      <input type="hidden" value="#"/>
+		                		      <input type="checkbox" value="17" id="17"/><label for="17">月报表</label>
+		                		      <input type="hidden" value="#"/>
+		                		      <input type="checkbox" value="17" id="17"/><label for="17">能源设备信息库</label>
+		                		      <input type="hidden" value="#"/>
+		                		      <input type="checkbox" value="17" id="17"/><label for="17">管网结构树形图</label>
+		                		      <input type="hidden" value="#"/>
+		                		      <input type="checkbox" value="17" id="17"/><label for="17">备品备件信息库</label>
+		                		      <input type="hidden" value="#"/>
+		                		      
                                     </td>
                                 </tr>
                                 <tr class="gradeC">
@@ -186,6 +213,16 @@
                                      </td>
                                     <td>
                                         <input type="checkbox" value="13" id="13"/><label for="13">报修登记</label>
+		                		        <input type="hidden" value="#"/>
+		                		        <input type="checkbox" value="13" id="13"/><label for="13">客户资料</label>
+		                		        <input type="hidden" value="#"/>
+		                		        <input type="checkbox" value="13" id="13"/><label for="13">新建工单</label>
+		                		        <input type="hidden" value="#"/>
+		                		        <input type="checkbox" value="13" id="13"/><label for="13">工单审核</label>
+		                		        <input type="hidden" value="#"/>
+		                		        <input type="checkbox" value="13" id="13"/><label for="13">工单监控</label>
+		                		        <input type="hidden" value="#"/>
+		                		        <input type="checkbox" value="13" id="13"/><label for="13">统计分析</label>
 		                		        <input type="hidden" value="#"/>
 		                		        <input type="checkbox" value="14" id="14"/><label for="14">申请安装</label>
 		                		        <input type="hidden" value="#"/>
@@ -268,13 +305,43 @@
                                      <td class="center">
                                         <input type="checkbox" value="6" id="6"/>
 		  				                <input type="hidden" value="#" />
-		  				                <label for="6">换热站管理</label>
+		  				                <label for="6">缴费管理</label>
                                      </td>
                                     <td>
-		                		       <input type="checkbox" value="38" id="38"/><label for="38">整体能耗分析</label>
-		                		       <input type="hidden" value="/HotPower/nhfx/findHeatNameList.action"/>
-		                		       <input type="checkbox" value="39" id="39"/><label for="39">小区能耗分析</label>
-		                		       <input type="hidden" value="/HotPower/MjnhController/findYhNameList.action"/>
+		                		       <input type="checkbox" value="38" id="38"/><label for="38">入网登记</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="39" id="39"/><label for="39">批量录入</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="38" id="38"/><label for="38">入网审核</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="39" id="39"/><label for="39">入网合同</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="39" id="39"/><label for="39">合同模板</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="39" id="39"/><label for="39">合同查询</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="39" id="39"/><label for="39">柜台收费</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="39" id="39"/><label for="39">银行代收查询</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="39" id="39"/><label for="39">微信代收查询</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="39" id="39"/><label for="39">退费查询</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="39" id="39"/><label for="39">离线查询</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="39" id="39"/><label for="39">稽查管理</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="39" id="39"/><label for="39">清欠中心</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="39" id="39"/><label for="39">采暖变更</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="39" id="39"/><label for="39">报表管理</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="39" id="39"/><label for="39">统计图表</label>
+		                		       <input type="hidden" />
+		                		       <input type="checkbox" value="39" id="39"/><label for="39">系统设置</label>
+		                		       <input type="hidden" />
                                     </td>
                                    
                                 </tr>

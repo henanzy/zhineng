@@ -1,10 +1,10 @@
 package com.hnzy.hot.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.hnzy.hot.dao.UserDao;
 import com.hnzy.hot.pojo.User;
@@ -42,9 +42,39 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void InsUsePass(String userName, String passWord) {
+	public void InsUsePass(String userName, String passWord,String type) {
 		// TODO Auto-generated method stub
-		userDao.InsUsePass(userName, passWord);
+		userDao.InsUsePass(userName, passWord,type);
+	}
+
+	@Override
+	public List<String> getgs() {
+		// TODO Auto-generated method stub
+		return userDao.getgs();
+	}
+
+	@Override
+	public List<Map<String, Object>> selGsjg() {
+		// TODO Auto-generated method stub
+		return userDao.selGsjg();
+	}
+
+	@Override
+	public void InsGsjg(String name, String sjgs) {
+		// TODO Auto-generated method stub
+		userDao.InsGsjg(name, sjgs);
+	}
+
+	@Override
+	public void updateGsjg(String name, String sjgs, String id) {
+		// TODO Auto-generated method stub
+		userDao.updateGsjg(name, sjgs, id);
+	}
+
+	@Override
+	public void deleteGsjg(String id) {
+		// TODO Auto-generated method stub
+		userDao.deleteGsjg(id);
 	}
 	
 }

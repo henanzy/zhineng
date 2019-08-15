@@ -137,7 +137,7 @@ var zskList = ${zskList};
 			</div>
 		</div>
 		
-		<div class="na_crea" style="min-width:1000px;overflow-x: hidden;">
+		<div class="na_crea" style="min-width:700px;overflow-x: hidden;">
 			<div class="na_crea_body">
 				<span class="close"></span>
 				<h5>新增</h5>
@@ -147,13 +147,13 @@ var zskList = ${zskList};
 					<p><label><span>作者：</span><input required="required" type="text" name="author" value="" /></label></p>
 					<p><label><span>发布时间：</span><input required="required" type="text" name="tm" value="" /></label></p>
 					<input type="hidden" name="zsktype" value="系统说明"/>
-		            <p><input id="wz_crea_btn" type="submit" value="提交" /></p>
+		            <p style="text-align:center"><input id="wz_crea_btn" type="submit" value="提交" /></p>
 				
 				</form>
 			</div>
 		</div>
 		
-		<div class="na_modify" style="min-width:1000px;overflow-x: hidden;">
+		<div class="na_modify" style="min-width:800px;overflow-x: hidden;">
 			<div class="na_modify_body">
 				<span class="close"></span>
 				<h5>修改</h5>
@@ -174,7 +174,7 @@ var zskList = ${zskList};
 				<span class="close"></span>
 					<div>
 						<h5 class="wz_look_title"></h5>
-						<p>
+						<p style="text-align:center">
 							作者：<span class="wz_look_autor"></span>
 							发布时间：<span class="wz_look_time"></span>
 						</p>
@@ -183,7 +183,6 @@ var zskList = ${zskList};
 					
 			</div>
 		</div>
-		
 		
 	</div> 
 	

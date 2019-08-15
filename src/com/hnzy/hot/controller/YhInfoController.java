@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +34,11 @@ public class YhInfoController {
 	}
 	
 	@RequestMapping("/yezxx")
-    public String yezxx(){
+    public String yezxx(HttpSession session){
+		String type =(String) session.getAttribute("type");
+		if("jtyh".equals(type)){
+			return "ZhiNeng/yonghu/yezxx_jt";
+		}
     	return "ZhiNeng/yonghu/yezxx";
     }
 	//查询楼栋
@@ -280,7 +286,7 @@ public class YhInfoController {
    
    @RequestMapping("findFmkdLs")
    @ResponseBody
-	public JSONObject findFmkdLs(String xqm,String ldh,String dyh,String hh) throws UnsupportedEncodingException{
+	public JSONObject findFmkdLs(String xqm,String ldh,String dyh,String hh,String startTime,String endTime) throws UnsupportedEncodingException{
 		JSONObject json=new JSONObject();
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(xqm!=null){
@@ -292,6 +298,8 @@ public class YhInfoController {
 		map.put("ldh", ldh);
 		map.put("dyh", dyh);
 		map.put("hh", hh);
+		map.put("startTime", startTime);
+		map.put("endTime", endTime);
 		
 		json.put("list", yhInfoService.findFmkdLs(map));
 		

@@ -226,6 +226,12 @@
 
 				<span class="mws-report-icon mws-ic" style="background:url(../images/yxgl/search.png) no-repeat center"></span>
 				 <span class="mws-report-content" style="margin-top: 5px;">
+				<span>选择公司：
+					<select id="ssgs" style="width:150px"
+						name="ssgs">
+						
+					</select>
+				</span>
 				<span class="mws-report-title"> 选择小区 
 					
 					<span>选择小区：
@@ -345,7 +351,31 @@
 
 	</div>
 	<script type="text/javascript">
+	var ssgs="<%=request.getSession().getAttribute("ssgs")%>"
+	if(ssgs!="null"){
+		$("#ssgs").append("<option value='"+ssgs+"'>"+ssgs+"</option>");
+	}else{
+		var gsList
+		$.ajax({
+				url : "<%=basePath%>user/getgs.action", 
+				async : false,
+				dataType : "json",
+				data : {
+				
+				},
+				success : function(data) {
+					
+					gsList=data.list;	   
+					
+	               for(var i=0; i<gsList.length; i++){
+						
+						$("#ssgs").append("<option value='"+gsList[i]+"'>"+gsList[i]+"</option>");
+						
+					}
+				}
 
+			});
+	}
 	
 var xq;
 

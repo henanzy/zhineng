@@ -151,6 +151,7 @@
 		var msg;
 		var userName=$("#userName").val();
 		var passWord=$("#passWord").val();
+		var type=$("#type").val();
 		if(userName==null||userName==""||passWord==null||passWord==""){
 			alert("请输入用户名和密码")
 			return
@@ -162,6 +163,7 @@
 			data : {
 				"username" : userName,
 				"password" : passWord,
+				"type" : type,
 			},
 			success : function(data) {
 				msg = data.msg;
@@ -172,6 +174,10 @@
 				}
 				if (msg == "1") {
 					alert("账号或密码错误")
+					return false;
+				} 
+				if (msg == "2") {
+					alert("用户级别错误，请重新选择")
 					return false;
 				} 
 			}
@@ -205,6 +211,18 @@
                     	<input type="password" id="passWord"  class="mws-login-password mws-textinput" placeholder="password" />
                     </div>
                 </div>
+                
+                <div class="mws-form-row">
+                	<div class="mws-form-item large">
+                    	<select id="type" name="type" class="mws-login-username mws-textinput">
+                    	<option value="qyyh">企业用户</option>
+                    	<option value="jtyh">集团用户</option>
+                    	</select>
+                    </div>
+                </div>
+                
+               
+                
                 <div class="mws-form-row">
                 	<input type="button" onclick="login()" value="Login" class="mws-button green mws-login-button" />
                 </div>

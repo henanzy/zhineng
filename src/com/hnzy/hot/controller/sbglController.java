@@ -45,8 +45,11 @@ public class sbglController {
 	
 	/*设备管理*/
 	@RequestMapping("/shebgl")
-	public String sbgl(){
-		
+	public String sbgl(HttpSession session){
+		String type =(String) session.getAttribute("type");
+		if("jtyh".equals(type)){
+			return "ZhiNeng/shebgl_jt";
+		}
 		
 		return "ZhiNeng/shebgl";
 	}

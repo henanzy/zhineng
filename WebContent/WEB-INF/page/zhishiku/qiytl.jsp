@@ -99,7 +99,12 @@
  <script type="text/javascript">
 var zskList = ${zskList};
 </script>
-
+<style type="text/css">
+.STKaiti {
+      font-family:DFKai-SB;
+    }
+    
+</style>
 <script type="text/javascript" src="../js/qiytl.js"></script>
 <body>
 
@@ -142,12 +147,22 @@ var zskList = ${zskList};
 				<span class="close"></span>
 				<h5>新增企业条例</h5>
 				<form action="addZsk.action"  method="post">
-					<p><label><span>文章标题：</span><input type="text" required="required" autofocus="autofocus" name="title" value="" /></label></p>
+					<p><label><span>文章标题：</span><input type="text" required="required" autofocus="autofocus" name="title" value="" />
+					<select id="xzzt">
+					<option style="font-family:SimSun" value="SimSun">宋体</option>
+					<option style="font-family:SimHei" value="SimHei">黑体</option>
+					<option style="font-family: Microsoft YaHei" value="Microsoft YaHei">微软雅黑</option>
+					<option style="font-family: Microsoft JhengHei" value="Microsoft JhengHei">微软正黑体</option>					
+					<option style="font-family: DFKai-SB" value="DFKai-SB">标楷体</option>
+					<option style="font-family: FangSong" value="FangSong">仿宋</option>
+					<option style="font-family: KaiTi" value="KaiTi">楷体</option>
+					</select>
+					</label></p>
 					<p><label><span>文章内容：</span><textarea required="required" name="contents"></textarea></label></p>
 					<p><label><span>作者：</span><input required="required" type="text" name="author" value="" /></label></p>
 					<p><label><span>发布时间：</span><input required="required" type="text" name="tm" value="" /></label></p>
 					<input type="hidden" name="zsktype" value="企业条例"/>
-		            <p><input id="wz_crea_btn" type="submit" value="提交" /></p>
+		            <p style="text-align:center"><input id="wz_crea_btn" type="submit" value="提交" /></p>
 				
 				</form>
 			</div>
@@ -158,7 +173,17 @@ var zskList = ${zskList};
 				<span class="close"></span>
 				<h5>条例修改</h5>
 				<form action="updateZsk.action" method="POST">
-					<p><label><span>文章标题：</span><input class="na_modify_input" type="text" required="required" autofocus="autofocus" name="title" value="" /></label></p>
+					<p><label><span>文章标题：</span><input class="na_modify_input" type="text" required="required" autofocus="autofocus" name="title" value="" />
+					<select id="xgzt">
+					<option style="font-family:SimSun" value="SimSun">宋体</option>
+					<option style="font-family:SimHei" value="SimHei">黑体</option>
+					<option style="font-family: Microsoft YaHei" value="Microsoft YaHei">微软雅黑</option>
+					<option style="font-family: Microsoft JhengHei" value="Microsoft JhengHei">微软正黑体</option>					
+					<option style="font-family: DFKai-SB" value="DFKai-SB">标楷体</option>
+					<option style="font-family: FangSong" value="FangSong">仿宋</option>
+					<option style="font-family: KaiTi" value="KaiTi">楷体</option>
+					</select>
+					</label></p>
 					<p><label><span>文章内容：</span><textarea class="na_modify_input" name="contents" required="required"></textarea></label></p>
 					<p><label><span>作者：</span><input class="na_modify_input" required="required" type="text" name="author" value="" /></label></p>
 					<p><label><span>发布时间：</span><input class="na_modify_input" required="required" readonly="readonly" type="text" name="tm" value="" /></label></p>
@@ -174,7 +199,7 @@ var zskList = ${zskList};
 				<span class="close"></span>
 					<div>
 						<h5 class="wz_look_title"></h5>
-						<p>
+						<p style="text-align:center">
 							作者：<span class="wz_look_autor"></span>
 							发布时间：<span class="wz_look_time"></span>
 						</p>

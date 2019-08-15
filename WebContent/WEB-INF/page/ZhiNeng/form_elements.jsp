@@ -282,7 +282,15 @@ $(document).ready(function(){
 
 			<p class="mws-report" href="#" style="font-size: 14px;">
 				<span class="mws-report-icon mws-ic" style="background:url(../images/yxgl/search.png) no-repeat center"></span> <span
-					class="mws-report-content" style="margin-top: 10px;"> <span
+					class="mws-report-content" style="margin-top: 10px;">
+					<span>选择公司：
+					<select id="ssgs" style="width:150px"
+						name="ssgs">
+						
+					</select>
+					</span>
+					
+					 <span
 					class="mws-report-title"> 选择小区 <select id="xq"
 						name="xqName">
 							<option value="" >--选择小区--</option>
@@ -313,11 +321,14 @@ $(document).ready(function(){
 		<div class="mws-panel grid_8" style="width: 98%; float: left;">
 			<div class="mws-panel-header">
 				<span class="mws-i-24 i-graph linetitle">24小时开度 温度曲线图</span>
+				
 				<span style="position:absolute;top:10px;right:30px;">
-					<select id="sssj">
+				<input type="date" id="startTime"  style="width:140px" value="" />-
+                <input type="date" id="endTime" style="width:140px" value="" />
+					<!-- <select id="sssj">
 					    <option value="一个月" >一个月</option>
 						<option value="7天" >7天</option>												
-					</select>
+					</select> -->
 				</span>
 			</div>
 			<div class="mws-panel-body">
@@ -404,7 +415,32 @@ $(document).ready(function(){
 	</div>
 <script type="text/javascript" src="../js/echarts-3.5.3/highcharts.js"></script>
 <script type="text/javascript">
+var ssgs="<%=request.getSession().getAttribute("ssgs")%>"
+console.log(ssgs)
+if(ssgs!="null"){
+	$("#ssgs").append("<option value='"+ssgs+"'>"+ssgs+"</option>");
+}else{
+	var gsList
+	$.ajax({
+			url : "<%=basePath%>user/getgs.action", 
+			async : false,
+			dataType : "json",
+			data : {
+			
+			},
+			success : function(data) {
+				
+				gsList=data.list;	   
+				
+               for(var i=0; i<gsList.length; i++){
+					
+					$("#ssgs").append("<option value='"+gsList[i]+"'>"+gsList[i]+"</option>");
+					
+				}
+			}
 
+		});
+}
 	
 var xq;
 

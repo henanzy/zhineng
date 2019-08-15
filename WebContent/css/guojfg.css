@@ -108,7 +108,7 @@ td a:hover{
     	border-radius: 13px;
 		position:absolute;
 		top:36px;
-		right:7%;
+		right:17%;
 		line-height: 24px;
    		text-align: center;
    		font-size: 18px;
@@ -121,7 +121,7 @@ td a:hover{
 	
 .na_crea_body,
 .na_modify_body{
-		width:80%;
+		width:60%;
 		height:600px;
 		margin:50px auto;
 		text-align:left;
@@ -139,7 +139,7 @@ td a:hover{
 	
 	.na_crea form,
 	.na_modify form{
-		width:70%;
+		width:85%;
 		margin:0 auto;
 	}
 	
