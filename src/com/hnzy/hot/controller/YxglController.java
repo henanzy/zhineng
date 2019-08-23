@@ -32,17 +32,31 @@ public class YxglController {
 	//未供热面积
 	Integer wgrYh=(Integer) yxglService.findWGrYh().get("HeatArea");
 	//平均室温
-	String avgroom=(String.format("%.2f",(BigDecimal) yxglService.findAvgRoom().get("RoomTemp")));
+	String avgroom="";
+	if(yxglService.findAvgRoom()!=null){
+		avgroom=(String.format("%.2f",(BigDecimal) yxglService.findAvgRoom().get("RoomTemp")));
+	}
+	 String findXqAvgKd="";
+	 if(yxglService.findXqAvgKd()!=null&&"".equals(yxglService.findXqAvgKd())==false){
+		  findXqAvgKd = JSONSerializer.serialize(yxglService.findXqAvgKd());
+	 }
+	 String findXqAvgWd = "";
+	 if(yxglService.findXqAvgWd()!=null&&"".equals(yxglService.findXqAvgWd())==false){
+		 findXqAvgWd = JSONSerializer.serialize(yxglService.findXqAvgWd());
+	 }
 	
-	String findXqAvgKd = JSONSerializer.serialize(yxglService.findXqAvgKd());
-	String findXqAvgWd = JSONSerializer.serialize(yxglService.findXqAvgWd());
+	
 	
 	
 	request.setAttribute("findXqAvgKd", findXqAvgKd);
 	request.setAttribute("findXqAvgWd", findXqAvgWd);
 	request.setAttribute("grYh", grYh);
 	request.setAttribute("tqyb", tqyb);
-	Integer grzb=(int) (grmj*100);
+	Integer grzb=0;
+	if(grmj!=null){
+		grzb=(int) (grmj*100);
+	}
+	
 	request.setAttribute("grmj", grzb);
 	request.setAttribute("wgryh",wgrYh);
 	request.setAttribute("avgroom", avgroom);

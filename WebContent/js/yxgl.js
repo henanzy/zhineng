@@ -489,7 +489,10 @@ function onewd(options,xqdata,con,time){
 		};
 	options.series = [];
 	
-			 options.series.push({
+			 options.series.push({marker: {
+
+	             enabled: false,
+	         },
 				 name:xqdata.name+"小区开度",
 				 data:xqdata.kd,
 				 tooltip : {
@@ -523,13 +526,19 @@ function onesw(options,wddata,con,time){
 		};
 	
 	options.series = [
-		 {
+		 {marker: {
+
+             enabled: false,
+         },
 			 name:wddata[0].name+"室内温度",
 			 data:wddata[0].sw,
 			 tooltip: {
                   valueSuffix: '°C'
               }
-		 },{
+		 },{marker: {
+
+             enabled: false,
+         },
 			 name:"室外温度",
 			 data:wddata[1].wd,
 			 tooltip: {

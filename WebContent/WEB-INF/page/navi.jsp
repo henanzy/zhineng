@@ -5,6 +5,7 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	String ip =request.getScheme()+ "://"+request.getServerName();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -587,6 +588,7 @@
 		</div>
 		
 		<script>
+		
 		var user="<%=request.getSession().getAttribute("UserName")%>"
 		var type1="<%=request.getSession().getAttribute("type")%>"
 		var str;

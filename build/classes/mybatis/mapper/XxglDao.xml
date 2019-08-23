@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.hot.dao.XxglDao">
+	<resultMap id="XxglMap" type="java.util.HashMap"></resultMap>
+<select id="Search" resultMap="XxglMap" >
+ select top 500 YhName,XqName,BuildNO,CellNO,HouseNO,DeviceType,DeviceID,ErrInfor,CONVERT(varchar(100),RecordTime , 20)as RecordTime
+from T_AlarmInfor a,T_YhInfo y where a.DeviceID=y.ValAd and y.SFJF='是'
+<if test="xqm!=null and xqm!=''">
+ and XqName=#{xqm}
+</if>
+<if test="ldh!=null and ldh!=''">
+and BuildNO=#{ldh}
+</if>
+<if test="dyh!=null and dyh!=''">
+	and CellNO=#{dyh}
+</if>
+<if test="hh!=null and hh!=''">
+	and HouseNO=#{hh}
+</if>
+order by RecordTime  desc
+
+</select>
+
+<select id="skxx" resultMap="XxglMap">
+select top 1000 skq.Id,skq.SkqSbh,skq.SfJf,skq.kh,skq.FmState,skq.SkSuccess,CONVERT(varchar(100),skq.DateTime , 20)as DateTime,qg.xqName,yh.BuildNo,yh.CellNo,yh.HouseNO,qg.installAd from Skq skq,T_QgInfo qg,T_YhInfo yh
+ where skq.SkqSbh=qg.SkqSbh and yh.IDNum= skq.Kh and skq.SkqSbh=qg.SkqSbh 
+ 
+<if test="xqm!=null and xqm!=''">
+ and qg.XqName=#{xqm}
+</if>
+<if test="ldh!=null and ldh!=''">
+and yh.BuildNO=#{ldh}
+</if>
+<if test="dyh!=null and dyh!=''">
+	and yh.CellNO=#{dyh}
+</if>
+<if test="hh!=null and hh!=''">
+	and yh.HouseNO=#{hh}
+</if>
+
+<if test="startTime!=null and startTime!=''">
+	and skq.DateTime &gt;= #{startTime}
+</if>
+<if test="endTime!=null and endTime!=''">
+	and skq.DateTime &lt;=#{endTime}
+</if> 
+ order by skq.DateTime  desc 
+</select>
+
+
+<select id="czrz" resultMap="XxglMap">
+select top 1000 * ,CONVERT(varchar(100),czsj , 20)as time from T_RZ where 1=1
+ 
+<if test="czr!=null and czr!=''">
+ and czr like '%'+#{czr}+'%'
+</if>
+<if test="cz!=null and cz!=''">
+ and cz like '%'+#{cz}+'%'
+</if>
+
+
+<if test="startTime!=null and startTime!=''">
+	and czsj &gt;= #{startTime}
+</if>
+<if test="endTime!=null and endTime!=''">
+	and czsj &lt;=#{endTime}
+</if> 
+ order by czsj desc 
+</select>
+
+<insert id="InsertRz" >
+		insert into T_RZ
+		(czr,cz,czsj)
+		values(#{czr},#{cz},#{czsj})
+</insert>
+
+
+<select id="grbzt" resultMap="XxglMap" >
+ select sum(case when y.SFJF='是' then 1 else 0 end) as grmj,
+ sum(case when y.SFJF='否' then 1 else 0 end) as wgrmj
+
+from T_YhInfo y where (y.yhrb=0 or y.yhrb=2)
+<if test="xqm!=null and xqm!=''">
+ and XqName=#{xqm}
+</if>
+<if test="ldh!=null and ldh!=''">
+and BuildNO=#{ldh}
+</if>
+<if test="dyh!=null and dyh!=''">
+	and CellNO=#{dyh}
+</if>
+</select>
+
+<select id="wdbzt" resultMap="XxglMap" >
+ select sum(case when f.RoomTemp&lt;=15 then 1 else 0 end) as xy15,
+sum(case when f.RoomTemp&gt;15 and f.RoomTemp&lt;=18 then 1 else 0 end) as d15x18,
+sum(case when f.RoomTemp&gt;18 and f.RoomTemp&lt;=22 then 1 else 0 end) as d18x22,
+sum(case when f.RoomTemp&gt;22  then 1 else 0 end) as dy22
+from T_YhInfo y ,T_FmInfo f where y.ValAd=f.ValAd and (y.yhrb=0 or y.yhrb=2)
+<if test="xqm!=null and xqm!=''">
+ and XqName=#{xqm}
+</if>
+<if test="ldh!=null and ldh!=''">
+and BuildNO=#{ldh}
+</if>
+<if test="dyh!=null and dyh!=''">
+	and CellNO=#{dyh}
+</if>
+</select>
+
+<select id="kdbzt" resultMap="XxglMap" >
+ select sum(case when f.FamKd=0 then 1 else 0 end) as dy0,
+sum(case when f.FamKd&gt;0 and f.RoomTemp&lt;=15 then 1 else 0 end) as d0x15,
+
+sum(case when f.FamKd=100  then 1 else 0 end) as dy100
+from T_YhInfo y ,T_FmInfo f where y.ValAd=f.ValAd and (y.yhrb=0 or y.yhrb=2)
+<if test="xqm!=null and xqm!=''">
+ and XqName=#{xqm}
+</if>
+<if test="ldh!=null and ldh!=''">
+and BuildNO=#{ldh}
+</if>
+<if test="dyh!=null and dyh!=''">
+	and CellNO=#{dyh}
+</if>
+</select>
+
+<select id="grmj" resultType="java.lang.Integer">
+select sum(HeatArea) from T_YhInfo where  (yhrb=0 or yhrb=2) and SFJF='是'
+</select>
+<select id="gryh" resultType="java.lang.Integer">
+select count(*) from T_YhInfo where  (yhrb=0 or yhrb=2) and SFJF='是'
+</select>
+<select id="grbl" resultType="java.lang.String">
+select (select sum(HeatArea) from T_YhInfo where  (yhrb=0 or yhrb=2) and SFJF='是')/
+  (select sum(HeatArea) from T_YhInfo where  (yhrb=0 or yhrb=2))*100
+</select>
+ 
+
+<select id="wgryh" resultType="java.lang.Integer">
+select count(*) from T_YhInfo where  (yhrb=0 or yhrb=2) and SFJF='否'
+</select>
+
+<select id="pjsw" resultType="java.lang.Integer">
+select AVG(f.RoomTemp) from T_YhInfo y,T_FmInfo f where  (y.yhrb=0 or y.yhrb=2) and y.SFJF='是' and f.ValAd =y.ValAd
+</select>
+
+<select id="cgqDz" resultMap="XxglMap">
+select  c.id, c.fmid, c.cgqId ,y.XqName,y.BuildNO,y.CellNO,y.HouseNO from dcgq c,T_YhInfo y where c.fmId=y.ValAd
+</select>
+
+<update id="DeleteCgqDz" >
+delete from dcgq
+		where
+		id=#{id}
+</update>
+</mapper>

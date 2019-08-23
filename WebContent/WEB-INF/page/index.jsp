@@ -188,9 +188,10 @@
 
 
 <body >
-	<div id="bgt"></div>
+	<div id="bgt"> <span ><a href="https://www.google.cn/chrome/">点击下载最新版谷歌浏览器</a></span></div>
 	
 	<div id="mws-login">
+	
 		<div class="sigma-content">
 		    <div class="sigma-middle-line">
 		        <span class="sigma-line-text">ZYIS-H 智慧供热平台</span>

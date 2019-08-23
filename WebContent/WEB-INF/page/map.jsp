@@ -111,7 +111,7 @@
 	 	 $(function(){
 	    //初始化地图
 	    var map = new AMap.Map('container', {
-	    	center:[111.180341,34.786371],
+	    	center:[112.595538,34.906607],
 	        resizeEnable: true, //是否监控地图容器尺寸变化
 	        mapStyle: "amap://styles/darkblue",
 	        viewMode:'3D'
@@ -119,48 +119,16 @@
 
 	    var markers = [{
 	        icon: '../images/navimap/normal.png',
-	        position: [111.171049,34.783178],
-	        title:'金领时代换热站'
-	    },{
-	        icon: '../images/navimap/normal.png',
-	        position: [111.189871,34.789124],
-	        title:'建业壹号城邦换热站'
+	        position: [112.595538,34.906607],
+	        title:'一委站'
 	    }, {
 	        icon: '../images/navimap/normal.png',
-	        position: [111.20442,34.779861],
-	        title:'砥柱大厦换热站'
-	    }, {
-	        icon: '../images/navimap/normal.png',
-	        position: [111.185321,34.773588],
-	        title:'越海华府换热站'
-	    }, {
-	        icon: '../images/navimap/normal.png',
-	        position: [111.179546,34.774539],
-	        title:'枫桥水岸换热站'
-	    }, {
-	        icon: '../images/navimap/normal.png',
-	        position: [111.193809,34.793432],
-	        title:'金盾园换热站'
-	    }, {
-	        icon: '../images/navimap/normal.png',
-	        position: [111.165555,34.795189],
-	        title:'枢纽局西苑小区换热站'
-	    }, {
-	        icon: '../images/navimap/normal.png',
-	        position: [111.165869,34.785429],
-	        title:'天鹅堡换热站'
-	    }, {
-	        icon: '../images/navimap/normal.png',
-	        position: [111.177323,34.781041],
-	        title:'联通嘉苑换热站'
-	    }, {
-	        icon: '../images/navimap/normal.png',
-	        position: [111.175522,34.79366],
-	        title:'舒馨苑换热站'
+	        position: [112.5898,34.902997],
+	        title:'二委站'
 	    },  {
 	        icon: '../images/navimap/warning.png',
-	        position: [111.180341,34.786371],
-	        title:'警报'
+	        position: [112.576438,34.90031],
+	        title:'教育局站'
 	    }];
 	
 	    // 添加一些分布不均的点到地图上,地图上添加三个点标记，作为参照

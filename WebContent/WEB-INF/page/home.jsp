@@ -6,6 +6,9 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 	
+	
+	String ip =request.getScheme()+ "://"+request.getServerName()+ ":" + request.getServerPort()+"/";
+	
 %>
 
 
@@ -353,7 +356,7 @@
         
         <div class="layui-form-item model-form-footer" style="margin-left:130px">
             <button class="layui-btn layui-btn-primary" type="button" id="pswCancel">取消</button>
-            <button class="layui-btn layui-btn-normal" id="pswSubmit" >修改</button>
+            <button class="layui-btn layui-btn-normal" type="button" id="pswSubmit" >修改</button>
         </div>
     </form>
 
@@ -604,10 +607,11 @@ function xgmm(flag) {
 					
 				},
 				success : function(data) {
-					console.log(data)
+					
 					msg = data
 					if(msg=="0"){				
-							alert("修改成功!");					
+							alert("修改成功!");	
+							window.location.href="<%=basePath%>user/toLogin.action"; 
 					}else{
 					alert("原密码输入错误");
 
@@ -742,6 +746,7 @@ function xgmm(flag) {
 
 
 	<script type="text/javascript">
+	console.log("<%=ip%>");
 	var UserName="<%=request.getSession().getAttribute("UserName")%>"
 	var type="<%=request.getSession().getAttribute("type")%>"
 	

@@ -257,6 +257,8 @@ $.ajax({
                    	 <p class="mws-report" href="#" style="font-size: 14px;"> 
                     	
                         <span class="mws-report-content" style="margin-top: 5px;">
+                        <input type="submit" class="mws-button black"  id="plkf" value="批量开阀"/> 
+                        <input type="submit" class="mws-button black"  id="plgf" value="批量关阀"/> 
 	                            <input type="submit" class="mws-button black"  id="increase_btn" value="添加"/>                                                     
                           </span>
                    </p> 
@@ -273,7 +275,7 @@ $.ajax({
                         <table class="mws-table" >
                             <thead >
                                 <tr>
-                                   
+                                   <th class="table-th-css"></th>
                                     <th class="table-th-css">区管</th>
                                     <th class="table-th-css">所属集中器</th>
                                     <th class="table-th-css">小区名称</th>

@@ -242,9 +242,10 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: null
-                // y 轴标题
-            }
+                text: null,
+               
+            },
+        tickPositions: [-10,0, 20, 50, 100],
         }
     };
 	 

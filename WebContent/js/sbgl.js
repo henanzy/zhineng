@@ -63,6 +63,7 @@ $(document).ready(function(){
 			                     type: "post",
 			                    url: getRootPath()+"/sbglCon/kFm.action",
 			                      dataType:'json',
+			                      async:false,
 			                  	data:{	
 			      					"fmId":valad,
 			      					"qgId":qgid,
@@ -78,6 +79,7 @@ $(document).ready(function(){
 			                     },
 			  
 			                 })
+			                
 			                 
 				    });			 
              		              
@@ -95,6 +97,7 @@ $(document).ready(function(){
 		                     type: "post",
 		                    url: getRootPath()+"/sbglCon/dFm.action",
 		                      dataType:'json',
+		                      async:false,
 		                  	data:{	
 		      					"fmId":valad,
 		      					"qgId":qgid,
@@ -105,7 +108,7 @@ $(document).ready(function(){
 		                    	   if(data.js=="0"){
 		                    		   alert("读阀成功");
 		                    	   }else{
-		                    		   alert("读阀失败 ")
+		                    		   alert("读阀失败 ");
 		                    	   }
 		                     },
 		  
@@ -127,6 +130,7 @@ $(document).ready(function(){
 		                     type: "post",
 		                    url: getRootPath()+"/sbglCon/dFm.action",
 		                      dataType:'json',
+		                      async:false,
 		                  	data:{	
 		      					"fmId":valad,
 		      					"qgId":qgid,
@@ -159,6 +163,7 @@ $(document).ready(function(){
 		                     type: "post",
 		                    url: getRootPath()+"/sbglCon/cgqads.action",
 		                      dataType:'json',
+		                      async:false,
 		                  	data:{	
 		      					"fmId":valad,
 		      					"qgId":qgid,
@@ -191,6 +196,7 @@ $(document).ready(function(){
 		                     type: "post",
 		                    url: getRootPath()+"/sbglCon/XCgq.action",
 		                      dataType:'json',
+		                      async:false,
 		                  	data:{	
 		      					"fmId":valad,
 		      					"qgId":qgid,
@@ -222,6 +228,7 @@ $(document).ready(function(){
 		                     type: "post",
 		                    url: getRootPath()+"/sbglCon/FsCs.action",
 		                      dataType:'json',
+		                      async:false,
 		                  	data:{	
 		      					"fmId":valad,
 		      					"qgId":qgid,

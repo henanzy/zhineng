@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.hot.dao.JzqDao">
+	<resultMap id="JzqMap" type="java.util.HashMap"></resultMap>
+	<select id="find" resultMap="JzqMap">
+		select j.ID,j.JzqID,j.JzqIp,j.JzqPort,j.Status,j.XqName,j.HESName,
+j.InstallAD,CONVERT(varchar(100),j.UpdateTime , 20)as UpdateTime from T_JzqInfo j,T_QgInfo q
+ where j.JzqID=q.JzqID and q.QgFl=0 or q.QgFl=2
+	</select>
+	
+	
+	<insert id="Insert" >
+		insert into T_JzqInfo
+		(JzqID,JzqIp,JzqPort,XqName,HESName,InstallAd)
+		values(#{JzqID},#{JzqIp},#{JzqPort},#{XqName},#{HESName},#{InstallAd})
+	</insert>
+	
+	<update id="Update">
+		update T_JzqInfo set
+		JzqID=#{JzqID},JzqIp=#{JzqIp},JzqPort=#{JzqPort},XqName=#{XqName},HESName=#{HESName},InstallAd=#{InstallAd} 
+		where ID=#{id}
+	</update>
+	
+	<delete id="Delete" >
+		delete from T_JzqInfo
+		where
+		ID=#{id}
+	</delete>
+	
+	<select id="findIP" resultMap="JzqMap">
+		select JzqIP,JzqPort from T_JzqInfo where  JzqID=#{JzqID};
+	</select>
+</mapper>

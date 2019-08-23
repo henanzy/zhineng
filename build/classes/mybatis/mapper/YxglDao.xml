@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.hot.dao.YxglDao">
+	<resultMap id="YxglMap" type="java.util.HashMap"></resultMap>
+	<select id="findGrYh" resultMap="YxglMap">
+     select COUNT(*) as GrYh from T_YhInfo where SFJF='是' and (YhRb=0 or YhRb=2)
+	</select>
+	<select id="findGrMj" resultType="java.lang.Float">
+     select (select SUM(HeatArea) from T_YhInfo where SFJF='是' and (YhRb=0 or YhRb=2) )/ SUM(HeatArea) from T_YhInfo where  (YhRb=0 or YhRb=2)
+	</select>
+	<select id="findSWd" resultMap="YxglMap">
+	select top 1 Tqyb from T_Cbtq order by Date desc
+	</select>
+	<select id="findAvgRoom" resultMap="YxglMap">
+    select AVG(f.RoomTemp) as RoomTemp from T_YhInfo y,T_FmInfo f  
+    where y.ValAd=f.ValAd and f.RoomTemp!=0 and SFJF='是' and (YhRb=0 or YhRb=2)
+	</select>
+	<select id="findWGrYh" resultMap="YxglMap">
+	 select COUNT(*) as HeatArea from T_YhInfo where SFJF='否' and (YhRb=0 or YhRb=2)
+	</select>
+	<select id="findXqAvgWd" resultMap="YxglMap">
+	select XqName,Avg,Date ,Tqyb from XqAvg where DateDiff(dd,Date,getdate()) &lt;=1
+	</select>
+	<select  id="findXqAvgKd" resultMap="YxglMap">
+	select XqName,KdLd,KdSW,KdYb,Date ,Tqyb from TjfxKd where DateDiff(dd,Date,getdate())&lt;=1 
+	</select>
+</mapper>

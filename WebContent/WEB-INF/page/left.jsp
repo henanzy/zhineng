@@ -162,7 +162,7 @@ function caidsz(){//
 	    window.open("<%=basePath%>user/caidsz.action","Conframe");
 	}
 function cgqdz(){// 
-    window.open("<%=basePath%>xxgl/cgqdz.action","Conframe");
+    window.open("<%=basePath%>user/cgqdz.action","Conframe");
 }
 
 /* 知识库 */
@@ -283,7 +283,7 @@ ul.ac_kf li a:hover {
 							<li><a class="taglist" onclick="jizqxx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;集中器信息</a></li>
 							
 							<li><a class="taglist" onclick="qugxx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;区管信息</a></li>
-							<!-- <li><a class="taglist" onclick="cgqdz()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;传感器地址</a></li>  -->
+							 <li><a class="taglist" onclick="cgqdz()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;传感器地址</a></li> 
 							<li><a class="taglist" onclick="rebxx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;热表信息</a></li>
 
 						</ul></li>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.hot.dao.ZskDao">
+	<resultMap id="Zsk" type="java.util.HashMap"></resultMap>
+	
+	<select id="selAll" resultMap="Zsk">
+	select *
+	 from k_zsk where zsktype=#{zsktype}
+	</select>
+	
+	<select id="selZskById" resultMap="Zsk">
+	select * from k_zsk where ID=#{id}
+	</select>
+	
+	<insert id="addZsk" >
+	insert into k_zsk (title,author,tm,contents,zsktype) values (#{title},#{author},#{tm},#{contents},#{zsktype})
+	</insert>
+	
+	<update id="deleteZsk" >
+	delete k_zsk where ID=#{id}
+	</update>
+	
+	<update id="updateZsk" >
+	update k_zsk set title=#{title},author=#{author},tm=#{tm},contents=#{contents} where ID=#{id}
+	</update>
+</mapper>

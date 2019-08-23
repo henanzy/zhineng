@@ -1,3 +1,11 @@
+function getRootPath(){      
+	var curWwwPath=window.document.location.href;      
+    var pathName=window.document.location.pathname;      
+    var pos=curWwwPath.indexOf(pathName); 
+    var localhostPaht=curWwwPath.substring(0,pos);      
+    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);      
+    return(localhostPaht+projectName);  
+}
 $(document).ready(function(){
 //  表格
 
@@ -29,8 +37,71 @@ $(document).ready(function(){
 	}
 	jsArrChange(list);
 	tbodydis("",qgxxList)
+	$("#plkf").click(function(){
+		
+		 $('input[name="check"]:checked').each(function (index, item) {
+			 var row=$(this).parent("td").parent("tr");
+			 var td = row.find("td");
+			
+			 var qgid=td[2].innerHTML;
+			 
+			 
+			          $.ajax({
+		                     type: "post",
+		                    url: getRootPath()+"/sbglCon/PlKf.action",
+		                      dataType:'json',
+		                      async:false,
+		                  	data:{	
+		      					
+		      					"qgId":qgid,
+		      				},
+		                     dataType: "json",
+		                      success: function (data) {
+		                    	   if(data=="0"){
+		                    		   alert("发送成功");
+		                    	   }else{
+		                    		   alert("发送失败 ")
+		                    	   }
+		                     },
+		  
+		                 })
+		                 
+			    });			 
+   		              
+});
 	
-	
+	$("#plgf").click(function(){
+		 $('input[name="check"]:checked').each(function (index, item) {
+			 
+			 var row=$(this).parent("td").parent("tr");
+			 var td = row.find("td");
+			
+			 var qgid=td[2].innerHTML;
+			 
+			 
+			          $.ajax({
+		                     type: "post",
+		                    url: getRootPath()+"/sbglCon/PlGf.action",
+		                      dataType:'json',
+		                      async:false,
+		                  	data:{	
+		      					
+		      					"qgId":qgid,
+		      				},
+		                     dataType: "json",
+		                      success: function (data) {
+		                    	   if(data=="0"){
+		                    		   alert("发送成功");
+		                    	   }else{
+		                    		   alert("发送失败 ")
+		                    	   }
+		                     },
+		  
+		                 })
+		                 
+			    });			 
+  		              
+});	
 });
 
 
@@ -73,7 +144,7 @@ function tbodydis(oldlist,newlist){
 					html += "<tr class='gradeX even'>";
 				}
 				
-
+				html += "<td><input type='checkbox' value='"+newlist[i][0]+"' name='check'/></td>";
 				for (var j = 0 ; j <newlist[i].length ; j ++) {
 					if(j==0){
 

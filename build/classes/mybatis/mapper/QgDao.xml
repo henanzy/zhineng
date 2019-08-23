@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.hot.dao.QgDao">
+	<resultMap id="QgMap" type="java.util.HashMap"></resultMap>
+	<select id="find" resultMap="QgMap">
+		select * ,CONVERT(varchar(100),RecordTime , 20)as Time from T_QgInfo where QgFl=0 or QgFl=2
+	</select>
+	
+	
+	<insert id="Insert" >
+		insert into T_QgInfo
+		(QgID,JzqID,XqName,VALstID,VALedID,InstallAd,SkqSbh,QgFl)
+		values(#{qgID},#{jzqID},#{xqName},#{vALstID},#{vALedID},#{installAd},#{SkqSbh},'0')
+	</insert>
+	
+	<update id="Update">
+		update T_QgInfo set
+		QgID=#{qgID},JzqID=#{jzqID},XqName=#{xqName},VALstID=#{vALstID},VALedID=#{vALedID},InstallAd=#{installAd} ,SkqSbh=#{SkqSbh}
+		where ID=#{id}
+	</update>
+	
+	<delete id="Delete" >
+		delete from T_QgInfo
+		where
+		ID=#{id}
+	</delete>
+	
+	<select id="findJzq" resultType="java.lang.String">
+		select JzqID from T_QgInfo where QgID=#{QgID}
+	</select>
+</mapper>

@@ -92,9 +92,10 @@ public class UserController {
 				String msg="";
 				Integer ID=(Integer) session.getAttribute("ID");
 
+				System.out.println(password11);
+				System.out.println(userServer.findUserPass(ID));
 				
-				
-					if (password11.equals(userServer.findUserPass(ID))) {  
+					if (password11.equalsIgnoreCase(userServer.findUserPass(ID))) {  
 						User user =new User();
 						user.setId(ID);
 						user.setUserName(username);

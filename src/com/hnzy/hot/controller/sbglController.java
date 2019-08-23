@@ -542,6 +542,142 @@ public class sbglController {
 				return "1";
 			}
 		}
+	    
+		@RequestMapping("PlKf")
+		@ResponseBody
+		public String PlKf(HttpSession session,String qgId) throws UnsupportedEncodingException {
+			//日志
+			
+			
+			String userName=(String) session.getAttribute("userName");
+			if(userName!=null){
+				userName=new String(userName.getBytes("ISO-8859-1"),"utf-8")+"";
+			}
+			
+			if(userName!=null && userName.equals("供热一处")||userName!=null && userName.equals("供热二处")||userName!=null && userName.equals("供热三处")){
+				return "5";
+			}else {
+			xxglService.InsertRz(userName,"批量开阀门,区管地址为:"+qgId , new Date());
+			
+			String ip = jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqIP").toString();
+			String port = jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqPort").toString();
+			plKf(ip, port, qgId);
+			return "0";
+			}
+
+		}
+
+		@RequestMapping("PlGf")
+		@ResponseBody
+		public String PlGf(HttpSession session,String qgId) throws UnsupportedEncodingException {
+			//日志
+			
+			String userName=(String) session.getAttribute("userName");
+			if(userName!=null){
+				userName=new String(userName.getBytes("ISO-8859-1"),"utf-8")+"";
+			}
+			if(userName!=null && userName.equals("供热一处")||userName!=null && userName.equals("供热二处")||userName!=null && userName.equals("供热三处")){
+				return "5";
+			}else {
+				xxglService.InsertRz(userName,"批量关阀门,区管地址为:"+qgId , new Date());
+				String ip = jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqIP").toString();
+				String port = jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqPort").toString();
+			 PlGf(ip, port, qgId);
+			return "0";
+			}
+		}
+		public String plKf(String ip, String port, String qgId) {
+			param = "PlKFm";
+			MapUtils.getMapUtils().add("param", param);
+			MapUtils.getMapUtils().add("PlKf", qgId);
+			// IP地址和端口号
+			String pt = "/" + ip + ":" + port;
+			String ja = "F00B2000" + qgId + "00";
+			boolean sessionmap = cz(ja, pt);
+			
+			try {
+				Thread.sleep(4000);
+
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			if (sessionmap == true && MapUtils.getMapUtils().get("PlKFm")!=null && MapUtils.getMapUtils().get("PlKFm").equals("success")) {
+				MapUtils.getMapUtils().add("PlKFm", null);
+				MapUtils.getMapUtils().add("sb", null);
+				MapUtils.getMapUtils().add("cs", null);
+				return "0";
+			} else if (sessionmap == true && MapUtils.getMapUtils().get("sb")!=null && MapUtils.getMapUtils().get("sb") .equals("fail")
+					&& MapUtils.getMapUtils().get("PlKFm") != null) {
+				MapUtils.getMapUtils().add("PlKFm", null);
+				MapUtils.getMapUtils().add("sb", null);
+				MapUtils.getMapUtils().add("cs", null);
+				return "2";
+			} else if (sessionmap == true && MapUtils.getMapUtils().get("cs")!=null && MapUtils.getMapUtils().get("cs").equals("超时") 
+					|| sessionmap == true && MapUtils.getMapUtils().get("PlKFm") == null) {
+				MapUtils.getMapUtils().add("PlKFm", null);
+				MapUtils.getMapUtils().add("sb", null);
+				MapUtils.getMapUtils().add("cs", null);
+				return "3";
+			} else if (sessionmap == false) {
+				MapUtils.getMapUtils().add("PlKFm", null);
+				MapUtils.getMapUtils().add("sb", null);
+				MapUtils.getMapUtils().add("cs", null);
+				
+				return "4";
+			} else {
+				MapUtils.getMapUtils().add("PlKFm", null);
+				MapUtils.getMapUtils().add("sb", null);
+				MapUtils.getMapUtils().add("cs", null);
+				return "1";
+			}
+
+		}
+		public String PlGf(String ip, String port, String qgId) {
+			param = "PlGfm";
+			MapUtils.getMapUtils().add("param", param);
+			MapUtils.getMapUtils().add("PlGf", qgId);
+			// IP地址和端口号
+			String pt = "/" + ip + ":" + port;
+			String ja = "F00B2100" + qgId + "01";
+			
+			boolean sessionmap = cz(ja, pt);
+			try {
+				Thread.sleep(4000);
+
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			if (sessionmap == true  && MapUtils.getMapUtils().get("PlGfm")!=null && MapUtils.getMapUtils().get("PlGfm").equals("success")) {
+				MapUtils.getMapUtils().add("PlGfm", null);
+				MapUtils.getMapUtils().add("sb", null);
+				MapUtils.getMapUtils().add("cs", null);
+				return "0";
+			} else if (sessionmap == true  && MapUtils.getMapUtils().get("sb")!=null && MapUtils.getMapUtils().get("sb").equals("fail") 
+					&& MapUtils.getMapUtils().get("PlGfm") != null) {
+				MapUtils.getMapUtils().add("PlGfm", null);
+				MapUtils.getMapUtils().add("sb", null);
+				MapUtils.getMapUtils().add("cs", null);
+				return "2";
+			} else if (sessionmap == true   && MapUtils.getMapUtils().get("cs")!=null && MapUtils.getMapUtils().get("cs") .equals("超时")
+					|| sessionmap == true && MapUtils.getMapUtils().get("PlGfm") == null) {
+				MapUtils.getMapUtils().add("PlGfm", null);
+				MapUtils.getMapUtils().add("sb", null);
+				MapUtils.getMapUtils().add("cs", null);
+				return "3";
+			} else if (sessionmap == false) {
+				MapUtils.getMapUtils().add("PlGfm", null);
+				MapUtils.getMapUtils().add("sb", null);
+				MapUtils.getMapUtils().add("cs", null);
+				
+				return "4";
+			} else {
+				MapUtils.getMapUtils().add("PlGfm", null);
+				MapUtils.getMapUtils().add("sb", null);
+				MapUtils.getMapUtils().add("cs", null);
+				return "1";
+			}
+		}
 		public boolean cz(String ja, String pt) {
 
 			// 把十六进制数，转换为十进制相加
