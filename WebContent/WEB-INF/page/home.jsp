@@ -426,6 +426,7 @@ function doit(){
 	$('#Conframel').contents().find(".ac_kf li a").tab();
 }
 
+
 function yhgl(){//   
 	    window.open("<%=basePath%>YxglCon/dashboard.action","Conframe");
 	} 
@@ -486,22 +487,25 @@ function xitsz(){//
 function caidsz(){// 
 	    window.open("<%=basePath%>user/caidsz.action","Conframe");
 	}
- 
+function cgqdz(){// 
+    window.open("<%=basePath%>user/cgqdz.action","Conframe");
+}
+
 /* 知识库 */
 function qiytl(){// 
-    window.open("<%=basePath%>user/qiytl.action?type=企业条例", "Conframe");
+    window.open("<%=basePath%>ZskCon/getQytl.action?type=企业条例", "Conframe");
 } 
 function guojfg(){// 
-	window.open("<%=basePath%>user/guojfg.action?type=国家法规", "Conframe");
+	window.open("<%=basePath%>ZskCon/getQytl.action?type=国家法规", "Conframe");
 } 
 function hangyzs(){// 
-	window.open("<%=basePath%>user/hangyzs.action?type=行业知识", "Conframe");
+	window.open("<%=basePath%>ZskCon/getQytl.action?type=行业知识", "Conframe");
 } 
 function xitsm(){// 
-	window.open("<%=basePath%>user/xitsm.action?type=系统说明", "Conframe");
+	window.open("<%=basePath%>ZskCon/getQytl.action?type=系统说明", "Conframe");
 } 
 function wentjd(){// 
-	window.open("<%=basePath%>user/wentjd.action?type=问题解答", "Conframe");
+	window.open("<%=basePath%>ZskCon/getQytl.action?type=问题解答", "Conframe");
 } 
  	/* 员工定位 */
 function shisdw(){// 
@@ -640,15 +644,15 @@ function xgmm(flag) {
       		</div>
 			<ul id="demo_menu1" class="sidebar-menu">
 			<li style="margin-left: 0px;"><a
-				href="http://192.144.169.217:8090/zhineng/user/home.action">换热站管理</a></li>
+				href="<%=ip%>xingxhrz/user/home.action">换热站管理</a></li>
 					<li style="margin-left: 0px;"><a
-				href="http://192.144.169.217:8090/rebiao/user/home.action">热表集抄</a></li>
+				href="<%=ip%>rebiao/user/home.action">热表集抄</a></li>
 				<li style="margin-left: 0px;"><a
-				href="http://192.144.169.217:8090/zhineng/user/home.action?fl=nhjk">智能入户</a></li>
+				href="<%=ip%>zhineng/user/home.action?fl=nhjk">智能入户</a></li>
 			  <li style="margin-left: 0px;"><a
-				href="http://192.144.169.217:8090/kefu/user/home.action">客服系统</a></li>
+				href="<%=ip%>kefu/user/home.action">客服系统</a></li>
 			<li style="margin-left: 0px;"><a
-				href="http://192.144.169.217:8090/zykt/user/home.action">缴费管理</a></li>
+				href="<%=ip%>zykt/user/home.action">缴费管理</a></li>
 			
 				<!-- <li style="margin-left: 0px;">
 					<a href="http://localhost:8080/zhishi/user/home.action">知识库</a>
@@ -691,9 +695,9 @@ function xgmm(flag) {
                     <ul>
                         <li><a href="#" onclick="xgmm(0)">更改密码</a></li>
                         <li><a href="#" onclick="xzyh(0)">用户注册</a></li>
-                       <li><a href="http://192.144.169.217:8090/zhineng/user/toLogin.action">登录</a></li>
-						<li><a href="http://192.144.169.217:8090/zhineng/user/toLogin.action">退出</a></li>
-						<li><a href="http://192.144.169.217:8090/zhineng/user/ZHome.action">退到主页面</a></li>
+                       <li><a href="<%=ip%>zhineng/user/toLogin.action">登录</a></li>
+						<li><a href="<%=ip%>zhineng/user/toLogin.action">退出</a></li>
+						<li><a href="<%=ip%>zhineng/user/ZHome.action">退到主页面</a></li>
                        
                     </ul>
                 </div>
@@ -746,7 +750,7 @@ function xgmm(flag) {
 
 
 	<script type="text/javascript">
-	console.log("<%=ip%>");
+	
 	var UserName="<%=request.getSession().getAttribute("UserName")%>"
 	var type="<%=request.getSession().getAttribute("type")%>"
 	

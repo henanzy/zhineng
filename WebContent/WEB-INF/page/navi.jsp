@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-    <%
+	pageEncoding="utf-8"%>
+	<%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
-	String ip =request.getScheme()+ "://"+request.getServerName();
+	
+	
+	String ip =request.getScheme()+ "://"+request.getServerName()+ ":" + request.getServerPort()+"/";
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -566,15 +569,15 @@
 			
 				<ul id="demo_menu1" class="sidebar-menu">
 					  <li style="margin-left: 0px;"><a
-						href="http://192.144.169.217:8090/xingxhrz/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">换热站管理</a></li>
+						href="<%=ip%>/xingxhrz/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">换热站管理</a></li>
 						<li style="margin-left: 0px;"><a
 						href="<%=basePath%>user/home.action?fl=nhjk&type=<%=request.getSession().getAttribute("type")%>">智能入户</a></li>
 						<li style="margin-left: 0px;"><a
-						href="http://192.144.169.217:8090/rebiao/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">热表集抄</a></li>
+						href="<%=ip%>/rebiao/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">热表集抄</a></li>
 					<li style="margin-left: 0px;"><a
-						href="http://192.144.169.217:8090/kefu/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">客服管理</a></li>
+						href="<%=ip%>/kefu/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">客服管理</a></li>
 					<li style="margin-left: 0px;"><a
-						href="http://192.144.169.217:8090/jfgl/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">缴费管理</a></li>
+						href="<%=ip%>/jfgl/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">缴费管理</a></li>
 						<li style="margin-left: 0px;"><a
 						href="<%=basePath%>user/home.action?fl=nhfx">能耗分析</a></li>
 						<li style="margin-left: 0px;"><a
