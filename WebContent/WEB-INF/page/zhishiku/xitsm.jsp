@@ -1,6 +1,15 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+	<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+	
+	
+	String ip =request.getScheme()+ "://"+request.getServerName()+ ":" + request.getServerPort()+"/";
+	
+%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -94,7 +103,12 @@
 <script type="text/javascript" src="../js/themer.js"></script>
 
 <link rel="stylesheet" type="text/css" href="../css/guojfg.css" media="screen" />
-
+<script type="text/javascript" src="../js/release/wangEditor.js"></script>
+<script type="text/javascript" src="../js/release/wangEditor.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="../js/release/wangEditor.min.css" media="screen" />
+	<link rel="stylesheet" type="text/css"
+	href="../js/release/wangEditor.css" media="screen" />
 </head>
  <script type="text/javascript">
 var zskList = ${zskList};
@@ -143,8 +157,9 @@ var zskList = ${zskList};
 				<h5>新增</h5>
 				<form action="addZsk.action"  method="post">
 					<p><label><span>文章标题：</span><input type="text" required="required" autofocus="autofocus" name="title" value="" /></label></p>
-					<p><label><span>文章内容：</span><textarea required="required" name="contents"></textarea></label></p>
+					<div id="E"></div>
 					<p><label><span>作者：</span><input required="required" type="text" name="author" value="" /></label></p>
+					<textarea name="contents" id="ueditorContent" style="width:100%; height:200px;display:none" ></textarea>
 					<p><label><span>发布时间：</span><input required="required" type="text" name="tm" value="" /></label></p>
 					<input type="hidden" name="zsktype" value="系统说明"/>
 		            <p style="text-align:center"><input id="wz_crea_btn" type="submit" value="提交" /></p>
@@ -159,8 +174,10 @@ var zskList = ${zskList};
 				<h5>修改</h5>
 				<form action="updateZsk.action" method="POST">
 					<p><label><span>文章标题：</span><input class="na_modify_input" type="text" required="required" autofocus="autofocus" name="title" value="" /></label></p>
-					<p><label><span>文章内容：</span><textarea class="na_modify_input" name="contents" required="required"></textarea></label></p>
+					<div id="E1"></div>
+					<textarea name="contents" class="na_modify_input" id="ueditorContent1" style="width:100%; height:200px;display:none" ></textarea>
 					<p><label><span>作者：</span><input class="na_modify_input" required="required" type="text" name="author" value="" /></label></p>
+				
 					<p><label><span>发布时间：</span><input class="na_modify_input" required="required" readonly="readonly" type="text" name="tm" value="" /></label></p>
 					<input type="hidden" name="zsktype" value="系统说明"/>
 					<input class="na_modify_input"  readonly="readonly" type="hidden" name="id" value="" />
@@ -179,13 +196,37 @@ var zskList = ${zskList};
 							发布时间：<span class="wz_look_time"></span>
 						</p>
 					</div>
-					<textarea class="wz_look_content" readonly="readonly"></textarea>
+					<div style=" overflow-y:auto; overflow-x:auto; " class="wz_look_content" readonly="readonly"></div>
 					
 			</div>
 		</div>
 		
 	</div> 
+	<script type="text/javascript">
 	
+	var E = window.wangEditor;
+    var editor = new E('#E');
+    var $ueditorContent = $('#ueditorContent');
+    editor.customConfig.onchange = function (html) {
+        // 监控变化，同步更新到 textarea
+        $ueditorContent.val(html);
+    };
+    editor.customConfig.uploadImgServer = '<%=basePath%>/ZskCon/fileUp.action' ;
+    editor.customConfig.uploadFileName = 'img';
+    editor.customConfig.uploadImgHooks = {
+            // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+            customInsert: function (insertImg, result, editor) {
+                // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果：
+                var url = result.url;
+                console.log(url);
+                insertImg(url);
+            },
+          },
+    editor.create();
+    $ueditorContent.val(editor.txt.html());
+    
+    
+	</script>
 	
 
 </body>

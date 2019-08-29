@@ -163,6 +163,26 @@ function wz_change(p){
 	for(var i = 0;i < changeInput.length;i ++){
 		changeInput[i].value = changenewsList[i];
 	}
+	var editor1 = new E('#E1');
+    var $ueditorContent1 = $('#ueditorContent1');
+    editor1.customConfig.onchange = function (html) {
+        // 监控变化，同步更新到 textarea
+        $ueditorContent1.val(html);
+    };
+    editor1.customConfig.uploadImgServer = 'fileUp.action' ;
+    editor1.customConfig.uploadFileName = 'img';
+    editor1.customConfig.uploadImgHooks = {
+            // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+            customInsert: function (insertImg, result, editor) {
+                // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果：
+                var url = result.url;
+                console.log(url);
+                insertImg(url);
+            },
+          },
+    editor1.create();
+    editor1.txt.html($ueditorContent1.val());
+    $ueditorContent1.val(editor1.txt.html())
 }
 
 

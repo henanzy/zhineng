@@ -222,7 +222,7 @@
 }
 
 .xqname:hover,.ldname:hover,.dyname:hover{
-	background:url("../images/background/cirf.png") no-repeat left center;	}
+	background:url("../images/background/cirf.png") no-repeat left center;}
 	
 	
 	#demo_menu1{
@@ -695,7 +695,7 @@ function xgmm(flag) {
                     <ul>
                         <li><a href="#" onclick="xgmm(0)">更改密码</a></li>
                         <li><a href="#" onclick="xzyh(0)">用户注册</a></li>
-                       <li><a href="<%=ip%>zhineng/user/toLogin.action">登录</a></li>
+                        <li><a href="<%=ip%>zhineng/user/toLogin.action">登录</a></li>
 						<li><a href="<%=ip%>zhineng/user/toLogin.action">退出</a></li>
 						<li><a href="<%=ip%>zhineng/user/ZHome.action">退到主页面</a></li>
                        
