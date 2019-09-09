@@ -138,7 +138,9 @@
         <if test="ValTemp2!=null and ValTemp2!=''">
 	    and  f.ValTemp &lt;= #{ValTemp2}
         </if>
-        
+        <if test="sfjf!=null and sfjf!=''">
+	    and y.SFJF=#{sfjf}
+        </if>
 	</select>
 	
 	

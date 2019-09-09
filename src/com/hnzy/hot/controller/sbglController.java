@@ -58,7 +58,7 @@ public class sbglController {
 	
 	    @RequestMapping("findYh")
 		@ResponseBody
-		public JSONObject findYh(String xqm,String ldh,String dyh,String hh,String yhfl) throws UnsupportedEncodingException{
+		public JSONObject findYh(String xqm,String ldh,String dyh,String hh,String yhfl,String sfjf) throws UnsupportedEncodingException{
 			JSONObject json=new JSONObject();
 			Map<String, Object> map = new HashMap<String, Object>();
 			if(xqm!=null){
@@ -67,13 +67,16 @@ public class sbglController {
 			if(yhfl!=null){
 				yhfl=new String(yhfl.getBytes("ISO-8859-1"),"utf-8");
 			}
-			
+			if(sfjf!=null){
+				sfjf=new String(sfjf.getBytes("ISO-8859-1"),"utf-8");
+			}
 			
 			map.put("xqm", xqm);
 			map.put("ldh", ldh);
 			map.put("dyh", dyh);
 			map.put("hh", hh);
 			map.put("yhfl", yhfl);
+			map.put("sfjf", sfjf);
 			String list=JSONSerializer.serialize( yhInfoService.findYh(map));
 			json.put("list",list);
 			return json;

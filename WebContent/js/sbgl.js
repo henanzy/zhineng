@@ -49,7 +49,7 @@ $(document).ready(function(){
 
 		});
 
-	tbodydis("",shebList)
+	tbodydis("",shebList,1)
 	
 	$("#kf").click(function(){
 			 $('input[name="check"]:checked').each(function (index, item) {
@@ -73,10 +73,11 @@ $(document).ready(function(){
 			                      success: function (data) {
 			                    	   if(data.js=="0"){
 			                    		   alert("开阀成功");
-			                    		   search();
+			                    		   var page=$("#currentNum").html();
+			                    		    search(page);
 			                    	   }else{
 			                    		   alert("开阀失败 ")
-			                    		  
+			                    		   
 			                    	   }
 			                     },
 			  
@@ -109,7 +110,8 @@ $(document).ready(function(){
 		                      success: function (data) {
 		                    	   if(data.js=="0"){
 		                    		   alert("读阀成功");
-		                    		    search();
+		                    		   var page=$("#currentNum").html();
+		                    		    search(page);
 		                    	   }else{
 		                    		   alert("读阀失败 ");
 		                    	   }
@@ -143,7 +145,8 @@ $(document).ready(function(){
 		                      success: function (data) {
 		                    	   if(data.js=="0"){
 		                    		   alert("关阀成功");
-		                    		    search();
+		                    		   var page=$("#currentNum").html();
+		                    		    search(page);
 		                    	   }else{
 		                    		   alert("关阀失败 ")
 		                    	   }
@@ -177,7 +180,8 @@ $(document).ready(function(){
 		                      success: function (data) {
 		                    	   if(data=="0"){
 		                    		   alert("读传感器地址成功");
-		                    		    search();
+		                    		   var page=$("#currentNum").html();
+		                    		    search(page);
 		                    	   }else{
 		                    		   alert("读传感器地址失败 ")
 		                    	   }
@@ -211,7 +215,8 @@ $(document).ready(function(){
 		                      success: function (data) {
 		                    	   if(data=="0"){
 		                    		   alert("修改成功");
-		                    		    search();
+		                    		   var page=$("#currentNum").html();
+		                    		    search(page);
 		                    	   }else{
 		                    		   alert("修改失败 ");
 		                    	   }
@@ -249,7 +254,8 @@ $(document).ready(function(){
 		                      success: function (data) {
 		                    	   if(data=="0"){
 		                    		   alert("发送成功");
-		                    		    search();
+		                    		   var page=$("#currentNum").html();
+		                    		    search(page);
 		                    	   }else{
 		                    		   alert("发送失败 ")
 		                    	   }
@@ -260,7 +266,7 @@ $(document).ready(function(){
 			    });			 
     		              
 });
-	function search(){
+	function search(page){
 		var xq = $('#xq').val();
 		var ld = $('#ldh').val();
 		var dy = $('#dyh').val();
@@ -270,10 +276,10 @@ $(document).ready(function(){
 		shebList=compareWordList;		
 		
 	
-		tbodydis(shebList,compareWordList);
+		tbodydis(shebList,compareWordList,page);
 	}
 $("#search_btn").click(function(){
-	search();
+	search(1);
 		
 
 	});
@@ -309,7 +315,7 @@ $("#search_btn").click(function(){
 	//对表格排序
 	function checkColumnValue(index,table,bodytr) {
 		var trsValue = new Array();
-		console.log(index);
+		
 		bodytr.each(function() {
 			var tds = $(this).find('td');
 			//获取行号为index列的某一行的单元格内容与该单元格所在行的行内容添加到数组trsValue中
@@ -370,7 +376,7 @@ $("#search_btn").click(function(){
 });
 
 //表格写入函数带分页
-function tbodydis(oldlist,newlist){
+function tbodydis(oldlist,newlist,page){
 	
 	if(oldlist == ""){
 		var opt = [];
@@ -464,7 +470,7 @@ function tbodydis(oldlist,newlist){
 		}
 		pageInit(curr, select.value)
 	}
-	pageInit(1, 15);
+	pageInit(page, 15);
 
 }
 
@@ -473,18 +479,15 @@ function compareWord(xq,ld,dy,hh,compareWordList){
 	var json;
 	compareWordList.length=0;
 	$.ajax({
-		url : getRootPath()+"/yhInfo/findYh.action", 
+		url : getRootPath()+"/sbglCon/findYh.action", 
 		async : false,
 		dataType : "json",
 		data : {
+			"sfjf":$("#sfjf").val(),
 			"xqm":xq,
 			"ldh":ld,
 			"dyh":dy,
 			"hh":hh,
-			
-			
-			
-			
 		},
 		success : function(data) {
 		 json=data.list;

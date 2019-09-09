@@ -217,10 +217,10 @@ nav li,
 					户号<input type="text" name="hh" id="hh" size=6px
 						value="" /> &nbsp;&nbsp;&nbsp;  
 	                               <label >选择缴费状态：</label> 
-		                     <select>
-			                     <option selected="selected">--选择缴费状态--</option>
-			                     <option>是</option>
-			                     <option>否</option>
+		                     <select id="sfjf">
+			                     <option value="" selected="selected">--选择缴费状态--</option>
+			                     <option value="是">是</option>
+			                     <option value="否">否</option>
 		                     </select>
 		                     <input type="submit" id="search_btn" class="mws-button black"  value="查询"/>
                                 </span>
