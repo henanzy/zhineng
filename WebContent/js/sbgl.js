@@ -73,8 +73,10 @@ $(document).ready(function(){
 			                      success: function (data) {
 			                    	   if(data.js=="0"){
 			                    		   alert("开阀成功");
+			                    		   search();
 			                    	   }else{
 			                    		   alert("开阀失败 ")
+			                    		  
 			                    	   }
 			                     },
 			  
@@ -90,8 +92,8 @@ $(document).ready(function(){
 			 var row=$(this).parent("td").parent("tr");
 			 var td = row.find("td");
 			 var valad=td[14].innerHTML;
-			 var qgid=td[18].innerHTML;
-			 var fmkd=td[9].innerHTML;
+			 var qgid =td[18].innerHTML;
+			 var fmkd =td[9].innerHTML;
 			 
 			          $.ajax({
 		                     type: "post",
@@ -107,6 +109,7 @@ $(document).ready(function(){
 		                      success: function (data) {
 		                    	   if(data.js=="0"){
 		                    		   alert("读阀成功");
+		                    		    search();
 		                    	   }else{
 		                    		   alert("读阀失败 ");
 		                    	   }
@@ -140,6 +143,7 @@ $(document).ready(function(){
 		                      success: function (data) {
 		                    	   if(data.js=="0"){
 		                    		   alert("关阀成功");
+		                    		    search();
 		                    	   }else{
 		                    		   alert("关阀失败 ")
 		                    	   }
@@ -173,6 +177,7 @@ $(document).ready(function(){
 		                      success: function (data) {
 		                    	   if(data=="0"){
 		                    		   alert("读传感器地址成功");
+		                    		    search();
 		                    	   }else{
 		                    		   alert("读传感器地址失败 ")
 		                    	   }
@@ -206,6 +211,7 @@ $(document).ready(function(){
 		                      success: function (data) {
 		                    	   if(data=="0"){
 		                    		   alert("修改成功");
+		                    		    search();
 		                    	   }else{
 		                    		   alert("修改失败 ");
 		                    	   }
@@ -243,6 +249,7 @@ $(document).ready(function(){
 		                      success: function (data) {
 		                    	   if(data=="0"){
 		                    		   alert("发送成功");
+		                    		    search();
 		                    	   }else{
 		                    		   alert("发送失败 ")
 		                    	   }
@@ -253,8 +260,7 @@ $(document).ready(function(){
 			    });			 
     		              
 });
-$("#search_btn").click(function(){
-		
+	function search(){
 		var xq = $('#xq').val();
 		var ld = $('#ldh').val();
 		var dy = $('#dyh').val();
@@ -265,6 +271,10 @@ $("#search_btn").click(function(){
 		
 	
 		tbodydis(shebList,compareWordList);
+	}
+$("#search_btn").click(function(){
+	search();
+		
 
 	});
 

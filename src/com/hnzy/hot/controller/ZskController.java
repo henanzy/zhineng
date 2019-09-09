@@ -2,9 +2,7 @@ package com.hnzy.hot.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +11,6 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +24,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.hnzy.hot.service.ZskService;
 import com.hnzy.hot.util.JSONSerializer;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -123,57 +119,42 @@ public class ZskController {
 	}
 
 	@RequestMapping("/fileUp")
-    @ResponseBody
-    public JSONObject fileUp(HttpServletRequest req, HttpServletResponse resp,@RequestParam("img") List<MultipartFile> list) throws IOException {
+	@ResponseBody
+	public JSONObject fileUp(HttpServletRequest req, HttpServletResponse resp,
+			@RequestParam("img") List<MultipartFile> list) throws IOException {
 		String path = this.getClass().getClassLoader().getResource("/").getPath();
-		
 
-	        path = "D:/apache-tomcat-8090/webapps/zhineng/images/img";  
-	        DiskFileItemFactory factory = new DiskFileItemFactory();
-	        ServletFileUpload sfu = new ServletFileUpload(factory);
-	        sfu.setHeaderEncoding("UTF-8"); // 处理中文问题
-	        sfu.setSizeMax(1024 * 1024);
-	        String fileName = "";
-	        try {	        	
-	        	for (MultipartFile item : list) {
-	        		fileName = UUID.randomUUID().toString() + item.getName();
-		        	item.transferTo(new File(path + "/" + fileName+".jpg"));
-}
+		path = "D:/apache-tomcat-8090/webapps/zhineng/images/img";
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		ServletFileUpload sfu = new ServletFileUpload(factory);
+		sfu.setHeaderEncoding("UTF-8"); // 处理中文问题
+		sfu.setSizeMax(1024 * 1024);
+		String fileName = "";
+		try {
+			for (MultipartFile item : list) {
+				fileName = UUID.randomUUID().toString() + item.getName();
+				item.transferTo(new File(path + "/" + fileName + ".jpg"));
+			}
 
-} catch (Exception e) {
+		} catch (Exception e) {
 
-	        	e.printStackTrace();
+			e.printStackTrace();
 
-	        	}
+		}
 
+		JSONObject json = new JSONObject();
 
-JSONObject json = new JSONObject();
+		String imgUrl = "../images/img/" + fileName + ".jpg";
 
+		json.put("errno", 0);
 
+		json.put("url", imgUrl);
 
-
-
-String imgUrl ="../images/img/"+fileName+".jpg";
-
-
-
-json.put("errno", 0);
-
-json.put("url", imgUrl);
-
-resp.setContentType("text/html;charset=utf-8");
-
-
-
+		resp.setContentType("text/html;charset=utf-8");
 
 		return json;
-    }
-
-	private String toHexString(int index) {
-		String hexString = Integer.toHexString(index);
-		// 1个byte变成16进制的，只需要2位就可以表示了，取后面两位，去掉前面的符号填充
-		hexString = hexString.substring(hexString.length() - 2);
-		return hexString;
 	}
+
+	
 
 }

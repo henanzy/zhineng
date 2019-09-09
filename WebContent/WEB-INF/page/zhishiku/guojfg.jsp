@@ -219,7 +219,7 @@ var zskList = ${zskList};
             customInsert: function (insertImg, result, editor) {
                 // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果：
                 var url = result.url;
-                console.log(url);
+                
                 insertImg(url);
             },
           },

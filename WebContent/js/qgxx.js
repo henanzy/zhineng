@@ -59,6 +59,7 @@ $(document).ready(function(){
 		                      success: function (data) {
 		                    	   if(data=="0"){
 		                    		   alert("发送成功");
+		                    		   location.reload();
 		                    	   }else{
 		                    		   alert("发送失败 ")
 		                    	   }
@@ -92,8 +93,9 @@ $(document).ready(function(){
 		                      success: function (data) {
 		                    	   if(data=="0"){
 		                    		   alert("发送成功");
+		                    		   location.reload();
 		                    	   }else{
-		                    		   alert("发送失败 ")
+		                    		   alert("发送失败 ");
 		                    	   }
 		                     },
 		  
