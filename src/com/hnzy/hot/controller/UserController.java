@@ -410,4 +410,9 @@ public class UserController {
     				userServer.deleteGsjg(id);
     		return jsonObject;
     	}
+    	
+    	@RequestMapping("/jcgl")
+    	public String jcgl(){
+    		return "ZhiNeng/jcgl";
+    	}
 }

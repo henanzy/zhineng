@@ -188,7 +188,9 @@ function shisdw(){//
 function lisgj(){// 
 	window.open("<%=basePath%>user/lisgj.action","Conframe");
 } 
-
+function jcgl(){// 
+	window.open("<%=basePath%>user/jcgl.action","Conframe");
+}
 		</script>
 
 <style>
@@ -296,7 +298,7 @@ ul.ac_kf li a:hover {
 							<li><a class="taglist" onclick="xiaoqxx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;小区信息</a></li>
 							<li><a class="taglist" onclick="yezxx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;业主信息</a></li>
 							<li><a class="taglist" onclick="beizlb()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;备注类别</a></li>
-
+                            <li><a class="taglist" onclick="jcgl()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;稽查管理</a></li>
 						</ul></li>
 				</c:if>
 				<li class="active"><a href="#"
