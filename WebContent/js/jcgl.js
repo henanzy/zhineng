@@ -18,7 +18,10 @@ $(document).ready(function(){
 		var ld = $('#ldh').val();
 		var dy = $('#dyh').val();
 		var hh = $('#hh').val();
-		
+		if(ld==""){
+			alert("请选择楼栋")
+			return;
+		}
 		 $.ajax({
 				url : getRootPath()+"/yhInfo/findDy.action", 
 				async : false,
