@@ -197,22 +197,28 @@ display:block;
 }
 table{
 	border:1px solid #333;
-	 border-collapse: collapse;
+	 /* border-collapse: collapse; */
 	 width:100%;
 	 
 }
 table th{
 	 text-align:center;
+	border:1px solid #333;
 }
+		tr{  
+  
+  white-space: nowrap;
+} 
 table td{
-	border-left:1px solid #333;
+	border-top:1px solid #333;
 	height:30px;
 	line-height:30px;
 	 text-align:center;
 	 padding:6px;
+	
 } 
-table tr{border-top:1px solid #333;
-}
+/* table tr{border-top:1px solid #333;
+} */
 
 .cell_div table{
 	float:left;
@@ -227,6 +233,7 @@ table tr{border-top:1px solid #333;
 	height:50px;
 }
 .body-hh{
+border:1px;
 	font-weight:bold;
 	float:left;
 }
@@ -254,7 +261,7 @@ width:51px;
 
 	<div id="increasedis" class="clearfix" style="overflow-x: hidden;">
 		
-		<div class="mws-report-container clearfix">
+		<!-- <div class="mws-report-container clearfix">
 			
 			<p class="mws-report" href="#" style="font-size: 14px;min-width:800px;height:90px;">
 				<span class="mws-report-icon mws-ic ic-building"></span> 
@@ -270,14 +277,9 @@ width:51px;
 							<option value="" >楼栋</option>
 					</select>
 					</span>
-					<span>单元号：
-						<select name="dyh" id="dyh" style="width:70px">
-							<option value="" >单元</option>
-					</select>
-					</span>
 					
-					户号<input type="text" name="hh" id="hh" size=6px
-						value="" /> &nbsp;&nbsp;&nbsp;
+					
+					
 				</span>
 				</span>
 	
@@ -289,17 +291,27 @@ width:51px;
 				
 			</p>
 			
-		</div>
+		</div> -->
 		
 		<div class="mws-panel grid_8 "
 			style="width: 98%; padding-left: 12px; margin: 0px 0px 30px 0px; min-width:1000px">
 			<div class="mws-panel-header">
-				<span class="mws-i-24 i-table-1">稽查管理</span>
+				<span class="mws-i-24 i-table-1">稽查管理 &nbsp;&nbsp; 选择小区：
+						<select id="xq" style="width:150px"
+						name="xqName">
+						&nbsp;&nbsp; 
+					</select>楼栋号：
+						<select name="ldh" id="ldh" style="width:70px">
+							<option value="" >楼栋</option>
+					</select>&nbsp;&nbsp; 
+					<input type="submit" class="mws-button black" id="search_btn" value="搜索" />
+					</span>
+				
 			</div>
 			
-			<div id="khxx" class="mws-panel-body" style="height:600px; padding:10px;">
+			<div id="khxx" class="mws-panel-body" style="height:1600px; padding:10px;">
 			 
-				<div class="tablediv">
+				<!-- <div class="tablediv">
 					<table border="1" cellspacing="0" cellpadding="0">
 						<thead></thead>
 						<tbody>
@@ -327,11 +339,11 @@ width:51px;
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</div> -->
 				
 				<div  class="tablediv cell_div" id="table_body">
 					
-					
+		
 					
 					
 					

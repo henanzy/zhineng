@@ -58,14 +58,12 @@ $(document).ready(function(){
 											"</tr>");*/
 									var s;
 									if(y+size>=list.length){
-										s=list.length-1;
+										return;
 										
 									}else{
 										s=y+size;
 									}
-									console.log(s+" "+list.length)
 									
-									console.log(list[s].HouseNO);
 									
 									 $.ajax({
 											url : getRootPath()+"/yhInfo/findTc.action", 
@@ -82,7 +80,26 @@ $(document).ready(function(){
 												size=Clist.length;
 												$("#"+dy[i].CellNo).prepend("<tr class='cellone-body' id='"+dy[i].CellNo+"_"+y+"'></tr>");
 												for(var z=0; z<Clist.length; z++){
-													$("#"+dy[i].CellNo+"_"+y).append("<td><div class='body-hh'>"+Clist[z].HouseNO+"</div><div class='body-mj'>"+Clist[z].HeatArea+"</div><div class='body-lb'>居民</div></td>")
+													/*$("#"+dy[i].CellNo+"_"+y).append("<td><div class='body-hh'>"+Clist[z].HouseNO+"</div><div class='body-mj'>"+Clist[z].HeatArea+"</div><div class='body-lb'>居民</div></td>")*/
+													var hh="";
+													if(Clist[z].SFJF="是"){
+														hh="<th colspan='2' style='font-weight:bold;background-color:#33FF33;'>"+Clist[z].HouseNO+"</th>"
+													}else{
+														hh="<th colspan='2' style='font-weight:bold;'>"+Clist[z].HouseNO+"</th>"
+													}
+													var wd=""
+														if(Clist[z].SFJF="是"&&Clist[z].RoomTemp<18){
+															wd=" <th rowspan='2' style='background-color:red;'>"+Clist[z].RoomTemp+"℃</th> <th>"+Clist[z].ValTemp+"℃</th>"
+														}else{
+															wd=" <th rowspan='2' >"+Clist[z].RoomTemp+"℃</th> <th>"+Clist[z].ValTemp+"℃</th>"
+														}
+													$("#"+dy[i].CellNo+"_"+y).append("<td><table style='width:80px'><tr>" +
+															hh +
+															"</tr><tr>" +
+															wd +
+															" </tr><tr>" +
+															"<th>"+Clist[z].FamKd+"%</th>" +
+															" </tr></table></td>")
 												}
 											}
 
