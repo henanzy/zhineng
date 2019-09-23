@@ -490,7 +490,9 @@ function caidsz(){//
 function cgqdz(){// 
     window.open("<%=basePath%>user/cgqdz.action","Conframe");
 }
-
+function jcgl(){// 
+	window.open("<%=basePath%>user/jcgl.action","Conframe");
+}
 /* 知识库 */
 function qiytl(){// 
     window.open("<%=basePath%>ZskCon/getQytl.action?type=企业条例", "Conframe");
@@ -646,11 +648,11 @@ function xgmm(flag) {
 			<li style="margin-left: 0px;"><a
 				href="<%=ip%>xingxhrz/user/home.action">换热站管理</a></li>
 					<li style="margin-left: 0px;"><a
-				href="<%=ip%>rebiao/user/home.action">热表集抄</a></li>
+				href="http://192.144.169.217:8091/rebiao/user/home.action">热表集抄</a></li>
 				<li style="margin-left: 0px;"><a
 				href="<%=ip%>zhineng/user/home.action?fl=nhjk">智能入户</a></li>
 			  <li style="margin-left: 0px;"><a
-				href="<%=ip%>kefu/user/home.action">客服系统</a></li>
+				href="<%=ip%>kfgl/user/home.action">客服系统</a></li>
 			<li style="margin-left: 0px;"><a
 				href="<%=ip%>zykt/user/home.action">缴费管理</a></li>
 			

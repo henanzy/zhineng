@@ -3,5 +3,12 @@
 <configuration>
 	<typeAliases>
 	<typeAlias type="com.hnzy.hot.pojo.User" alias="User" />
+	<typeAlias type="com.hnzy.hot.pojo.TjfxHistory" alias="TjfxHistory"/>
+		<typeAlias type="com.hnzy.hot.pojo.TjfxKdHis" alias="TjfxKdHis"/>
+		<typeAlias type="com.hnzy.hot.pojo.XqAvg" alias="XqAvg"/>
+		
+		<typeAlias type="com.hnzy.hot.pojo.XqInfo" alias="XqInfo"/>
+		<typeAlias type="com.hnzy.hot.pojo.Jf" alias="Jf"/>
+		<typeAlias type="com.hnzy.hot.pojo.YhInfo" alias="YhInfo"/>
 	</typeAliases> 
 </configuration>

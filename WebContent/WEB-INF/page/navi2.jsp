@@ -573,9 +573,9 @@
 						<li style="margin-left: 0px;"><a
 						href="<%=basePath%>user/home.action?fl=nhjk&type=<%=request.getSession().getAttribute("type")%>">智能入户</a></li>
 						<li style="margin-left: 0px;"><a
-						href="<%=ip%>rebiao/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">热表集抄</a></li>
+						href="http://192.144.169.217:8091/rebiao/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">热表集抄</a></li>
 					<li style="margin-left: 0px;"><a
-						href="<%=ip%>kefu/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">客服管理</a></li>
+						href="<%=ip%>kfgl/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">客服管理</a></li>
 					<li style="margin-left: 0px;"><a
 						href="<%=ip%>jfgl/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">缴费管理</a></li>
 						<li style="margin-left: 0px;"><a

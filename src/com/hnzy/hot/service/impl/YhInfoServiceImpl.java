@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hnzy.hot.dao.YhInfoDao;
+import com.hnzy.hot.pojo.YhInfo;
 import com.hnzy.hot.service.YhInfoService;
 
 
@@ -170,6 +171,84 @@ public class YhInfoServiceImpl implements YhInfoService{
 	public void updateCgqId(String idNum, String valAd) {
 		// TODO Auto-generated method stub
 		yhnfoDao.updateCgqId(idNum, valAd);
+	}
+
+	@Override
+	public List<String> findYhNameList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return yhnfoDao.findYhNameList(map);
+	}
+
+	@Override
+	public int findFamKdA(String xqName, int buildNo, int cellNo, String sfjf, String status) {
+		// TODO Auto-generated method stub
+		return yhnfoDao.findFamKdA(xqName, buildNo, cellNo, sfjf, status);
+	}
+
+	@Override
+	public int findFamKdC(String xqName, int buildNo, int cellNo, String sfjf, String status) {
+		// TODO Auto-generated method stub
+		return yhnfoDao.findFamKdC(xqName, buildNo, cellNo, sfjf, status);
+	}
+
+	@Override
+	public int findFamKdF(String xqName, int buildNo, int cellNo, String sfjf, String status) {
+		// TODO Auto-generated method stub
+		return yhnfoDao.findFamKdF(xqName, buildNo, cellNo, sfjf, status);
+	}
+
+	@Override
+	public int chartSearchA(String xqName, int buildNo, int cellNo, String sfjf, String status) {
+		// TODO Auto-generated method stub
+		return yhnfoDao.chartSearchA(xqName, buildNo, cellNo, sfjf, status);
+	}
+
+	@Override
+	public int chartSearchB(String xqName, int buildNo, int cellNo, String sfjf, String status) {
+		// TODO Auto-generated method stub
+		return yhnfoDao.chartSearchB(xqName, buildNo, cellNo, sfjf, status);
+	}
+
+	@Override
+	public int chartSearchC(String xqName, int buildNo, int cellNo, String sfjf, String status) {
+		// TODO Auto-generated method stub
+		return yhnfoDao.chartSearchC(xqName, buildNo, cellNo, sfjf, status);
+	}
+
+	@Override
+	public int chartSearchD(String xqName, int buildNo, int cellNo, String sfjf, String status) {
+		// TODO Auto-generated method stub
+		return yhnfoDao.chartSearchD(xqName, buildNo, cellNo, sfjf, status);
+	}
+
+	@Override
+	public int chartSearchE(String xqName, int buildNo, int cellNo, String sfjf, String status) {
+		// TODO Auto-generated method stub
+		return yhnfoDao.chartSearchE(xqName, buildNo, cellNo, sfjf, status);
+	}
+
+	@Override
+	public int chartSearchG(String xqName, int buildNo, int cellNo, String sfjf, String status) {
+		// TODO Auto-generated method stub
+		return yhnfoDao.chartSearchG(xqName, buildNo, cellNo, sfjf, status);
+	}
+
+	@Override
+	public List<Map<String, Object>> findJfxx() {
+		// TODO Auto-generated method stub
+		return yhnfoDao.findJfxx();
+	}
+
+	@Override
+	public void updateYhs(YhInfo yhInfo) {
+		// TODO Auto-generated method stub
+		yhnfoDao.updateYhs(yhInfo);
+	}
+
+	@Override
+	public void updateYhSfjf(YhInfo yhInfo) {
+		// TODO Auto-generated method stub
+		yhnfoDao.updateYhSfjf(yhInfo);
 	}
 
 	

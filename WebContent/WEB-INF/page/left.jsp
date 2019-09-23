@@ -273,6 +273,7 @@ ul.ac_kf li a:hover {
 							<li><a class="taglist" onclick="caozrz()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;操作日志</a></li>
 							<li><a class="taglist" onclick="guzxx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;故障信息</a></li>
 							<li><a class="taglist" onclick="shuakjl()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;刷卡记录</a></li>
+							<li><a class="taglist" onclick="jcgl()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;效果平面图</a></li>
 
 						</ul></li>
 				</c:if>
@@ -298,7 +299,7 @@ ul.ac_kf li a:hover {
 							<li><a class="taglist" onclick="xiaoqxx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;小区信息</a></li>
 							<li><a class="taglist" onclick="yezxx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;业主信息</a></li>
 							<li><a class="taglist" onclick="beizlb()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;备注类别</a></li>
-                            <li><a class="taglist" onclick="jcgl()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;稽查管理</a></li>
+                            
 						</ul></li>
 				</c:if>
 				<li class="active"><a href="#"

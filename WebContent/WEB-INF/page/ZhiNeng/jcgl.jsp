@@ -259,7 +259,7 @@ width:51px;
 </head>
 <body>
 
-	<div id="increasedis" class="clearfix" style="overflow-x: hidden;">
+	<div id="increasedis" class="clearfix" >
 		
 		<!-- <div class="mws-report-container clearfix">
 			
@@ -309,7 +309,7 @@ width:51px;
 				
 			</div>
 			
-			<div id="khxx" class="mws-panel-body" style="height:1600px; padding:10px;">
+			<div id="khxx" class="mws-panel-body" style="height:3200px; width:1600px;padding:10px;">
 			 
 				<!-- <div class="tablediv">
 					<table border="1" cellspacing="0" cellpadding="0">

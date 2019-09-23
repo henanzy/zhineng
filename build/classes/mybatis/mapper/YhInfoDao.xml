@@ -2,6 +2,70 @@
 <!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
 <mapper namespace="com.hnzy.hot.dao.YhInfoDao">
 	<resultMap id="YhMap" type="java.util.HashMap"></resultMap>
+	<resultMap type="YhInfo" id="yhInfo">
+		<id property="id" column="ID" />
+		<result property="valAd" column="ValAd" />
+		<result property="xqName" column="XqName" />
+		<result property="buildNo" column="BuildNO" />
+		<result property="cellNo" column="CellNO" />
+		<result property="houseNo" column="HouseNO" />
+		<result property="yhName" column="YhName" />
+		<result property="idNum" column="IDNum" />
+		<result property="rbAd" column="RbAd" />
+		<result property="rbType" column="RbType" />
+		<result property="telephone" column="Telephone" />
+		<result property="mobilephone" column="Mobilephone" />
+		<result property="email" column="Email" />
+		<result property="buileArea" column="BuileArea" />
+		<result property="userArea" column="UseArea" />
+		<result property="heatArea" column="HeatArea" />
+		<result property="billway" column="BillWay" />
+		<result property="sfjf" column="SFJF" />
+		<result property="sfqf" column="SFQF" />
+		<result property="sftr" column="SFTR" />
+		<result property="wcad" column="WCAd" />
+		<result property="azwz" column="AZWZ" />
+		<result property="ylfq" column="YLFQ" />
+		<result property="LH" column="LH"/>
+		<result property="dYH" column="DYH"/>
+		<result property="xq" column="XQ"/>
+		<result property="hESName" column="HESName"/>
+		<result property="jfsj" column="JFSJ" />
+		<result property="bz" column="Bz" />
+		<result property="datetime" column="datetime" />
+		<result property="faultInfor" column="FaultInfor" />
+		<result property="yhfl" column="Yhfl" />
+		<result property="cou" column="cou"/>
+		<result property="bjxx" column="Bjxx"/>
+		<result property="bjTime" column="BjTime"/>
+		<result property="LH" column="LH"/>
+		<result property="CS" column="CS"/>
+		<result property="SH" column="SH"/>
+		<result property="jFZT" column="JFZT"/>
+		<result property="yHKH" column="YHKH"/>
+		<result property="yhbm" column="YHBM" />
+		<result property="yhRb" column="YhRb" />
+		<result property="cjq" column="Cjq" />
+		
+	</resultMap>
+	<sql id="xq">
+		  and Yhfl!='退费停暖'
+		<if test="xqName!='--选择小区名称--'">
+			and XqName=#{xqName}
+		</if>
+		<if test="buildNo!=0">
+			and BuildNO=#{buildNo}
+		</if>
+		<if test="cellNo!=0">
+			and CellNO=#{cellNo}
+		</if>
+		<if test="sfjf!='--选择缴费状态--'">
+			and SFJF=#{sfjf}
+		</if>
+		<if test="status!='--选择阀门状态--'">
+			and Status=#{status}
+		</if>
+		</sql>
 	<select id="findXq" resultMap="YhMap" >
 		select distinct XqName from T_YhInfo where yhrb=0 or yhrb=2
 
@@ -76,7 +140,10 @@
 	<select id="find" resultMap="YhMap">
 		select *  from T_XqInfo  
 	</select>
-	
+	<select id="findYhNameList" resultType="java.lang.String">
+		select XqName from T_YhInfo  where YhRb=0 group by 
+		XqName
+	</select>
 	
 	<insert id="InsertXq" >
 		insert into T_XqInfo
@@ -318,5 +385,87 @@
 	<update id="updateCgqId" >
 		update T_YhInfo set WCAd=#{idNum} where ValAd=#{valAd}
 	</update>
+	<select id="chartSearchA" resultType="int" >
+		select count(*) 
+        from T_YhInfo,T_FmInfo
+		where T_YhInfo.ValAd=T_FmInfo.ValAd
+        and RoomTemp &gt;'26'
+       <include refid="xq"></include>
+		</select>
+		<select id="chartSearchB" resultType="int" >
+		select count(*) 
+        from T_YhInfo,T_FmInfo
+		where T_YhInfo.ValAd=T_FmInfo.ValAd
+        and RoomTemp &gt;'0'  and RoomTemp &lt;='15'
+        <include refid="xq"></include>
+		</select>
+		
+		
+		<select id="chartSearchC" resultType="int" >
+		select count(*) 
+        from T_YhInfo,T_FmInfo
+		where T_YhInfo.ValAd=T_FmInfo.ValAd
+	 	and RoomTemp &gt;'15'  and RoomTemp &lt;'18'
+		<include refid="xq"></include>
+		
+		</select>
+		<select id="chartSearchD" resultType="int" >
+		select count(*) 
+        from T_YhInfo,T_FmInfo
+		where T_YhInfo.ValAd=T_FmInfo.ValAd
+		 and RoomTemp &gt;='18'  and RoomTemp &lt;= '22'
+		<include refid="xq"></include>
+		
+		</select>
+		
+		<select id="chartSearchE" resultType="int" >
+		select count(*) 
+        from T_YhInfo,T_FmInfo
+		where T_YhInfo.ValAd=T_FmInfo.ValAd
+		 and RoomTemp &gt; '22'  and RoomTemp &lt;='26'
+		<include refid="xq"></include>
+		</select>
+		<select id="chartSearchG" resultType="int" >
+		select count(*) 
+        from T_YhInfo,T_FmInfo
+		where T_YhInfo.ValAd=T_FmInfo.ValAd
+		and  RoomTemp=0
+		<include refid="xq"></include>
+		</select>
+		
+		<select id="findFamKdA" resultType="int">
+		select count(*)
+		  from T_YhInfo,T_FmInfo
+		where T_YhInfo.ValAd=T_FmInfo.ValAd and FamKd ='100'
+		<include refid="xq"></include>
+	</select>
+
+	<!-- 等于0多少 -->
+	<select id="findFamKdF" resultType="int">
+		select count(*)
+		  from T_YhInfo,T_FmInfo
+		where T_YhInfo.ValAd=T_FmInfo.ValAd and FamKd ='0'
+		<include refid="xq"></include>
+	</select>
+
+	<!-- 55-75之间 -->
+	<select id="findFamKdC" resultType="int">
+		select count(*)
+		  from T_YhInfo,T_FmInfo
+		where T_YhInfo.ValAd=T_FmInfo.ValAd and FamKd
+		&gt;'0' and FamKd &lt;= '15'
+		<include refid="xq"></include>
+	</select>
 	
+	<select id="findJfxx" resultMap="YhMap" >
+	<!-- select distinct XqName,BuildNO,CellNO,HouseNO from T_YhInfo where YhRb=0 or YhRb=2 -->
+	select distinct XqName,BuildNO,CellNO,HouseNO from T_YhInfo where YhRb=0 or YhRb=2
+	</select>
+	
+	<update  id="updateYhs" parameterType="YhInfo" >
+		update T_YhInfo set YHBM=#{yhbm},SFJF=#{sfjf},YhName=#{yhName},Telephone=#{telephone},HeatArea=#{heatArea},IDNum=#{idNum} where  XqName=#{xqName} and BuildNO=#{buildNo} and CellNO=#{cellNo} and HouseNO=#{houseNo}
+	</update>
+	<update id="updateYhSfjf" parameterType="YhInfo">
+	update T_YhInfo set SFJF=#{sfjf} where  XqName=#{xqName} and BuildNO=#{buildNo} and CellNO=#{cellNo} and HouseNO=#{houseNo}
+	</update>
 </mapper>

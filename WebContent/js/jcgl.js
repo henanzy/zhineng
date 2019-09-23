@@ -85,18 +85,19 @@ $(document).ready(function(){
 												for(var z=0; z<Clist.length; z++){
 													/*$("#"+dy[i].CellNo+"_"+y).append("<td><div class='body-hh'>"+Clist[z].HouseNO+"</div><div class='body-mj'>"+Clist[z].HeatArea+"</div><div class='body-lb'>居民</div></td>")*/
 													var hh="";
-													if(Clist[z].SFJF="是"){
+													
+													if(Clist[z].SFJF=="是"){
 														hh="<th colspan='2' style='font-weight:bold;background-color:#33FF33;'>"+Clist[z].HouseNO+"</th>"
 													}else{
 														hh="<th colspan='2' style='font-weight:bold;'>"+Clist[z].HouseNO+"</th>"
 													}
 													var wd=""
-														if(Clist[z].SFJF="是"&&Clist[z].RoomTemp<18){
-															wd=" <th rowspan='2' style='background-color:red;'>"+Clist[z].RoomTemp+"℃</th> <th>"+Clist[z].ValTemp+"℃</th>"
+														if(Clist[z].SFJF=="是"&&Clist[z].RoomTemp<18){
+															wd=" <th rowspan='2' style='background-color:red;width:68px;font-size:16px;'>"+Clist[z].RoomTemp+"℃</th> <th>"+Clist[z].ValTemp+"℃</th>"
 														}else{
-															wd=" <th rowspan='2' >"+Clist[z].RoomTemp+"℃</th> <th>"+Clist[z].ValTemp+"℃</th>"
+															wd=" <th rowspan='2' style='width:68px;font-size:16px;'>"+Clist[z].RoomTemp+"℃</th> <th>"+Clist[z].ValTemp+"℃</th>"
 														}
-													$("#"+dy[i].CellNo+"_"+y).append("<td><table style='width:80px'><tr>" +
+													$("#"+dy[i].CellNo+"_"+y).append("<td><table style='width:100px'><tr>" +
 															hh +
 															"</tr><tr>" +
 															wd +
@@ -111,7 +112,7 @@ $(document).ready(function(){
 							}
 
 						});
-						$("#"+dy[i].CellNo).prepend("<tr class='cellone-head'><td colspan='2'>"+dy[i].CellNo+"</td></tr>") 
+						$("#"+dy[i].CellNo).prepend("<tr class='cellone-head'><td colspan='2'>"+dy[i].CellNo+"单元</td></tr>") 
 					}	
 				}
 
