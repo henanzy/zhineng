@@ -219,7 +219,14 @@ html,body{
 		padding:0 4px;
 	}
 
-	
+	input{
+	border-radius:4px;
+		background-color:rgba(43,45,49,0.8);
+		color:#fff;
+		cursor:pointer;
+		text-align:center;
+		padding:0 4px;
+	}
 	
 	@media screen and (max-width:1300px){
 		
@@ -633,7 +640,7 @@ var xq;
 			 xq=data.Xq;
 			
 			 for(var i=0; i<xq.length; i++){
-				 if(xq[i].XqName.indexOf("砥柱大厦")>-1)
+				 if(xq[i].XqName.indexOf("嘉和广场")>-1)
 					{
 					$("#xq").append("<option value='"+xq[i].XqName+"' selected	>"+xq[i].XqName+"</option>");
 					$("#wdline").append("<option value='"+xq[i].XqName+"' selected >"+xq[i].XqName+"</option>");
@@ -662,8 +669,11 @@ var xq;
 			$("#hh option:gt(0)").remove();
 			var ld=data.Ld;
 			for(var i=0; i<ld.length; i++){
-				
+				 if(ld[i].BuildNo=="1"){
+					 $("#ldh").append("<option value='"+ld[i].BuildNo+"' selected>"+ld[i].BuildNo+"</option>");
+				 }else{
 				$("#ldh").append("<option value='"+ld[i].BuildNo+"'>"+ld[i].BuildNo+"</option>");
+				 }
 			}	
 		}
 
@@ -704,8 +714,12 @@ var xq;
 			$("#hh option:gt(0)").remove();
 			var dy=data.Dy;
 			for(var i=0; i<dy.length; i++){
+				if(dy[i].CellNo=="1"){
+					$("#dyh").append("<option value='"+dy[i].CellNo+"' selected>"+dy[i].CellNo+"</option>");
+				 }else{
+					 $("#dyh").append("<option value='"+dy[i].CellNo+"'>"+dy[i].CellNo+"</option>");
+				 }
 				
-				$("#dyh").append("<option value='"+dy[i].CellNo+"'>"+dy[i].CellNo+"</option>");
 			}	
 		}
 
@@ -741,6 +755,9 @@ var xq;
  		dataType : "json",
  		data : {
  			"xqm":$("#xq").val(),
+ 			"ldh":$('#ldh').val(),
+			"dyh":$('#dyh').val(),
+			
  		},
  		success : function(data) {
  			

@@ -23,8 +23,13 @@ public class JfServiceImpl implements JfService
 	@Override
 	public Jf findJfxx(String XQ, String lH, String dYH, String mp)
 	{
+		if(jfDao.findJfxx(XQ, lH, dYH, mp).size()>0){
+			return jfDao.findJfxx(XQ, lH, dYH, mp).get(0);
+		}
+		else{
+			return null;
+		}
 		
-		return jfDao.findJfxx(XQ, lH, dYH, mp);
 	}
 
 	@Override

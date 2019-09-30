@@ -23,10 +23,12 @@
 	<select id="findJf" resultMap="jf" parameterType="Jf">
 	select distinct YHBM,JFZT,XQ,LH,DYH,SH,CS,CNQ,LxDH 
 	from sf_jmxx_v where XQ= #{XQ} and LH=#{LH} and DYH=#{DYH} and CS=#{CS} and SH=#{SH} and CNQ='2019-2020' and JFZT=0 and JFSJ is not null
+	
 	</select>
 	<select id="findJfxx" resultMap="jf" parameterType="Jf">
-	select distinct YhMC,YHKH,LXDH,SFMJ,YHBM,JFZT,XQ,LH,DYH,SH,CS,CNQ,LxDH ,MP,YHKH
+	select  distinct YhMC,YHKH,LXDH,SFMJ,YHBM,JFZT,XQ,LH,DYH,SH,CS,CNQ,LxDH ,MP,YHKH ,JFSJ
 	from sf_jmxx_v where XQ= #{XQ} and LH=#{LH} and DYH=#{DYH} and MP=#{MP} and CNQ='2019-2020' and JFZT=0 and JFSJ is not null
+	order by JFSJ desc
 	</select>
 	<select id="findYhxxByKh" resultMap="jf" parameterType="Jf">
 	select distinct YHBM,JFZT from sf_jmxx_v where YHKH=#{khId} and  CNQ='2019-2020' and JFZT=0 and JFSJ is not null

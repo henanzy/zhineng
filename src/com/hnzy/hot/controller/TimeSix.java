@@ -2,6 +2,7 @@ package com.hnzy.hot.controller;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -212,7 +213,7 @@ public class TimeSix
 		for(int i=0;i<yhList.size();i++){
 			xqName=(String) yhList.get(i).get("XqName");
 			
-			hh=houseNo=(String) yhList.get(i).get("HouseNO");
+			hh=houseNo= yhList.get(i).get("HouseNO")+"";
 			if(xqName.equals("三和铝厂")){
 				xqNameLc="枢纽局西苑.铝厂小区（智慧供热区域）";
 			}
@@ -273,6 +274,7 @@ public class TimeSix
 				
 				 jf =jfService.findJfxx(xqNameLc, LH, DYH, hh);
 			}else{
+				
 				 jf =jfService.findJfxx(xqName, LH, DYH, hh);
 			}
 			DataSourceContextHolder.setDbType(DataSourceType.dse);
@@ -284,6 +286,14 @@ public class TimeSix
 			String yhmc=jf.getYhmc();//用户名称
 			String yhkh=jf.getYhkh();//用户卡号
 			double Sfmj=jf.getSfmj();//收费面积
+			Date date=jf.getJfsj();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss") ; //使用了默认的格式创建了一个日期格式化对象。
+			String jfsj ="";
+			
+				jfsj = dateFormat.format(date);
+			
+			
+			
 			if(sFJF==0){
 				sfjf="是";
 			}else{
@@ -300,8 +310,9 @@ public class TimeSix
 			yhInfo.setCellNo(cellNo);
 			yhInfo.setHouseNo(Integer.valueOf(houseNo));
 			yhInfo.setIdNum(yhkh);
-			
+			yhInfo.setJfsj(jfsj);
 			yhInfoService.updateYhs(yhInfo);
+			
 			}else{
 				yhInfo.setSfjf("否");
 				yhInfo.setXqName(xqName);
@@ -311,6 +322,7 @@ public class TimeSix
 				
 				yhInfoService.updateYhSfjf(yhInfo);	
 			}
+			
 		}
 	}
 

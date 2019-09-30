@@ -103,7 +103,7 @@ $(function () {
 			onewd(options,data,'mws-dashboard-chart-1',time1)
 	 });
 	
-	var xqdata = {name:"枫桥水岸",kd:kd};
+	var xqdata = {name:"嘉和广场",kd:kd};
 //	 allwd(options,xqdata,'mws-dashboard-chart-1')
 	onewd(options,xqdata,'mws-dashboard-chart-1',time)
 	 

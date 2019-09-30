@@ -251,5 +251,11 @@ public class YhInfoServiceImpl implements YhInfoService{
 		yhnfoDao.updateYhSfjf(yhInfo);
 	}
 
+	@Override
+	public List<Map<String, Object>> findJc(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return yhnfoDao.findJc(map);
+	}
+
 	
 }

@@ -602,7 +602,7 @@ function onesw(options,wddata,con,time){
 
              enabled: false,
          },
-			 name:wddata[0].name+"室内温度",
+			 name:"室内温度",
 			 data:wddata[0].sw,
 			 tooltip: {
                   valueSuffix: '°C'
@@ -733,10 +733,10 @@ function oneswsdt(containers,swsdt,valad){
 			}
 			
 		}; 
-	optsd.subtitle.text =  swsdt.name + "室内温度",
+	optsd.subtitle.text = "室内温度",
 	
 		optsd.series = [ {
-			name : swsdt.name + "室内温度",
+			name :  "室内温度",
 			data : swsdt.wd
 		} ];
 	

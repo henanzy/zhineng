@@ -131,6 +131,9 @@ html,body{
 	text-decoration: none;
 	color: #323232;
 }
+th, td {
+	white-space: nowrap;
+}
 .textinput{
 
 border-radius: 5px !important;
@@ -163,7 +166,14 @@ height:22px
 			min-width:700px !important;
 		}
 	}
-	
+	input{
+	border-radius:4px;
+		background-color:rgba(43,45,49,0.8);
+		color:#fff;
+		cursor:pointer;
+		text-align:center;
+		padding:0 4px;
+	}
 	#hh{
 		width:60px;
 		height:24px;
@@ -291,7 +301,7 @@ $(document).ready(function(){
 					</span>
 					
 					 <span
-					class="mws-report-title"> 选择小区 <select id="xq"
+					class="mws-report-title"> 选择小区 ：<select id="xq"
 						name="xqName">
 							<option value="" >--选择小区--</option>
 					</select>
@@ -403,7 +413,63 @@ $(document).ready(function(){
 				</table>
 			</div>
 		</div>
-	
+		
+		<div class="mws-panel grid_8 "
+			style="width: 58%; float: left;">
+			<div class="mws-panel-header">
+				<span class="mws-i-24 i-table-1">稽查记录</span>
+				
+			</div>
+			<div id="record_table_body" class="mws-panel-body"
+				style="overflow: auto !important; height: 420px;">
+				<table class="mws-table">
+					<thead>
+						<tr>
+						    
+							<th class="table-th-css">稽查情况</th>
+							<th class="table-th-css">稽查问题</th>
+							<th class="table-th-css">稽查时间</th>
+							<th class="table-th-css">稽查人</th>
+							<th class="table-th-css">稽查备注</th>
+							<th class="table-th-css">处理情况</th>
+							<th class="table-th-css">处理结果</th>
+							<th class="table-th-css">处理备注</th>
+							
+						</tr>
+					</thead>
+					<tbody id="jc_body">
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div class="mws-panel grid_8 "
+			style="width: 35%; float: left;">
+			<div class="mws-panel-header">
+				<span class="mws-i-24 i-table-1">催缴记录</span>
+				
+			</div>
+			<div id="record_table_body" class="mws-panel-body"
+				style="overflow: auto !important; height: 420px;">
+				<table class="mws-table">
+					<thead>
+						<tr>
+						    
+							<th class="table-th-css">催缴时间</th>
+							<th class="table-th-css">催缴人</th>
+							<th class="table-th-css">催缴结果</th>
+							<th class="table-th-css">催缴备注</th>
+							
+						</tr>
+					</thead>
+					<tbody id="jc_body">
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
 	<div style="clear:both;"></div>
 
 

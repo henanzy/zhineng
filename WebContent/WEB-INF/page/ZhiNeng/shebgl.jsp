@@ -114,7 +114,7 @@
 
 .mws-report {
 	width: 98% !important;
-	min-width: 170px;
+	min-width: 1200px;
 	margin: 8px 1%;
 	height: 150px;
 	float: left;

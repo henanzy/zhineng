@@ -86,4 +86,6 @@ public interface YhInfoService {
 
 	//在缴费系统中查找不到用户则用户缴费状态为否
 	public void updateYhSfjf(YhInfo yhInfo);
+	
+	public List<Map<String, Object>> findJc(Map<String, Object> map);
 }

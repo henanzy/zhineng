@@ -66,20 +66,22 @@ $(document).ready(function(){
 	
 	//供热饼图
 	
-	
-	tgrbar(optbar,"","","","pie-1",0);
+	var xq = $('#xq').val();
+	var ld = $('#ldh').val();
+	var dy = $('#dyh').val();
+	tgrbar(optbar,xq,ld,dy,"pie-1",0);
 	
 	
 	//室温饼图
 
 	
-	twdbar(optbar,"","","","pie-2",0);
+	twdbar(optbar,xq,ld,dy,"pie-2",0);
 	
 	
 	//阀门开度饼图
 
 	
-	tfmbar(optbar,"","","","pie-3",0);
+	tfmbar(optbar,xq,ld,dy,"pie-3",0);
 	
 	
 

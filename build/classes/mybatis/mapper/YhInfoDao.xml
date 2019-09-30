@@ -463,9 +463,27 @@
 	</select>
 	
 	<update  id="updateYhs" parameterType="YhInfo" >
-		update T_YhInfo set YHBM=#{yhbm},SFJF=#{sfjf},YhName=#{yhName},Telephone=#{telephone},HeatArea=#{heatArea},IDNum=#{idNum} where  XqName=#{xqName} and BuildNO=#{buildNo} and CellNO=#{cellNo} and HouseNO=#{houseNo}
+		update T_YhInfo set YHBM=#{yhbm},SFJF=#{sfjf},JFSJ=#{jfsj},YhName=#{yhName},Telephone=#{telephone},HeatArea=#{heatArea},IDNum=#{idNum} where  XqName=#{xqName} and BuildNO=#{buildNo} and CellNO=#{cellNo} and HouseNO=#{houseNo}
+	
 	</update>
 	<update id="updateYhSfjf" parameterType="YhInfo">
-	update T_YhInfo set SFJF=#{sfjf} where  XqName=#{xqName} and BuildNO=#{buildNo} and CellNO=#{cellNo} and HouseNO=#{houseNo}
+	update T_YhInfo set SFJF=#{sfjf} where  XqName=#{xqName} and BuildNO=#{buildNo} and CellNO=#{cellNo} and HouseNO=#{houseNo} 
 	</update>
+	
+	<select id="findJc" resultMap="YhMap" >
+	
+	select j.*,y.YHBM from J_Jcxx j , T_YhInfo y where y.YHBM=j.YHBM 
+	<if test="xqm!=null and xqm!=''">
+        and y.XqName=#{xqm}
+        </if>
+        <if test="ldh!=null and ldh!=''">
+        and y.BuildNO=#{ldh}
+        </if>
+        <if test="dyh!=null and dyh!=''">
+	    and y.CellNO=#{dyh}
+        </if>
+        <if test="hh!=null and hh!=''">
+	     and y.HouseNO=#{hh}
+    </if>   
+	</select>
 </mapper>

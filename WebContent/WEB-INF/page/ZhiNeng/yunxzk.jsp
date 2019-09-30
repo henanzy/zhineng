@@ -103,6 +103,14 @@ html,body{
 
    
 }
+input{
+	border-radius:4px;
+		background-color:rgba(43,45,49,0.8);
+		color:#fff;
+		cursor:pointer;
+		text-align:center;
+		padding:0 4px;
+	}
 select{
 		height:24px;
 		line-height:24px;
@@ -162,7 +170,7 @@ select{
 		
 		<div class="mws-panel grid_8" style="min-width:600px;">
 			<div class="mws-panel-header">
-				<span class="mws-i-24 i-graph">温度曲线图</span>
+				<span class="mws-i-24 i-graph">室内温度曲线图</span>
 				<span style="position:absolute;top:10px;left:180px;">
 				选择公司：
 					<select id="ssgs" style="width:150px"
@@ -324,7 +332,7 @@ var xq;
 			
 			 for(var i=0; i<xq.length; i++){
 					
-					if(xq[i].XqName.indexOf("砥柱大厦")>-1)
+					if(xq[i].XqName.indexOf("嘉和广场")>-1)
 					{
 					$("#xq").append("<option value='"+xq[i].XqName+"' selected	>"+xq[i].XqName+"</option>");
 					}else{

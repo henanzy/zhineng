@@ -54,6 +54,7 @@ $(function () {
     //用户信息
 	// 工单搜索
 	$("#search_btn").click(function(){
+		$("#jc_body").empty();
 		var xq = $('#xq').val();
 		var ld = $('#ldh').val();
 		var dy = $('#dyh').val();
@@ -65,6 +66,36 @@ $(function () {
 			return;
 		}
 		$("#record_body").empty();
+		var jcList=[];
+		$.ajax({
+			url : getRootPath()+"/yhInfo/findJc.action", 
+			async : false,
+			dataType : "json",
+			data : {
+				"xqm":xq,
+				"ldh":ld,
+				"dyh":dy,
+				"hh":hh,
+				
+			},
+			success : function(data) {
+			var json=data.list;
+			 for (var i = 0 ; i < json.length ; i ++) {
+					var arr1 = [];
+					/*arr1[0] = json[i].id;*/
+					arr1[0] = json[i].JCQK;
+					arr1[1] = json[i].JCWT;
+					arr1[2] = json[i].JCRQ;
+					arr1[3] = json[i].JCR;
+					arr1[4] = json[i].JCBZ;
+					arr1[5] = json[i].CLQK;
+					arr1[6] = json[i].CLJG;
+					arr1[7] = json[i].CLBZ;
+					
+					jcList.push(arr1);
+				};
+			}
+		});
 		var xq1 = $('#xq').val();
 		var ld1 = $('#ldh').val();
 		var dy1 = $('#dyh').val();
@@ -72,7 +103,25 @@ $(function () {
 		 if($('#wdbj').val()=="tc"){
 			 cs1 = $('#hh').val();
 		 }
-		
+		var jc_body = document.getElementById("jc_body");
+		for(var i = 0;i < jcList.length;i ++){
+			var questionTr = document.createElement("tr");
+			if(i%2 == 1){
+				questionTr.className = "gradeX odd";
+			}else if(i%2 == 0){
+				questionTr.className = "gradeX even";
+			}
+			for(var j = 0;j < jcList[i].length;j ++){
+
+				jcList[i][j] = jcList[i][j]+"";
+								
+				questionTr.innerHTML += "<td>" + jcList[i][j] + "</td>";
+			
+			}		
+			
+			$("#jc_body").empty();
+			jc_body.appendChild(questionTr);		
+		}
 		$.ajax({
 			url : getRootPath()+"/yhInfo/findTc.action", 
 			async : false,
