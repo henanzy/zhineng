@@ -59,16 +59,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 var  LODOP;
 function myPrint() {	
 	LODOP=getLodop(); 
-	LODOP.ADD_PRINT_RECT(10,55,360,220,0,1);
+	LODOP.SET_PRINT_PAGESIZE(1, 700,1000,"");
 	LODOP.SET_PRINT_STYLE("FontSize",11);
-	LODOP.ADD_PRINT_TEXT(20,180,100,25,"郭德强");
+	LODOP.ADD_PRINT_TEXT(10,10,100,25,"郭德强");
 	LODOP.SET_PRINT_STYLEA(2,"FontName","隶书");
 	LODOP.SET_PRINT_STYLEA(2,"FontSize",15);
-	LODOP.ADD_PRINT_TEXT(53,187,75,20,"科学家");
-	LODOP.ADD_PRINT_TEXT(100,131,272,20,"地址：中国北京社会科学院附近东大街西胡同");
-	LODOP.ADD_PRINT_TEXT(138,132,166,20,"电话：010-88811888");
+	LODOP.ADD_PRINT_TEXT(10,10,100,25,"科学家");
+	LODOP.ADD_PRINT_TEXT(10,10,100,25,"地址：中国北京社会科学院附近东大街西胡同");
+	LODOP.ADD_PRINT_TEXT(10,10,100,25,"电话：010-88811888");
 	      
-	LODOP.PRINT();		       
+	LODOP.PREVIEW();	       
 };
 function doPrint(){
 	//第一步，将要打印的内容赋值给一个对象
