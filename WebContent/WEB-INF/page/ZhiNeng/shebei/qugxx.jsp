@@ -288,6 +288,7 @@ $.ajax({
                                     <th class="table-th-css">阀门起始位置</th>
                                     <th class="table-th-css">阀门结束位置</th>
                                     <th class="table-th-css">刷卡器设备号</th>
+                                    <th class="table-th-css">刷卡器位置</th>
                                     <th class="table-th-css">更新时间</th>
                                     <th class="table-th-css">操作</th>
                                 </tr>
@@ -391,7 +392,14 @@ $.ajax({
 								</div>
 							</div>
 							
+							<div class="mws-form-row">
+								<label>&emsp;刷卡器位置：</label>
 
+								<div class="mws-form-item large">
+									<input type="text" class="mws-textinput increase_word_input" 
+										name="skqWz" value="" autofocus="autofocus" />
+								</div>
+							</div>
 							
 						
 						</div>
@@ -472,7 +480,14 @@ $.ajax({
 										name="SkqSbh" value="" autofocus="autofocus" />
 								</div>
 							</div>
-							
+							<div class="mws-form-row">
+								<label>&emsp;刷卡器位置：</label>
+
+								<div class="mws-form-item large">
+									<input type="text" class="mws-textinput change_word_input" 
+										name="skqWz" value="" autofocus="autofocus" />
+								</div>
+							</div>
 						</div>	
 						<input type="submit" id="word_change_btn"
 							class="mws-button black" value="修改" />

@@ -374,6 +374,8 @@ $(document).ready(function(){
 							<th class="table-th-css">管道温度</th>
 							<th class="table-th-css">室外温度</th>
 							<th class="table-th-css">是否缴费</th>
+							<th class="table-th-css">采集器安装位置</th>
+							<th class="table-th-css">采集器安装时间</th>
 							<th class="table-th-css">采集时间</th>
 						</tr>
 					</thead>

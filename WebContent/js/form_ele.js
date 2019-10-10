@@ -174,7 +174,9 @@ $(function () {
 			arr1[5] = json[i].ValTemp;
 			arr1[6] = json[i].Tqyb;
 			arr1[7] = json[i].SFJF;
-			arr1[8] = json[i].RecordTime;
+			arr1[8] = json[i].CjqTime;
+			arr1[9] = json[i].CjqWz;
+			arr1[10] = json[i].RecordTime;
 			bjList.push(arr1);
 		};
 		wdbj(bjList);

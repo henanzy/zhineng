@@ -29,8 +29,8 @@ $(document).ready(function(){
 			}else{
 				arr1[11] = json[i].SkqSbh;
 			}
-			
-			arr1[12] = json[i].Time;
+			arr1[12] = json[i].skqWz;
+			arr1[13] = json[i].Time;
 		
 			qgxxList.push(arr1);
 		};
@@ -85,7 +85,6 @@ $(document).ready(function(){
 		                      dataType:'json',
 		                      async:false,
 		                  	data:{	
-		      					
 		      					"qgId":qgid,
 		      				},
 		                     dataType: "json",
@@ -286,8 +285,8 @@ function tbodydis(oldlist,newlist,page){
 		var xintr = $(p).parent().parent().children();
 		//修改数据
 		var changewordList = [];
-		var flag=[0,1,2,3,4,9,10,11]
-		for(var x = 0 ; x < 12 ; x ++){
+		var flag=[1,2,3,4,9,10,11,12,13]
+		for(var x = 1 ; x < 14 ; x ++){
 			if(flag.includes(x)){
 				changewordList.push(xintr[x].innerHTML);
 			}

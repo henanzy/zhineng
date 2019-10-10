@@ -165,7 +165,7 @@
 	</delete>
 	
 	<select id="findYh" resultMap="YhMap" >
-		select y.id ,y.YhName,y.ValAd,y.yhfl,f.QgID,y.XqName,y.BuildNO,y.CellNO,y.HouseNO,f.Status,y.HeatArea,
+		select y.id ,y.YhName,y.ValAd,y.yhfl,f.QgID,y.XqName,y.BuildNO,y.CellNO,y.HouseNO,f.Status,y.HeatArea,y.CjqTime,y.CjqWz,
 		f.RoomTemp,f.LockSt,y.IDNum,f.FamKd,f.ValTemp,f.Tqyb,y.SFJF,y.WCAd ,y.Bz,CONVERT(varchar(100),f.RecordTime , 20)as RecordTime,
 		f.MTemSet,f.LTemSet
 		from T_YhInfo y ,T_FmInfo f where y.ValAd=f.ValAd and (y.yhrb=0 or y.yhrb=2)
@@ -349,7 +349,7 @@
 	
 	
 	<select id="findTc" resultMap="YhMap" >
-		select y.id ,y.YhName,y.ValAd,y.yhfl,f.QgID,y.XqName,y.BuildNO,y.CellNO,y.HouseNO,f.Status,y.HeatArea,
+		select y.id ,y.YhName,y.ValAd,y.yhfl,f.QgID,y.XqName,y.BuildNO,y.CellNO,y.HouseNO,f.Status,y.HeatArea,y.CjqTime,y.CjqWz,
 		f.RoomTemp,f.LockSt,y.IDNum,f.FamKd,f.ValTemp,f.Tqyb,y.SFJF,y.WCAd ,y.Bz,CONVERT(varchar(100),f.RecordTime , 20)as RecordTime
 		from T_YhInfo y ,T_FmInfo f where y.ValAd=f.ValAd and (y.yhrb=0 or y.yhrb=2)
         <if test="xqm!=null and xqm!=''">
@@ -486,4 +486,7 @@
 	     and y.HouseNO=#{hh}
     </if>   
 	</select>
+	<update id="updateCjqTime">
+	update T_YhInfo set CjqTime=#{CjqTime},CjqWz=#{CjqWz} where ID=#{id}
+	</update>
 </mapper>

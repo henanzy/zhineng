@@ -91,4 +91,6 @@ public interface YhInfoDao {
 	public void updateYhSfjf(YhInfo yhInfo);
 	
 	public List<Map<String, Object>> findJc(Map<String, Object> map);
+	//更新传感器时间
+	public void updateCjqTime(@Param("id")Integer id,@Param("CjqTime")String CjqTime,@Param("CjqWz")String CjqWz );
 }

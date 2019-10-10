@@ -257,5 +257,11 @@ public class YhInfoServiceImpl implements YhInfoService{
 		return yhnfoDao.findJc(map);
 	}
 
+	@Override
+	public void updateCjqTime(Integer id, String CjqTime,String CjqWz ) {
+		// TODO Auto-generated method stub
+		yhnfoDao.updateCjqTime(id, CjqTime,CjqWz);
+	}
+
 	
 }
