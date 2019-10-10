@@ -516,7 +516,7 @@
 					<p><label>热计量用户：</label><span class="span_num">13270</span> <span class="span_nuit">户</span></p>
 					<p><label>其他用户：</label><span class="span_num">120596</span> <span class="span_nuit">户</span></p>
 					<p><label>平均室温：</label><span class="span_num">21</span>  <span class="span_nuit">°C</span></p>
-					<p><label>室外温度：</label><span class="span_num">10.2</span>  <span class="span_nuit">°C</span></p>
+					<p><label>室外温度：</label><span class="span_num" id="swwd"></span>  <span class="span_nuit">°C</span></p>
 					<p><label>安全运行时间：</label><span class="span_num">1923</span>  <span class="span_nuit">天</span></p>
 				</div>
 				
@@ -575,9 +575,9 @@
 						<li style="margin-left: 0px;"><a
 						href="http://192.144.169.217:8091/rebiao/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">热表集抄</a></li>
 					<li style="margin-left: 0px;"><a
-						href="<%=ip%>kfgl/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">客服管理</a></li>
+						href="<%=ip%>kfgl/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>&UserName=<%=request.getSession().getAttribute("UserName")%>">客服管理</a></li>
 					<li style="margin-left: 0px;"><a
-						href="<%=ip%>jfgl/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>">缴费管理</a></li>
+						href="<%=ip%>jfgl/user/home.action?type=<%=request.getSession().getAttribute("type")%>&gs=<%=request.getSession().getAttribute("gs")%>&UserName=<%=request.getSession().getAttribute("UserName")%>">缴费管理</a></li>
 						<li style="margin-left: 0px;"><a
 						href="<%=basePath%>user/home.action?fl=nhfx">能耗分析</a></li>
 						<li style="margin-left: 0px;"><a
@@ -591,6 +591,22 @@
 		</div>
 		
 		<script>
+		
+		$.ajax({
+		    type: 'GET',
+		    url: 'https://www.tianqiapi.com/api/',
+		    data: 'version=v1&city=三门峡&appid=66763293&appsecret=2PrEpjgN',
+		    dataType: 'JSON',
+		    error: function () {
+		        alert('网络错误');
+		    },
+		    success: function (res) {
+		        var data=res.data;
+		        console.log(data)
+		    	$("#swwd").html((data[0].tem).replace("℃",""));
+		        
+		    }
+		});
 		var user="<%=request.getSession().getAttribute("UserName")%>"
 		var type1="<%=request.getSession().getAttribute("type")%>"
 		var str;

@@ -36,7 +36,40 @@ $(document).ready(function(){
 		};
 	}
 	jsArrChange(list);
-	tbodydis("",qgxxList)
+	tbodydis("",qgxxList,1)
+	
+	$("#pldf").click(function(){
+		
+		 $('input[name="check"]:checked').each(function (index, item) {
+			 var row=$(this).parent("td").parent("tr");
+			 var td = row.find("td");
+			
+			 var qgid=td[2].innerHTML;			 			 
+			          $.ajax({
+		                     type: "post",
+		                    url: getRootPath()+"/sbglCon/ssj.action",
+		                      dataType:'json',
+		                      async:false,
+		                  	data:{	
+		      					
+		      					"qgId":qgid,
+		      				},
+		                     dataType: "json",
+		                      success: function (data) {
+		                    	   if(data=="0"){
+		                    		   var page=$("#currentNum").html();
+		                    		   alert("发送成功");
+		                    		   tbodydis("",qgxxList,page)
+		                    	   }else{
+		                    		   alert("发送失败 ")
+		                    	   }
+		                     },
+		  
+		                 })
+		                 
+			    });			 
+   		              
+});
 	$("#plkf").click(function(){
 		
 		 $('input[name="check"]:checked').each(function (index, item) {
@@ -58,8 +91,9 @@ $(document).ready(function(){
 		                     dataType: "json",
 		                      success: function (data) {
 		                    	   if(data=="0"){
+		                    		   var page=$("#currentNum").html();
 		                    		   alert("发送成功");
-		                    		   location.reload();
+		                    		   tbodydis("",qgxxList,page)
 		                    	   }else{
 		                    		   alert("发送失败 ")
 		                    	   }
@@ -92,8 +126,9 @@ $(document).ready(function(){
 		                     dataType: "json",
 		                      success: function (data) {
 		                    	   if(data=="0"){
+		                    		   var page=$("#currentNum").html();
 		                    		   alert("发送成功");
-		                    		   location.reload();
+		                    		   tbodydis("",qgxxList,page)
 		                    	   }else{
 		                    		   alert("发送失败 ");
 		                    	   }
@@ -108,7 +143,7 @@ $(document).ready(function(){
 
 
 //表格写入函数带分页
-function tbodydis(oldlist,newlist){
+function tbodydis(oldlist,newlist,page){
 	
 	if(oldlist == ""){
 		var opt = [];
@@ -213,7 +248,7 @@ function tbodydis(oldlist,newlist){
 		}
 		pageInit(curr, select.value)
 	}
-	pageInit(1, 15);
+	pageInit(page, 15);
 	
 	
 	$("#word_increase_btn").click(function(){

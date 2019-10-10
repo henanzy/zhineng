@@ -83,6 +83,14 @@
 	margin:0;
 	padding:0;
 }
+input{
+	border-radius:4px;
+		background-color:rgba(43,45,49,0.8);
+		color:#fff;
+		cursor:pointer;
+		text-align:center;
+		padding:0 4px;
+	}
 .table-th-css {
 	position: relative !important;
 	top: 0;

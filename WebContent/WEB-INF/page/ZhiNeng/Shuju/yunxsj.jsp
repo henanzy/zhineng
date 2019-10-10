@@ -120,7 +120,14 @@
         top: 14px;
        	right: 6px;
     }
-    
+    input{
+	border-radius:4px;
+		background-color:rgba(43,45,49,0.8);
+		color:#fff;
+		cursor:pointer;
+		text-align:center;
+		padding:0 4px;
+	}
     .span-down{
         border-style: solid;
         border-width: 5px 5px 0px 5px;
@@ -251,7 +258,7 @@
 					</select>
 					</span>
 					
-					户号<input type="text" name="hh" id="hh" size=6px
+					户号：<input type="text" name="hh" id="hh" size=6px
 						value="" /> &nbsp;&nbsp;&nbsp; 
 					
 

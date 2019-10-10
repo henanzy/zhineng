@@ -414,4 +414,8 @@ public class UserController {
     	public String jcgl(){
     		return "ZhiNeng/jcgl";
     	}
+    	@RequestMapping("/dayin")
+    	public String dayin(){
+    		return "FaP";
+    	}
 }

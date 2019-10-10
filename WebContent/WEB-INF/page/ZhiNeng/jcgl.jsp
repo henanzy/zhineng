@@ -261,37 +261,7 @@ width:51px;
 
 	<div id="increasedis" class="clearfix" >
 		
-		<!-- <div class="mws-report-container clearfix">
-			
-			<p class="mws-report" href="#" style="font-size: 14px;min-width:800px;height:90px;">
-				<span class="mws-report-icon mws-ic ic-building"></span> 
-				<span class="mws-report-content" style="margin-top: 10px;"> 
-				<span class="mws-report-title"><span>选择小区：
-						<select id="xq" style="width:150px"
-						name="xqName">
-						
-					</select>
-					</span>
-					<span>楼栋号：
-						<select name="ldh" id="ldh" style="width:70px">
-							<option value="" >楼栋</option>
-					</select>
-					</span>
-					
-					
-					
-				</span>
-				</span>
-	
-				<span class="mws-report-title" style="margin-left:10px;"> 入网编码:
-					<input type="text" id="rwbm"  />
-					 &nbsp;&nbsp;&nbsp; 
-					<input type="submit" class="mws-button black" id="search_btn" value="搜索" />
-				</span>
-				
-			</p>
-			
-		</div> -->
+		
 		
 		<div class="mws-panel grid_8 "
 			style="width: 98%; padding-left: 12px; margin: 0px 0px 30px 0px; min-width:1000px">

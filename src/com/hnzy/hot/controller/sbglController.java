@@ -24,7 +24,6 @@ import com.hnzy.hot.socket.util.MapUtilsDf;
 import com.hnzy.hot.util.JSONSerializer;
 
 import net.sf.json.JSONObject;
-import net.sf.json.util.NewBeanInstanceStrategy;
 
 @RequestMapping("sbglCon")
 @Controller
@@ -700,5 +699,47 @@ public class sbglController {
 			boolean sessionmap = sessionMap.sendMessage(keys, b);
 			return sessionmap;
 
+		}
+		
+		@RequestMapping("ssj")
+		@ResponseBody
+		public String ssj(HttpSession session,String qgId) {
+			String ip = jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqIP").toString();
+			String port = jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqPort").toString();
+			String  pString = sj(ip, port, qgId);
+			return pString;
+		}
+		public String sj(String ip, String port, String qgId) {
+			boolean sessionmap = false;
+			MapUtilsDf.getMapUtils().add("PlDF", "sj");
+//			 IP地址和端口号
+			String pt = "/" + ip + ":" + port;
+			// fmId十进制
+			String ja = "F00A0800" + qgId;
+		
+			sessionmap = cz(ja, pt);
+			
+			try {
+				Thread.sleep(4000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+			if (sessionmap == true && MapUtilsDf.getMapUtils().get("PldFm")!=null && MapUtilsDf.getMapUtils().get("PldFm").equals("success")) {
+				MapUtils.getMapUtils().add("PldFm", null);
+				MapUtils.getMapUtils().add("dFm", null);
+				return "0";
+			}else if (sessionmap == true && MapUtils.getMapUtils().get("dFm")!=null && MapUtils.getMapUtils().get("dFm").equals("fail")) {
+				MapUtils.getMapUtils().add("PldFm", null);
+				MapUtils.getMapUtils().add("dFm", null);
+				return "1";
+			} else if (sessionmap == false) {
+				
+				return "3";
+			}else{
+				MapUtils.getMapUtils().add("PldFm", null);
+				MapUtils.getMapUtils().add("dFm", null);
+				return "2";
+			}
+			
 		}
 }

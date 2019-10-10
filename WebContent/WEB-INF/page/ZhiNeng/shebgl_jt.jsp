@@ -78,6 +78,14 @@
 <script type="text/javascript" src="../js/demo.formelements.js"></script>
 <script type="text/javascript" src="../js/sbgl.js"></script>
 <style type="text/css">
+input{
+	border-radius:4px;
+		background-color:rgba(43,45,49,0.8);
+		color:#fff;
+		cursor:pointer;
+		text-align:center;
+		padding:0 4px;
+	}
 .span-up{
         border-style: solid;
         border-width: 0px 5px 5px 5px;
@@ -214,7 +222,7 @@ nav li,
 					</select>
 					</span>
 					
-					户号<input type="text" name="hh" id="hh" size=6px
+					户号：<input type="text" name="hh" id="hh" size=6px
 						value="" /> &nbsp;&nbsp;&nbsp;  
 	                               <label >选择缴费状态：</label> 
 		                     <select>
@@ -247,15 +255,15 @@ nav li,
                                     <th class="table-th-css"></th>
                                     <th class="table-th-css">用户姓名<span class="span-up"></span> <span class="span-down"></span></th>
 	            					<th class="table-th-css">小区名称<span class="span-up"></span> <span class="span-down"></span></th>
-	            					<th class="table-th-css">楼栋号<span class="span-up"></span> <span class="span-down"></span></th>
-	            					<th class="table-th-css">单元号<span class="span-up"></span> <span class="span-down"></span></th>
+	            					<th class="table-th-css">楼栋<span class="span-up"></span> <span class="span-down"></span></th>
+	            					<th class="table-th-css">单元<span class="span-up"></span> <span class="span-down"></span></th>
 	            					<th class="table-th-css">户号<span class="span-up"></span> <span class="span-down"></span></th>
-						            <th class="table-th-css">阀门状态<span class="span-up"></span> <span class="span-down"></span></th>
-						            <th class="table-th-css">缴费状态<span class="span-up"></span> <span class="span-down"></span></th>
-						            <th class="table-th-css">阀门开度<span class="span-up"></span> <span class="span-down"></span></th>
-						            <th class="table-th-css">室内温度<span class="span-up"></span> <span class="span-down"></span></th>
+						            <th class="table-th-css">状态<span class="span-up"></span> <span class="span-down"></span></th>
+						            <th class="table-th-css">缴费<span class="span-up"></span> <span class="span-down"></span></th>
+						            <th class="table-th-css">开度<span class="span-up"></span> <span class="span-down"></span></th>
+						            <th class="table-th-css">室度<span class="span-up"></span> <span class="span-down"></span></th>
 						            <th class="table-th-css">管道温度<span class="span-up"></span> <span class="span-down"></span></th>
-						            <th class="table-th-css">锁定标识<span class="span-up"></span> <span class="span-down"></span></th>
+						            <th class="table-th-css">标识<span class="span-up"></span> <span class="span-down"></span></th>
 						            <th class="table-th-css">更新时间<span class="span-up"></span> <span class="span-down"></span></th>
 						            <th class="table-th-css">阀门地址<span class="span-up"></span> <span class="span-down"></span></th>
 						            <th class="table-th-css">传感器地址<span class="span-up"></span> <span class="span-down"></span></th>

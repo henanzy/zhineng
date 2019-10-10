@@ -287,7 +287,7 @@ ul.ac_kf li a:hover {
 							
 							<li><a class="taglist" onclick="qugxx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;区管信息</a></li>
 							 <li><a class="taglist" onclick="cgqdz()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;传感器地址</a></li> 
-							<li><a class="taglist" onclick="rebxx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;热表信息</a></li>
+							
 
 						</ul></li>
 				</c:if>
@@ -298,7 +298,7 @@ ul.ac_kf li a:hover {
 
 							<li><a class="taglist" onclick="xiaoqxx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;小区信息</a></li>
 							<li><a class="taglist" onclick="yezxx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;业主信息</a></li>
-							<li><a class="taglist" onclick="beizlb()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;备注类别</a></li>
+							
                             
 						</ul></li>
 				</c:if>

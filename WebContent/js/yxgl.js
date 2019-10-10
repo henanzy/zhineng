@@ -190,23 +190,23 @@ $(function () {
 			var arr1 = [];
 			arr1[0] = json[i].id;
 			arr1[1] = json[i].YhName;
-		
-			arr1[2] = json[i].BuildNO;
-			arr1[3] = json[i].CellNO;
-			arr1[4] = json[i].HouseNO;
-			arr1[5] = json[i].Status;
-			arr1[6] = json[i].FamKd;
-			arr1[7] = json[i].RoomTemp;
-			arr1[8] = json[i].Tqyb;
-			arr1[9] = json[i].ValTemp;
-			arr1[10] = json[i].LockSt;
-			arr1[11] = json[i].RecordTime;
-			arr1[12] = json[i].IDNum;
-			arr1[13] = json[i].ValAd;
-			arr1[14] = json[i].WCAd;
-			arr1[15] = json[i].SFJF;
-			arr1[16] = json[i].HeatArea;
-			arr1[17] = json[i].QgID;
+			arr1[2] = json[i].XqName;
+			arr1[3] = json[i].BuildNO;
+			arr1[4] = json[i].CellNO;
+			arr1[5] = json[i].HouseNO;
+			arr1[6] = json[i].Status;
+			arr1[7] = json[i].FamKd;
+			arr1[8] = json[i].RoomTemp;
+			arr1[9] = json[i].Tqyb;
+			arr1[10] = json[i].ValTemp;
+			arr1[11] = json[i].LockSt;
+			arr1[12] = json[i].RecordTime;
+			arr1[13] = json[i].IDNum;
+			arr1[14] = json[i].ValAd;
+			arr1[15] = json[i].WCAd;
+			arr1[16] = json[i].SFJF;
+			arr1[17] = json[i].HeatArea;
+			arr1[18] = json[i].QgID;
 			xinwordList.push(arr1);
 		};
 	}
@@ -427,7 +427,7 @@ $(function () {
         //要导出的json数据
       
         //列标题
-        let str = '<tr><td>用户名</td>'+
+        let str = '<tr><td>用户名</td><td>小区</td>'+
         '<td>楼栋号</td><td>单元号</td><td>户号</td>'+
         '<td>状态</td><td>开度</td><td>室温</td>'+
         '<td>室外温度</td><td>管道温度</td><td>锁定</td>'+
@@ -664,23 +664,23 @@ function compareWord(xq,ld,dy,hh,compareWordList){
 		var arr1 = [];
 		arr1[0] = json[i].id;
 		arr1[1] = json[i].YhName;
-	
-		arr1[2] = json[i].BuildNO;
-		arr1[3] = json[i].CellNO;
-		arr1[4] = json[i].HouseNO;
-		arr1[5] = json[i].Status;
-		arr1[6] = json[i].FamKd;
-		arr1[7] = json[i].RoomTemp;
-		arr1[8] = json[i].Tqyb;
-		arr1[9] = json[i].ValTemp;
-		arr1[10] = json[i].LockSt;
-		arr1[11] = json[i].RecordTime;
-		arr1[12] = json[i].IDNum;
-		arr1[13] = json[i].ValAd;
-		arr1[14] = json[i].WCAd;
-		arr1[15] = json[i].SFJF;
-		arr1[16] = json[i].HeatArea;
-		arr1[17] = json[i].QgID;
+		arr1[2] = json[i].XqName;
+		arr1[3] = json[i].BuildNO;
+		arr1[4] = json[i].CellNO;
+		arr1[5] = json[i].HouseNO;
+		arr1[6] = json[i].Status;
+		arr1[7] = json[i].FamKd;
+		arr1[8] = json[i].RoomTemp;
+		arr1[9] = json[i].Tqyb;
+		arr1[10] = json[i].ValTemp;
+		arr1[11] = json[i].LockSt;
+		arr1[12] = json[i].RecordTime;
+		arr1[13] = json[i].IDNum;
+		arr1[14] = json[i].ValAd;
+		arr1[15] = json[i].WCAd;
+		arr1[16] = json[i].SFJF;
+		arr1[17] = json[i].HeatArea;
+		arr1[18] = json[i].QgID;
 		compareWordList.push(arr1);
 	};
 	

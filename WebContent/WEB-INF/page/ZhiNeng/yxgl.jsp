@@ -461,8 +461,9 @@ html,body{
 							<!--  style="width:150%;"  -->
 					<thead>
 						<tr>
+						   
 							<th class="table-th-css">用户姓名<span class="span-up"></span> <span class="span-down"></span></th>
-						
+						 <th class="table-th-css">小区<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">楼栋<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">单元<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">户号<span class="span-up"></span> <span class="span-down"></span></th>

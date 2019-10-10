@@ -247,24 +247,24 @@ input{
 				<span class="mws-report-icon mws-ic" style="background:url(../images/yxgl/search.png) no-repeat center"></span> 
 				<span class="mws-report-content" style="margin-top: 10px;"> 
 				<span class="mws-report-title">
-				<span>选择公司：
+				<span>选择公司:
 					<select id="ssgs" style="width:150px"
 						name="ssgs">
 						
 					</select>
 				</span> 
 						 
-						 小区 	
+						 小区:
 					<select id="xq"
 						name="xqName">
 							
 					</select> &nbsp;&nbsp;&nbsp; 
 					
-					楼栋号 <select name="ldh" id="ldh">
+					楼栋号: <select name="ldh" id="ldh">
 							<option value="" >--选择楼栋--</option>
 					</select> &nbsp;&nbsp;&nbsp; 
 					
-					单元号 <select name="dyh" id="dyh">
+					单元号: <select name="dyh" id="dyh">
 							<option value="" >--选择单元--</option>
 					</select> &nbsp;&nbsp;&nbsp; 
 					<input type="submit" class="mws-button black" id="search_btn" value="搜索" />

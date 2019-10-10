@@ -91,6 +91,15 @@
   
   white-space: nowrap;
 } 
+
+input{
+	border-radius:4px;
+		background-color:rgba(43,45,49,0.8);
+		color:#fff;
+		cursor:pointer;
+		text-align:center;
+		padding:0 4px;
+	}
 nav li,
 	select{
 		/* width:50px; */
@@ -219,21 +228,21 @@ $.ajax({
 						
 					</select>
 				</span>
-                    <span class="mws-report-title" > 选择小区 	
+                    <span class="mws-report-title" > 选择小区： 	
 					<select id="xq"
 						name="xqName">
 							<option value="" >--选择小区--</option>
 					</select> &nbsp;&nbsp;&nbsp; 
 					
-					楼栋号 <select name="ldh" id="ldh">
+					楼栋号： <select name="ldh" id="ldh">
 							<option value="" >--选择楼栋--</option>
 					</select> &nbsp;&nbsp;&nbsp; 
 					
-					单元号 <select name="dyh" id="dyh">
+					单元号： <select name="dyh" id="dyh">
 							<option value="" >--选择单元--</option>
 					</select> &nbsp;&nbsp;&nbsp; 
 					
-					户号<input type="text" name="" id="" size=6px
+					户号：<input type="text" name="" id="" size=6px
 						value="" /> &nbsp;&nbsp;&nbsp; 
 						
 						<input type="submit" id="search_btn" class="mws-button black"  value="搜索"/>&nbsp;&nbsp;&nbsp;
