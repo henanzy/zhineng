@@ -41,7 +41,7 @@ public class QgController {
 	
 	@RequestMapping("Insert")
 	
-	public String Insert(String qgID,String jzqID,String xqName,String vALstID,String vALedID,String installAd,String SkqSbh){
+	public String Insert(String qgID,String jzqID,String xqName,String vALstID,String vALedID,String installAd,String SkqSbh,String skqWz){
 		
 	Map<String, Object> map =new  HashMap<String, Object>();
 	map.put("qgID", qgID);
@@ -54,6 +54,7 @@ public class QgController {
 	map.put("vALedID", vALedID);
 	map.put("installAd", installAd);
 	map.put("SkqSbh", SkqSbh);
+	map.put("skqWz", skqWz);
 	qgService.Insert(map);
 		return "redirect:qugxx.action";
 		
@@ -61,7 +62,7 @@ public class QgController {
 	
 @RequestMapping("Update")
 	
-	public String Update(String qgID,String jzqID,String xqName,String vALstID,String vALedID,String installAd,String id,String SkqSbh){
+	public String Update(String qgID,String jzqID,String xqName,String vALstID,String vALedID,String installAd,String id,String SkqSbh,String skqWz){
 		
 	Map<String, Object> map =new  HashMap<String, Object>();
 	map.put("qgID", qgID);
@@ -74,6 +75,7 @@ public class QgController {
 	map.put("vALedID", vALedID);
 	map.put("installAd", installAd);
 	map.put("SkqSbh", SkqSbh);
+	map.put("skqWz", skqWz);
 	map.put("id", id);
 	qgService.Update(map);
 		return "redirect:qugxx.action";

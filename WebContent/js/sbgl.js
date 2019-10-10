@@ -24,12 +24,15 @@ $(document).ready(function(){
 			arr1[9] = json[i].RoomTemp;
 			arr1[10] = json[i].ValTemp;
 			arr1[11] = json[i].LockSt;
-			arr1[12] = json[i].RecordTime;
-			arr1[13] = json[i].ValAd;
-			arr1[14] = json[i].WCAd;
-			arr1[15] = json[i].MTemSet;
-			arr1[16] = json[i].LTemSet;
-			arr1[17] = json[i].QgID;
+			arr1[12] = json[i].CjqTime;
+			arr1[13] = json[i].RecordTime;
+			arr1[14] = json[i].ValAd;
+			arr1[15] = json[i].WCAd;
+			arr1[16] = json[i].CjqWz;
+			arr1[17] = json[i].MTemSet;
+			arr1[18] = json[i].LTemSet;
+			arr1[19] = json[i].QgID;
+			
 			shebList.push(arr1);
 		};
 	}
@@ -266,6 +269,33 @@ $(document).ready(function(){
 			    });			 
     		              
 });
+	
+	$("#word_change_btn").click(function(){
+			 var upid=$("#upid").val();
+			 var CjqTime=$("#CjqTime").val();
+			 var CjqWz=$("#CjqWz").val();
+			          $.ajax({
+		                     type: "post",
+		                    url: getRootPath()+"/sbglCon/updateCjqTime.action",
+		                      dataType:'json',
+		                      async:false,
+		                  	data:{	
+		      					"upid":upid,
+		      					"CjqTime":CjqTime,
+		      					"CjqWz":CjqWz,
+		      				},
+		                     dataType: "json",
+		                      success: function (data) {
+		                    	
+		                    		   var page=$("#currentNum").html();
+		                    		    search(page);
+		                    		    $("#change_word").hide();
+		                     },
+		  
+		                 })		 
+     		              
+});
+	
 	function search(page){
 		var xq = $('#xq').val();
 		var ld = $('#ldh').val();
@@ -278,6 +308,20 @@ $(document).ready(function(){
 	
 		tbodydis(shebList,compareWordList,page);
 	}
+
+	//新增按钮
+	$("#change_word_btn").click(function(){
+		xin_change(this);
+	});
+
+	/*//修改按钮
+	$(".xinjgd_change").click(function(){
+		xin_change(this);
+	});*/
+	//关闭新增
+	$(".close").click(function(){
+		$("#change_word").hide();
+	});
 $("#search_btn").click(function(){
 	search(1);
 		
@@ -474,6 +518,27 @@ function tbodydis(oldlist,newlist,page){
 
 }
 
+function xin_change(p){
+	$("#change_word").show();
+	  var ckbs=$("#sheb_body input[type=checkbox]:checked");
+		if(ckbs.length==0){
+			alert("请选择要发送的阀门");
+			return false;
+		}
+		if(ckbs.length>1){
+			alert("对不起一次只能读取一个");
+			return false;
+		}
+		var id=ckbs.val();
+		var cgqId=ckbs.parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().text();
+		var CjqWz=ckbs.parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().text();
+		var cjqTime=ckbs.parent().next().next().next().next().next().next().next().next().next().next().next().next().next().text();
+		$("#change_word .change_word_input")[0].value = id;
+		$("#change_word .change_word_input")[1].value = cgqId;
+		$("#change_word .change_word_input")[2].value = CjqWz;
+		$("#change_word .change_word_input")[3].value = cjqTime;
+}
+
 function compareWord(xq,ld,dy,hh,compareWordList){
 
 	var json;
@@ -509,12 +574,14 @@ function compareWord(xq,ld,dy,hh,compareWordList){
 		arr1[9] = json[i].RoomTemp;
 		arr1[10] = json[i].ValTemp;
 		arr1[11] = json[i].LockSt;
-		arr1[12] = json[i].RecordTime;
-		arr1[13] = json[i].ValAd;
-		arr1[14] = json[i].WCAd;
-		arr1[15] = json[i].MTemSet;
-		arr1[16] = json[i].LTemSet;
-		arr1[17] = json[i].QgID;
+		arr1[12] = json[i].CjqTime;
+		arr1[13] = json[i].RecordTime;
+		arr1[14] = json[i].ValAd;
+		arr1[15] = json[i].WCAd;
+		arr1[16] = json[i].CjqWz;
+		arr1[17] = json[i].MTemSet;
+		arr1[18] = json[i].LTemSet;
+		arr1[19] = json[i].QgID;
 		compareWordList.push(arr1);
 	};
 

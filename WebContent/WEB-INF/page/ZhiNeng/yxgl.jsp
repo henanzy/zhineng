@@ -473,13 +473,16 @@ html,body{
 							<th class="table-th-css">室外温度<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">管道温度<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">锁定<span class="span-up"></span> <span class="span-down"></span></th>
+							<th class="table-th-css">采集器安装时间<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">抄表时间<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">用户ID<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">阀门地址<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">传感器地址<span class="span-up"></span> <span class="span-down"></span></th>
+							<th class="table-th-css">安装位置<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">缴费状态<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">面积<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">区管ID<span class="span-up"></span> <span class="span-down"></span></th>
+							
 						</tr>
 					</thead>
 					<tbody id="xinword_body">

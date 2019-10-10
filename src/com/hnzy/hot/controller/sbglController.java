@@ -120,6 +120,12 @@ public class sbglController {
 			return json;
 		}
 		
+		//更新传感器时间
+		@RequestMapping("updateCjqTime")
+		@ResponseBody
+		public void updateCjqTime(Integer upid,String CjqTime ,String CjqWz){
+			yhInfoService.updateCjqTime(upid, CjqTime,CjqWz);
+		}
 		
 		public JSONObject kfm( String fmId, String qgId,int fmkd) {
 			param = "kFm";

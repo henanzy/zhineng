@@ -200,13 +200,15 @@ $(function () {
 			arr1[9] = json[i].Tqyb;
 			arr1[10] = json[i].ValTemp;
 			arr1[11] = json[i].LockSt;
-			arr1[12] = json[i].RecordTime;
-			arr1[13] = json[i].IDNum;
-			arr1[14] = json[i].ValAd;
-			arr1[15] = json[i].WCAd;
-			arr1[16] = json[i].SFJF;
-			arr1[17] = json[i].HeatArea;
-			arr1[18] = json[i].QgID;
+			arr1[12] = json[i].CjqTime;
+			arr1[13] = json[i].RecordTime;
+			arr1[14] = json[i].IDNum;
+			arr1[15] = json[i].ValAd;
+			arr1[16] = json[i].WCAd;
+			arr1[17] = json[i].CjqWz;
+			arr1[18] = json[i].SFJF;
+			arr1[19] = json[i].HeatArea;
+			arr1[20] = json[i].QgID;
 			xinwordList.push(arr1);
 		};
 	}
@@ -214,13 +216,6 @@ $(function () {
 
 	// 表格写入函数
 	tbodydis("",xinwordList);
-	
-	
-	
-	
-	
-	
-	
 
 	
 	// 分页样式
@@ -674,13 +669,16 @@ function compareWord(xq,ld,dy,hh,compareWordList){
 		arr1[9] = json[i].Tqyb;
 		arr1[10] = json[i].ValTemp;
 		arr1[11] = json[i].LockSt;
-		arr1[12] = json[i].RecordTime;
-		arr1[13] = json[i].IDNum;
-		arr1[14] = json[i].ValAd;
-		arr1[15] = json[i].WCAd;
-		arr1[16] = json[i].SFJF;
-		arr1[17] = json[i].HeatArea;
-		arr1[18] = json[i].QgID;
+		arr1[12] = json[i].CjqTime;
+		arr1[13] = json[i].RecordTime;
+		arr1[14] = json[i].IDNum;
+		arr1[15] = json[i].ValAd;
+		arr1[16] = json[i].WCAd;
+		arr1[17] = json[i].CjqWz;
+		arr1[18] = json[i].SFJF;
+		arr1[19] = json[i].HeatArea;
+		arr1[20] = json[i].QgID;
+		
 		compareWordList.push(arr1);
 	};
 	

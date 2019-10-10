@@ -9,13 +9,14 @@
 	
 	<insert id="Insert" >
 		insert into T_QgInfo
-		(QgID,JzqID,XqName,VALstID,VALedID,InstallAd,SkqSbh,QgFl)
-		values(#{qgID},#{jzqID},#{xqName},#{vALstID},#{vALedID},#{installAd},#{SkqSbh},'0')
+		(QgID,JzqID,XqName,VALstID,VALedID,InstallAd,SkqSbh,QgFl,skqWz)
+		values(#{qgID},#{jzqID},#{xqName},#{vALstID},#{vALedID},#{installAd},#{SkqSbh},'0',#{skqWz})
 	</insert>
 	
 	<update id="Update">
 		update T_QgInfo set
-		QgID=#{qgID},JzqID=#{jzqID},XqName=#{xqName},VALstID=#{vALstID},VALedID=#{vALedID},InstallAd=#{installAd} ,SkqSbh=#{SkqSbh}
+		QgID=#{qgID},JzqID=#{jzqID},XqName=#{xqName},VALstID=#{vALstID},VALedID=#{vALedID}
+		,InstallAd=#{installAd} ,SkqSbh=#{SkqSbh},skqWz=#{skqWz}
 		where ID=#{id}
 	</update>
 	

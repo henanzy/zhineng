@@ -67,6 +67,10 @@
 <script type="text/javascript" src="../plugins/spinner/ui.spinner.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.js"></script>
 
+<link rel="stylesheet" type="text/css" href="../js/layer/2.4/skin/layer.css" media="screen" />
+<script type="text/javascript" src="../js/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../js/layui/layui.js"></script>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
 
 <script type="text/javascript" src="../plugins/elrte/js/elrte.min.js"></script>
 <script type="text/javascript" src="../plugins/elfinder/js/elfinder.min.js"></script>
@@ -77,6 +81,206 @@
 
 <script type="text/javascript" src="../js/demo.formelements.js"></script>
 <script type="text/javascript" src="../js/sbgl.js"></script>
+
+
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+}
+		th,td{  
+  
+  white-space: nowrap;
+} 
+	/*修改按钮 */
+	#xincreate_table_body .mws-table tbody .gradeX .xinjgd_show,
+	#xincreate_table_body .mws-table tbody .gradeX .xinjgd_change,
+	#xincreate_table_body .mws-table tbody .gradeX .xinjgd_del{
+		border:none;
+		background-color:rgb(60,61,61);
+		height:24px;
+		width:40px;
+		margin-right:16px;
+		margin-top:2px;
+		color:#fff;
+		font-size: 12px;
+		border-radius:4px;
+	}
+#increase_word,
+	#change_word{
+		display:none;
+		position: fixed;
+		left: 0;
+	    top:0;
+	    right:0;
+	    bottom:0;
+	    z-index: 100; 
+		background-color:rgba(0,0,0,0.6);
+	}
+	
+	/* 新增修改弹出框关闭按钮 */
+	#increase_word .close,
+	#change_word .close{
+		display:block;
+		background-color:rgb(193,213,43);
+		width:24px;
+		height:24px;
+		color: #fff;
+    	border-radius: 13px;
+		position:absolute;
+		top:14px;
+		right:20px;
+		line-height: 24px;
+   		text-align: center;
+   		font-size: 18px;
+	}
+	#hh{
+		width:60px;
+		height:24px;
+		line-height:24px;
+		border-radius:4px;
+		background-color:rgba(43,45,49,0.8);
+		color:#fff;
+		cursor:pointer;
+		text-align:center;
+		padding:0 4px;
+	}
+	#increase_word .close::before,
+	#change_word .close::before {
+	    content: "\2716";
+	}
+	
+	/* 新增修改弹出框input */
+	#increase_word .mws-form-row .increase_word_input,
+	#change_word .mws-form-row .change_word_input {
+		width:200px;
+	}
+	
+	/* 新增修改弹出框label */
+	#increase_word .mws-form-row label,
+	#change_word .mws-form-row label{
+		width:150px;
+	}
+	
+	/* 新增修改弹出框确认按钮 */
+	#increase_word #word_increase_btn,
+	#change_word #word_change_btn{
+		position:relative;
+		top:10px;
+		left:47%;
+	}
+	
+.table-th-css {
+	position: relative !important;
+	top: 0;
+}
+
+.mws-report {
+	width: 98% !important;
+	min-width: 170px;
+	margin: 8px 1%;
+	height: 90px;
+	float: left;
+	cursor: pointer;
+	display: block;
+	text-decoration: none;
+	color: #323232;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box; /* Firefox, other Gecko */
+	box-sizing: border-box; /* Opera/IE 8+ */
+	background: #ffffff;
+	border: 1px solid #cccccc;
+	/* CSS 3 */
+	-webkit-border-radius: 6px;
+	-o-border-radius: 6px;
+	-moz-border-radius: 6px;
+	-khtml-border-radius: 6px;
+	border-radius: 6px;
+}
+
+
+/* 新增修改弹出框 */
+	#increase_word,
+	#change_word{
+		display:none;
+		position: fixed;
+		left: 0;
+	    top:0;
+	    right:0;
+	    bottom:0;
+	    z-index: 100; 
+		background-color:rgba(0,0,0,0.6);
+	}
+		/*修改按钮 */
+	 .xinjgd_change,
+	 .xinjgd_del{
+		border:none;
+		background-color:rgb(60,61,61);
+		height:24px;
+		width:40px;
+		margin-right:16px;
+		margin-top:2px;
+		color:#fff;
+		font-size: 12px;
+		border-radius:4px;
+	}
+	/* 新增修改弹出框关闭按钮 */
+	#increase_word .close,
+	#change_word .close{
+		display:block;
+		background-color:rgb(193,213,43);
+		width:24px;
+		height:24px;
+		color: #fff;
+    	border-radius: 13px;
+		position:absolute;
+		top:14px;
+		right:20px;
+		line-height: 24px;
+   		text-align: center;
+   		font-size: 18px;
+	}
+	#increase_word .close::before,
+	#change_word .close::before {
+	    content: "\2716";
+	}
+	
+	/* 新增修改弹出框input */
+	#increase_word .mws-form-row .increase_word_input,
+	#change_word .mws-form-row .change_word_input {
+		width:300px;
+	}
+	
+	/* 新增修改弹出框label */
+	#increase_word .mws-form-row label,
+	#change_word .mws-form-row label{
+		width:115px;
+	}
+	
+	/* 新增修改弹出框确认按钮 */
+	#increase_word #word_increase_btn,
+	#change_word #word_change_btn{
+		position:relative;
+		top:0px;
+		left:47%;
+	}
+	
+
+nav li,
+	select{
+		height:24px;
+		line-height:24px;
+		border-radius:4px;
+		background-color:rgba(43,45,49,0.8);
+		color:#fff;
+		cursor:pointer;
+		text-align:center;
+		padding:0 4px;
+		list-style-type:none;
+	}
+
+
+</style>
 <style type="text/css">
 input{
 	border-radius:4px;
@@ -247,7 +451,7 @@ nav li,
 	                          <input type="submit" id="fscs" class="mws-button black"  value="发送参数"/>&nbsp;&nbsp;
 	                          
 	                                                              无线传感器地址：<input type="text" name="" id="dz" size=12px value=""  />&nbsp;
-						    	<input type="submit" id="xgcgq" class="mws-button black"  value="修改无线传感器地址"/>
+						    	<input type="submit" id="increase_btn" class="mws-button black"  value="修改无线传感器地址"/>
                               </span>
                           </span>
                           
@@ -258,7 +462,7 @@ nav li,
                                          <button type="button" id="gf" class="mws-button black" >关阀</button>&nbsp;
                                          <button type="button" id="df" class="mws-button black" >读阀</button>&nbsp;
                                          <button type="button"id="dcgq"  class="mws-button black" >读传感器地址</button>&nbsp;
-                           
+                           				 <button type="button"id="change_word_btn"  class="mws-button black" >修改采集器安装时间</button>&nbsp;
                                                                            <!--   用户类别: <select id="yhlb" name="">
 							        <option value="">--选择用户类别--</option>
 							        <option value="普通用户">普通用户</option>
@@ -293,16 +497,18 @@ nav li,
 						            <th class="table-th-css">状态<span class="span-up"></span> <span class="span-down"></span></th>
 						            <th class="table-th-css">缴费<span class="span-up"></span> <span class="span-down"></span></th>
 						            <th class="table-th-css">开度<span class="span-up"></span> <span class="span-down"></span></th>
-						            <th class="table-th-css">室度<span class="span-up"></span> <span class="span-down"></span></th>
-						            <th class="table-th-css">管道温度<span class="span-up"></span> <span class="span-down"></span></th>
-						            <th class="table-th-css">标识<span class="span-up"></span> <span class="span-down"></span></th>
+						            <th class="table-th-css">室温<span class="span-up"></span> <span class="span-down"></span></th>
+						            <th class="table-th-css">管温<span class="span-up"></span> <span class="span-down"></span></th>
+						            <th class="table-th-css">锁定<span class="span-up"></span> <span class="span-down"></span></th>
+						             <th class="table-th-css">采集器安装时间<span class="span-up"></span> <span class="span-down"></span></th>
 						            <th class="table-th-css">更新时间<span class="span-up"></span> <span class="span-down"></span></th>
 						            <th class="table-th-css">阀门地址<span class="span-up"></span> <span class="span-down"></span></th>
 						            <th class="table-th-css">传感器地址<span class="span-up"></span> <span class="span-down"></span></th>
-						            
+						            <th class="table-th-css">安装位置<span class="span-up"></span> <span class="span-down"></span></th>
 						            <th class="table-th-css">设定温度<span class="span-up"></span> <span class="span-down"></span></th>
 						            <th class="table-th-css">设定参数<span class="span-up"></span> <span class="span-down"></span></th>
 						            <th class="table-th-css">区管ID<span class="span-up"></span> <span class="span-down"></span></th>
+						           
                                 </tr>
                             </thead>
 					<tbody id="sheb_body" >
@@ -333,8 +539,50 @@ nav li,
                      
             </ul>
          </nav>  
-              
-</div>            
+	<div id="change_word">
+			<div class="mws-panel grid_4"
+				style="width: 550px; min-width: 550px; margin: 20px 30%;">
+				<div class="mws-panel-header">
+					<span class="mws-i-24 i-pencil">修改无线传感器地址</span> <span class="close"></span>
+				</div>
+				<div class="mws-panel-body" style="height: 200px;">
+					<form class="mws-form" id="update" action="UpdateYh.action" method="post">
+						<div class="mws-form-inline">
+						 <input type="hidden" class="mws-textinput change_word_input"
+							name="upid" id="upid" value="" />
+						
+						<div class="mws-form-row">
+								<label>&emsp;传感器地址：</label>
+
+								<div class="mws-form-item large">
+								 <input type="text" class="mws-textinput change_word_input"  readonly="readonly"
+										name="cgqId" id="cgqId" value="" autofocus="autofocus" />
+								</div>
+						</div>
+						<div class="mws-form-row">
+								<label>&emsp;安装位置：</label>
+
+								<div class="mws-form-item large">
+									<input type="text" class="mws-textinput change_word_input" 
+										name="CjqWz" id="CjqWz" value="" autofocus="autofocus" />
+								</div>
+						</div>
+						<div class="mws-form-row">
+								<label>&emsp;安装时间：</label>
+
+								<div class="mws-form-item large">
+									<input type="text" class="mws-textinput change_word_input" 
+										name="CjqTime" id="CjqTime" value="" autofocus="autofocus" />
+								</div>
+						</div>
+						</div>
+						<input type="button" id="word_change_btn"
+							class="mws-button black" value="修改" />
+					</form>
+				</div>
+			</div>
+		</div>
+       </div>
 </body>
 <script type="text/javascript">
 var ssgs="<%=request.getSession().getAttribute("ssgs")%>"
