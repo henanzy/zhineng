@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import com.hnzy.hot.service.JzqService;
 import com.hnzy.hot.service.QgService;
 import com.hnzy.hot.service.XxglService;
 import com.hnzy.hot.service.YhInfoService;
+import com.hnzy.hot.socket.server.ServerHandler;
 import com.hnzy.hot.socket.server.ServerSessionMap;
 import com.hnzy.hot.socket.util.CzUtil;
 import com.hnzy.hot.socket.util.MapUtils;
@@ -41,7 +44,7 @@ public class sbglController {
 	@Autowired
 	private XxglService xxglService;
 	
-	
+	private final static Logger log = LoggerFactory.getLogger(sbglController.class);
 	/*设备管理*/
 	@RequestMapping("/shebgl")
 	public String sbgl(HttpSession session){
@@ -127,19 +130,12 @@ public class sbglController {
 			yhInfoService.updateCjqTime(upid, CjqTime,CjqWz);
 		}
 		
-		public JSONObject kfm( String fmId, String qgId,int fmkd) {
+		public JSONObject kfm( String fmId, String qgId,int fmkd,String userName) {
 			param = "kFm";
 			String FsFmkd ;
 			MapUtils.getMapUtils().add("param", param);
 			MapUtils.getMapUtils().add("kfSuc", fmId);
-			yhInfoService.updateType("操控开",fmId);
-			// 根据阀门查找信息
-			/*fm = fmService.findbyVad(fmId);
-			//更新控制人员开
-			
-			int buildNo = fm.getYh().getBuildNO();
-			int cellNo = fm.getYh().getCellNO();
-			int houseNo = fm.getYh().getHouseNO();*/
+//			yhInfoService.updateType("操控开",fmId);
 			// 把FmID转换为int类型
 			int fInteger = Integer.valueOf(fmId);
 			// FmID十进制转换为十六进制
@@ -149,8 +145,6 @@ public class sbglController {
 			if(FsFmkd.length()==1){
 				FsFmkd="0"+FsFmkd;
 				}
-			// 阀门ID
-			/*fm = fmService.findJzq(fmId);*/
 			// 区管ID
 			String ip = jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqIP").toString();  /*fm.getQg().getJzq().getJzqIp();*/
 			// 端口号
@@ -159,8 +153,7 @@ public class sbglController {
 			String pt = "/" + ip + ":" + port;
 			// fmId十进制
 			String ja = "F0160900" + qgId + "040" + fmd + "01"+FsFmkd+"FF01FFFFFF";
-			System.out.println(pt);
-			System.out.println(ja);
+			log.info("开阀门指令-------------"+ja);
 			boolean sessionmap = cz(ja, pt);
 			try {
 				Thread.sleep(3000);
@@ -171,19 +164,24 @@ public class sbglController {
 			JSONObject jsonObject = new JSONObject();
 			
 			if (sessionmap == true &&  MapUtils.getMapUtils().get("kFm")!=null && MapUtils.getMapUtils().get("kFm").equals("success")) {
+			
+				Date date=new Date();
+		    	if(!userName.equals("hnzyxt")){
+		    		//日志
+		    		Map map= yhInfoService.geidz(fmId);
+					xxglService.InsertRz(userName, "开阀门 ：小区"+map.get("XqName")+"楼栋" +map.get("BuildNo")+"单元"+map.get("CellNo")
+					+"户号"+map.get("HouseNo"), date);
+	             }
 				MapUtils.getMapUtils().add("kFm", null);
 				MapUtils.getMapUtils().add("sb", null);
 				MapUtils.getMapUtils().add("cs", null);
 				jsonObject.put("js", "0");
-				//jsonObject.put("fmId", "阀门号:" + fmId + "楼栋号:" + buildNo + "单元号:" + cellNo + "户号:" + houseNo);
-				
 				return jsonObject;
 			} else {
 				MapUtils.getMapUtils().add("kFm", null);
 				MapUtils.getMapUtils().add("sb", null);
 				MapUtils.getMapUtils().add("cs", null);
 				jsonObject.put("js", "2");
-				//jsonObject.put("fmId", "阀门号:" + fmId + "楼栋号:" + buildNo + "单元号:" + cellNo + "户号:" + houseNo);
 				return jsonObject;
 			} 
 		}
@@ -194,9 +192,7 @@ public class sbglController {
 		@ResponseBody
 		public String FsCs(HttpSession session,String fmId, String qgId, String wdsd, String tjzq, String tjcs,String sdbs) throws UnsupportedEncodingException {
 			
-			//日志
-			
-			String	userName=(String) session.getAttribute("userName");
+			String	userName=(String) session.getAttribute("UserName");
 			if(userName!=null){
 			 userName=new String(userName.getBytes("ISO-8859-1"),"utf-8")+"";
 			if(userName.equals("供热一处")||userName.equals("供热二处")|| userName.equals("供热三处")){
@@ -232,8 +228,6 @@ public class sbglController {
 			// FmID十进制转换为十六进制
 			String fmd = Integer.toHexString(fInteger);
 			String UppFmd = CzUtil.Uppercase(fmd).toString();
-			// 阀门ID
-			
 			// 区管ID
 			String ip = jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqIP").toString();  /*fm.getQg().getJzq().getJzqIp();*/
 			// 端口号
@@ -242,8 +236,8 @@ public class sbglController {
 			String pt = "/" + ip + ":" + port;
 
 			// fmId十进制
-			String ja = "F0160900" + qgId + "040" + UppFmd + "FFFF"+sdbs+"FF" + UppWdsd + "" + UppTjzq + "" + UppTjcs
-					+ "";
+			String ja = "F0160900" + qgId + "040" + UppFmd + "FFFF"+sdbs+"FF" + UppWdsd + "" + UppTjzq + "" + UppTjcs;
+			log.info("发送参数");
 			Map map= yhInfoService.geidz(fmId);
 			Date date=new Date();
 			xxglService.InsertRz(userName, "发送参数 ：小区"+map.get("XqName")+"楼栋" +map.get("BuildNo")+"单元"+map.get("CellNo")
@@ -278,37 +272,25 @@ public class sbglController {
 		public JSONObject KFm( HttpSession session, String fmId, String qgId,String fmkd) throws UnsupportedEncodingException {
 			
 			JSONObject kString = null;
-			
 			int fmkds=0;
-			
-			
 			if(fmkd.equals("")){
 				fmkds=255;
 			}else{
 				 fmkds=Integer.valueOf(fmkd);
 			}
-
-			
-			
 			JSONObject jsonObject=new JSONObject();
-			kString = kfm( fmId, qgId,fmkds);
+//			kString = kfm( fmId, qgId,fmkds);
 	    	
-	    	String	userName=(String) session.getAttribute("userName");
+	    	String	userName=(String) session.getAttribute("UserName");
 	    	if(userName!=null){
 	    	 userName=new String(userName.getBytes("ISO-8859-1"),"utf-8")+"";
-	    	if(!userName.equals("hnzyxt")){
-	    		
-			
-	    	}
+
 			if(userName.equals("供热一处")||userName.equals("供热二处")||userName.equals("供热三处")){
 				jsonObject.put("js", "5");
 				return jsonObject;
 			}else{
-				Map map= yhInfoService.geidz(fmId);
-				Date date=new Date();
-				xxglService.InsertRz(userName, "开阀门 ：小区"+map.get("XqName")+"楼栋" +map.get("BuildNo")+"单元"+map.get("CellNo")
-				+"户号"+map.get("HouseNo"), date);
-			kString = kfm( fmId, qgId,fmkds);
+				
+			kString = kfm( fmId, qgId,fmkds,userName);
 			return kString;
 			}
 
@@ -317,19 +299,14 @@ public class sbglController {
 			return jsonObject;
 		}
 		}
-		public JSONObject gf(String fmId, String qgId) {
+		public JSONObject gf(String fmId, String qgId,String userName) {
 			param = "gFm";
 			MapUtils.getMapUtils().add("param", param);
 			MapUtils.getMapUtils().add("gfSuc", fmId);
-			// 根据阀门查找信息
-			
-			
 			// 把FmID转换为int类型
 			int fInteger = Integer.valueOf(fmId);
 			// FmID十进制转换为十六进制
 			String fmd = Integer.toHexString(fInteger);
-			// 阀门ID
-			
 			// 区管ID
 			String ip = jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqIP").toString();  
 			// 端口号
@@ -339,8 +316,7 @@ public class sbglController {
 			String pt = "/" + ip + ":" + port;
 			// fmId十进制
 			String ja = "F0160900" + qgId + "040" + fmd + "00FFFF00FFFFFF";
-			System.out.println(pt);
-			System.out.println(ja);
+			log.info("关阀门发送数据-----------"+ja);
 			boolean sessionmap = cz(ja, pt);
 
 			try {
@@ -353,7 +329,13 @@ public class sbglController {
 				MapUtils.getMapUtils().add("gFm", null);
 				MapUtils.getMapUtils().add("cs", null);
 				MapUtils.getMapUtils().add("sb", null);
-				
+				if(!userName.equals("hnzyxt")){
+					//日志
+					Map map= yhInfoService.geidz(fmId);
+					Date date=new Date();
+					xxglService.InsertRz(userName, "关阀门 ：小区"+map.get("XqName")+"楼栋" +map.get("BuildNo")+"单元"+map.get("CellNo")
+					+"户号"+map.get("HouseNo"), date);	
+			    	}
 				jsonObject.put("js", "0");
 				return jsonObject;
 			}else {
@@ -371,32 +353,19 @@ public class sbglController {
 		@ResponseBody
 		public JSONObject gFm( HttpSession session, String fmId, String qgId) throws UnsupportedEncodingException {
 			JSONObject kString = null;
-			
-			
-			//kString = gf( fmId, qgId);
-			
 			JSONObject jsonObject=new JSONObject();
-			
-	    	//return kString;
-	    	String	userName=(String) session.getAttribute("userName");
+	    	
+	    	String	userName=(String) session.getAttribute("UserName");
 	    	if(userName!=null){
 	    	 userName=new String(userName.getBytes("ISO-8859-1"),"utf-8")+"";
-	    	if(!userName.equals("hnzyxt")){
-	    		
-			//日志
-	    		
-	    		
-	    	}
+	    	
 			if(userName.equals("供热一处")||userName.equals("供热二处")||userName.equals("供热三处")){
 				jsonObject.put("js", "5");
 				return jsonObject;
 			}else{
 			
-			kString = gf( fmId, qgId);
-			Map map= yhInfoService.geidz(fmId);
-			Date date=new Date();
-			xxglService.InsertRz(userName, "关阀门 ：小区"+map.get("XqName")+"楼栋" +map.get("BuildNo")+"单元"+map.get("CellNo")
-			+"户号"+map.get("HouseNo"), date);
+			kString = gf( fmId, qgId,userName);
+			
 			return kString;
 			}
 
@@ -412,15 +381,6 @@ public class sbglController {
 		public JSONObject duFm(HttpSession session ,HttpServletRequest request, String fmId, String qgId) {
 			MapUtilsDf.getMapUtils().add("dFmParam", fmId);
 			
-	    	
-	    	//根据阀门获取用户信息
-			/*fm = fmService.findbyVad(ids);
-			int buildNo = fm.getYh().getBuildNO();
-			int cellNo = fm.getYh().getCellNO();
-			int houseNo = fm.getYh().getHouseNO();
-			f = fmService.findIDbyqgvd(ids);
-			fmId = f.getValAd();
-			qgId = f.getQgID();*/
 			// 把FmID转换为int类型
 			int fInteger = Integer.valueOf(fmId);
 			// FmID十进制转换为十六进制
@@ -435,7 +395,7 @@ public class sbglController {
 			String pt = "/" + ip + ":" + port;
 			// fmId十进制
 			String ja = "F00F0400" + qgId + "040" + fmd;
-			//log.info("读阀发送数据："+ja);
+			log.info("读阀门发送数据--------"+ja);
 			boolean sessionmap = cz(ja, pt);
 			try {
 				Thread.sleep(3000);
@@ -447,12 +407,10 @@ public class sbglController {
 			if (sessionmap == true && MapUtilsDf.getMapUtils().get("dFm")!=null && MapUtilsDf.getMapUtils().get("dFm").equals("success")) {
 				MapUtilsDf.getMapUtils().add("dFm", null);
 				jsonObject.put("js", "0");
-				//jsonObject.put("fmId", "阀门号:" + fmId + "楼栋号:" + buildNo + "单元号:" + cellNo + "户号:" + houseNo);
 				return jsonObject;
 			} else {
 				MapUtilsDf.getMapUtils().add("dFm", null);
 				jsonObject.put("js", "5");
-				//jsonObject.put("fmId", "阀门号:" + fmId + "楼栋号:" + buildNo + "单元号:" + cellNo + "户号:" + houseNo);
 				return jsonObject;
 			}
 
@@ -464,9 +422,8 @@ public class sbglController {
 	    public String XCgq(HttpSession session, String fmId, String CGQId,String qgId) throws UnsupportedEncodingException{
 
 	    	
-			String	userName=(String) session.getAttribute("userName");
+			String	userName=(String) session.getAttribute("UserName");
 			if(userName!=null){
-			 //userName=new String(userName.getBytes("ISO-8859-1"),"utf-8")+"";
 			if( userName.equals("供热一处")||userName.equals("供热二处")||userName.equals("供热三处")){
 				return"5";
 			}else {
@@ -479,8 +436,6 @@ public class sbglController {
 	    			int cgqId=Integer.valueOf(CGQId);
 	    			//十进制转换为十六进制
 	    			String Cgq=Integer.toHexString(cgqId);
-	    			// 阀门ID
-	    			
 	    			// 区管ID
 	    			String ip = jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqIP").toString();  
 	    			// 端口号
@@ -489,13 +444,10 @@ public class sbglController {
 	    			String pt = "/" + ip + ":" + port;
 
 	    			// fmId十进制
-	    			String ja = "F0155300"+qgId+"0"+UppFmd+"679A000"+Cgq+"";
-	    			System.out.println(pt);
-	    			System.out.println(ja);
-	    			Map map= yhInfoService.geidz(fmId);
-					Date date=new Date();
-					xxglService.InsertRz(userName, "修改传感器地址 ：小区"+map.get("XqName")+"楼栋" +map.get("BuildNo")+"单元"+map.get("CellNo")
-					+"户号"+map.get("HouseNo"), date);
+	    			String ja = "F0155300"+qgId+"0"+UppFmd+"679A000"+Cgq;
+	    			
+	    			log.info("修改无线传感器地址发送数据--------"+ja);
+	    			
 	    			boolean sessionmap = cz(ja, pt);
 	    			try {
 	    				Thread.sleep(3000);
@@ -504,7 +456,13 @@ public class sbglController {
 	    				e.printStackTrace();
 	    			}
 	    			if (sessionmap == true &&  MapUtils.getMapUtils().get("Xcgq")!=null && MapUtils.getMapUtils().get("Xcgq").equals("success")) {
-	    				MapUtils.getMapUtils().add("Xcgq", null);
+	    				//日志
+	    				Map map= yhInfoService.geidz(fmId);
+						Date date=new Date();
+						xxglService.InsertRz(userName, "修改传感器地址 ：小区"+map.get("XqName")+"楼栋" +map.get("BuildNo")+"单元"+map.get("CellNo")
+						+"户号"+map.get("HouseNo"), date);
+	    				
+						MapUtils.getMapUtils().add("Xcgq", null);
 	    				//修改传感器地址成功后更改数据库传感器地址---------------------------------
 	    		    	yhInfoService.updateCgqId(CGQId, fmId);
 	    				return "0";
@@ -521,15 +479,11 @@ public class sbglController {
 		@ResponseBody
 		public String cgqads(HttpSession session,String fmId, String qgId) {
 			
-			//日志
-			
-			
 			// 把FmID转换为int类型
 			int fInteger = Integer.valueOf(fmId);
 			// FmID十进制转换为十六进制
 			String fmd = Integer.toHexString(fInteger);
-			// 阀门ID
-			
+		
 			// 区管ID
 			String ip = jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqIP").toString();  
 			// 端口号
@@ -537,7 +491,7 @@ public class sbglController {
 			// IP地址和端口号
 			String pt = "/" + ip + ":" + port;
 			String ja = "F0115200" + qgId + "0" + fmd + "679A00";
-			
+			log.info("读传感器地址---------"+ja);
 			boolean sessionmap = cz(ja, pt);
 			try {
 				Thread.sleep(4000);
@@ -557,7 +511,7 @@ public class sbglController {
 			//日志
 			
 			
-			String userName=(String) session.getAttribute("userName");
+			String userName=(String) session.getAttribute("UserName");
 			if(userName!=null){
 				userName=new String(userName.getBytes("ISO-8859-1"),"utf-8")+"";
 			}
@@ -569,8 +523,8 @@ public class sbglController {
 			
 			String ip = jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqIP").toString();
 			String port = jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqPort").toString();
-			plKf(ip, port, qgId);
-			return "0";
+			String sta=plKf(ip, port, qgId);
+			return sta;
 			}
 
 		}
@@ -580,7 +534,7 @@ public class sbglController {
 		public String PlGf(HttpSession session,String qgId) throws UnsupportedEncodingException {
 			//日志
 			
-			String userName=(String) session.getAttribute("userName");
+			String userName=(String) session.getAttribute("UserName");
 			if(userName!=null){
 				userName=new String(userName.getBytes("ISO-8859-1"),"utf-8")+"";
 			}
@@ -590,8 +544,8 @@ public class sbglController {
 				xxglService.InsertRz(userName,"批量关阀门,区管地址为:"+qgId , new Date());
 				String ip = jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqIP").toString();
 				String port = jzqService.findIP(qgService.findJzq(qgId)).get(0).get("JzqPort").toString();
-			 PlGf(ip, port, qgId);
-			return "0";
+			String sta= PlGf(ip, port, qgId);
+			return sta;
 			}
 		}
 		public String plKf(String ip, String port, String qgId) {
@@ -600,7 +554,9 @@ public class sbglController {
 			MapUtils.getMapUtils().add("PlKf", qgId);
 			// IP地址和端口号
 			String pt = "/" + ip + ":" + port;
+			
 			String ja = "F00B2000" + qgId + "00";
+			log.info("批量开阀门发送数据----"+ja);
 			boolean sessionmap = cz(ja, pt);
 			
 			try {
@@ -647,7 +603,7 @@ public class sbglController {
 			// IP地址和端口号
 			String pt = "/" + ip + ":" + port;
 			String ja = "F00B2100" + qgId + "01";
-			
+			log.info("批量关阀门----"+ja);
 			boolean sessionmap = cz(ja, pt);
 			try {
 				Thread.sleep(4000);
@@ -722,7 +678,7 @@ public class sbglController {
 			String pt = "/" + ip + ":" + port;
 			// fmId十进制
 			String ja = "F00A0800" + qgId;
-		
+		    log.info("批量读阀门----"+ja);
 			sessionmap = cz(ja, pt);
 			
 			try {

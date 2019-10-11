@@ -58,10 +58,10 @@ $(document).ready(function(){
 			 $('input[name="check"]:checked').each(function (index, item) {
 				 var row=$(this).parent("td").parent("tr");
 				 var td = row.find("td");
-				 var valad=td[14].innerHTML;
-				 var qgid=td[18].innerHTML;
-				 var fmkd=td[9].innerHTML;
-				 
+				 var valad=td[15].innerHTML;
+				 var qgid=td[20].innerHTML;
+				 /*var fmkd=td[10].innerHTML;*/
+				 var fmkd=$("#fmkd").val();
 				          $.ajax({
 			                     type: "post",
 			                    url: getRootPath()+"/sbglCon/kFm.action",
@@ -95,10 +95,9 @@ $(document).ready(function(){
 		 $('input[name="check"]:checked').each(function (index, item) {
 			 var row=$(this).parent("td").parent("tr");
 			 var td = row.find("td");
-			 var valad=td[14].innerHTML;
-			 var qgid =td[18].innerHTML;
-			 var fmkd =td[9].innerHTML;
-			 
+			 var valad=td[15].innerHTML;
+			 var qgid=td[20].innerHTML;
+		/*	 var fmkd =td[9].innerHTML;*/
 			          $.ajax({
 		                     type: "post",
 		                    url: getRootPath()+"/sbglCon/dFm.action",
@@ -123,26 +122,22 @@ $(document).ready(function(){
 		                 })
 		                 
 			    });			 
-      		              
 });
 
 	$("#gf").click(function(){
 		 $('input[name="check"]:checked').each(function (index, item) {
 			 var row=$(this).parent("td").parent("tr");
 			 var td = row.find("td");
-			 var valad=td[14].innerHTML;
-			 var qgid=td[18].innerHTML;
-			 var fmkd=td[9].innerHTML;
-			 
+			 var valad=td[15].innerHTML;
+			 var qgid=td[20].innerHTML;
 			          $.ajax({
 		                     type: "post",
-		                    url: getRootPath()+"/sbglCon/dFm.action",
+		                    url: getRootPath()+"/sbglCon/gFm.action",
 		                      dataType:'json',
 		                      async:false,
 		                  	data:{	
 		      					"fmId":valad,
 		      					"qgId":qgid,
-		      					
 		      				},
 		                     dataType: "json",
 		                      success: function (data) {
@@ -165,9 +160,8 @@ $(document).ready(function(){
 		 $('input[name="check"]:checked').each(function (index, item) {
 			 var row=$(this).parent("td").parent("tr");
 			 var td = row.find("td");
-			 var valad=td[14].innerHTML;
-			 var qgid=td[18].innerHTML;
-			 var fmkd=td[9].innerHTML;
+			 var valad=td[15].innerHTML;
+			 var qgid=td[20].innerHTML;
 			 
 			          $.ajax({
 		                     type: "post",
@@ -177,7 +171,6 @@ $(document).ready(function(){
 		                  	data:{	
 		      					"fmId":valad,
 		      					"qgId":qgid,
-		      					
 		      				},
 		                     dataType: "json",
 		                      success: function (data) {
@@ -200,10 +193,21 @@ $(document).ready(function(){
 		 $('input[name="check"]:checked').each(function (index, item) {
 			 var row=$(this).parent("td").parent("tr");
 			 var td = row.find("td");
-			 var valad=td[14].innerHTML;
-			 var qgid=td[18].innerHTML;
-			 var fmkd=td[9].innerHTML;
-			 
+			 var valad=td[15].innerHTML;
+			 var qgid=td[20].innerHTML;
+			 var CGQId=$("#Cgqdz").val();
+			 if(CGQId==""){
+					alert("请填写新的传感器地址");
+					return false;
+				}
+				if(CGQId.length<9){
+					alert("地址为九位正整数!!!")
+					return false;
+				}
+				if(CGQId.length>9){
+					alert("地址为九位正整数!!！")
+					return false;
+				}
 			          $.ajax({
 		                     type: "post",
 		                    url: getRootPath()+"/sbglCon/XCgq.action",
@@ -212,7 +216,7 @@ $(document).ready(function(){
 		                  	data:{	
 		      					"fmId":valad,
 		      					"qgId":qgid,
-		      					"CGQId":$("#dz").val(),
+		      					"CGQId":CGQId,
 		      				},
 		                     dataType: "json",
 		                      success: function (data) {
@@ -234,9 +238,8 @@ $(document).ready(function(){
 		 $('input[name="check"]:checked').each(function (index, item) {
 			 var row=$(this).parent("td").parent("tr");
 			 var td = row.find("td");
-			 var valad=td[14].innerHTML;
-			 var qgid=td[18].innerHTML;
-			 var fmkd=td[9].innerHTML;
+			 var valad=td[15].innerHTML;
+			 var qgid=td[20].innerHTML;
 			 
 			          $.ajax({
 		                     type: "post",
@@ -421,23 +424,7 @@ $("#search_btn").click(function(){
 
 //表格写入函数带分页
 function tbodydis(oldlist,newlist,page){
-	
-	if(oldlist == ""){
-		var opt = [];
-		for(var i = 0; i < newlist.length; i++) {
-			for (var j = 0 ; j <newlist[i].length ; j ++) {
-				if(j == 1){
-					if( opt.indexOf(newlist[i][1]) == -1){
-						opt.push(newlist[i][1]);
-					}
-				}
-			}
-		}
-		for(var i = 0; i < opt.length; i++) {
-			$("#xq").append("<option>"+opt[i]+"</option>");
-		}
-	}
-	
+
 	var current = 1;
 	function pageInit(currentPage, pagesize) {
 		current = currentPage; // 将当前页存储全局变量

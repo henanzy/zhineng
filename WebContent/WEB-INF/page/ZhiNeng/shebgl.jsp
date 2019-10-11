@@ -393,14 +393,29 @@ nav li,
 	    
     }); 
 </script>
-
+<script type="text/javascript">
+function isIntNum(){
+	 var CgqId = $('#Cgqdz').val();
+	    if(!isNaN(CgqId)){
+	        return true;
+	    }else{
+	    	alert("传感器地址为正整数!")
+	    	document.getElementById("Cgqdz").value="";
+	        return false;
+	    }
+	}
+	
+	
+</script>
 
 <body>
     <div id="" class="clearfix">
       
             	<div class="mws-report-container clearfix">
             	
-                	<p class="mws-report" href="#" style="font-size: 14px;"> 
+                	
+                	 <span class="mws-report-content"  style="margin: 0px;padding: 0px;">
+                	 <p class="mws-report" href="#" style="font-size: 14px;"> 
                     	<span class="mws-report-icon mws-ic ic-building"></span>
                         <span class="mws-report-content" style="margin-top: 5px;">
                          <span>选择公司：
@@ -427,10 +442,10 @@ nav li,
 					</span>
 					
 					户号：<input type="text" name="hh" id="hh" size=6px
-						value="" /> &nbsp;&nbsp;&nbsp;  
-	                               <label >选择缴费状态：</label> 
+						value="" />
+	                               <label >选择缴费状态:</label> 
 		                     <select id="sfjf">
-			                     <option value="" selected="selected">--选择缴费状态--</option>
+			                     <option value="" selected="selected">选择缴费状态</option>
 			                     <option value="是">是</option>
 			                     <option value="否">否</option>
 		                     </select>
@@ -438,7 +453,7 @@ nav li,
                                 </span>
                           </span>
                          <!--  ------分开线------- -->
-                           <span class="mws-report-content">
+                           <span class="mws-report-content"  style="margin: 0px;padding: 0px;">
                              <span class="mws-report-title" >
                                                                              调节周期：<input type="text" id="wdsd" name="wdsd" size=6px value="6"/>
                                                                              室温设定：<input type="text" id="tjzq" name="tjzq" size=6px value="20"/>
@@ -450,27 +465,20 @@ nav li,
 	                                  </select> &nbsp;&nbsp;&nbsp;
 	                          <input type="submit" id="fscs" class="mws-button black"  value="发送参数"/>&nbsp;&nbsp;
 	                          
-	                                                              无线传感器地址：<input type="text" name="" id="dz" size=12px value=""  />&nbsp;
-						    	<input type="submit" id="increase_btn" class="mws-button black"  value="修改无线传感器地址"/>
+	                                                              无线传感器地址：<input type="text" name="" id="Cgqdz" size=8px value="" onblur="isIntNum()"  />&nbsp;
+						    	<input type="submit" id="xgcgq" class="mws-button black"  value="修改无线传感器地址"/>
                               </span>
                           </span>
                           
-                          <span class="mws-report-content">
+                          <span class="mws-report-content"  style="margin: 0px;padding: 0px; ">
                              <span class="mws-report-title" >
-                                                                     阀门开度设置：<input type="text" size="8px" id="fmkd" name="fmkd"/>&nbsp;&nbsp;
+                                                                         阀门开度设置：<input type="text" size="8px" id="fmkd" name="fmkd"/>&nbsp;&nbsp;
                                          <button type="button" id="kf" class="mws-button black"  >开阀</button>&nbsp;
                                          <button type="button" id="gf" class="mws-button black" >关阀</button>&nbsp;
                                          <button type="button" id="df" class="mws-button black" >读阀</button>&nbsp;
                                          <button type="button"id="dcgq"  class="mws-button black" >读传感器地址</button>&nbsp;
                            				 <button type="button"id="change_word_btn"  class="mws-button black" >修改采集器安装时间</button>&nbsp;
-                                                                           <!--   用户类别: <select id="yhlb" name="">
-							        <option value="">--选择用户类别--</option>
-							        <option value="普通用户">普通用户</option>
-							        <option value="重点监控">重点监控</option>
-						          	<option value="特殊情况">特殊情况</option>
-							        <option value="退费停暖">退费停暖</option>
-					               </select> &nbsp;
-							<input type="submit" class="mws-button black"  value="查询"/> -->
+                                                                         
 							</span>
                           </span>
                     </p>

@@ -480,6 +480,7 @@ html,body{
 							<th class="table-th-css">传感器地址<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">安装位置<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">缴费状态<span class="span-up"></span> <span class="span-down"></span></th>
+							<th class="table-th-css">电话号码<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">面积<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">区管ID<span class="span-up"></span> <span class="span-down"></span></th>
 							

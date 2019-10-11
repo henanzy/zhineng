@@ -1577,17 +1577,16 @@ public class ServerHandler extends IoHandlerAdapter {
 							try {
 								psK = conncK.prepareStatement(sql);
 								rsK = psK.executeUpdate();
-								logs.info("开阀是否成功====" + rs);
-								if (MapUtils.getMapUtils().get("kfSuc") != null && rs == 1
+								logs.info("开阀是否成功====" + rsK);
+								if (MapUtils.getMapUtils().get("kfSuc") != null
 										&& MapUtils.getMapUtils().get("kfSuc").equals("" + pm + "")) {
-									// MapUtils.getMapUtils().add("kfSt",
-									// "1");
+									
 									MapUtils.getMapUtils().add(params, "success");
 								} else {
 									MapUtils.getMapUtils().add("sb", "fail");
 
 								}
-								logs.info("开阀是否成功====" + rs);
+								logs.info("开阀是否成功====" + rsK);
 								MapUtils.getMapUtils().add("Kfsuc", "kf");
 								logs.info("开阀成功");
 							} catch (SQLException e) {
@@ -1681,7 +1680,7 @@ public class ServerHandler extends IoHandlerAdapter {
 							try {
 								psK = conncK.prepareStatement(sql);
 								rsK = psK.executeUpdate();
-								if (rsK == 1 && MapUtils.getMapUtils().get("gfSuc").equals("" + pm + "")) {
+								if ( MapUtils.getMapUtils().get("gfSuc").equals("" + pm + "")) {
 									MapUtils.getMapUtils().add(params, "success");
 								} else {
 									MapUtils.getMapUtils().add("sb", "fail");

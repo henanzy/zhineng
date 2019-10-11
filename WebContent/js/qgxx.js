@@ -38,6 +38,72 @@ $(document).ready(function(){
 	jsArrChange(list);
 	tbodydis("",qgxxList,1)
 	
+	
+	
+	var wordExport = document.getElementById("export_btn");
+	wordExport.onclick=function(){
+		var aID =  this.parentNode.getAttribute("id");
+		tableToExcel();
+	}
+	
+	//base64转码
+    var base64 = function (s) {
+        return window.btoa(unescape(encodeURIComponent(s)));
+    };
+    //替换table数据和worksheet名字
+    var format = function (s, c) {
+        return s.replace(/{(\w+)}/g,
+            function (m, p) {
+                return c[p];
+            });
+    }
+	
+    function tableToExcel(){
+        //要导出的json数据
+     
+        //列标题
+        let str = '<tr><td></td><td>区管</td><td>所属集中器</td><td>小区名称</td><td>区管安装位置</td><td>区管状态</td><td>区管版本</td><td>模式</td>'+
+        '<td>更新周期</td><td>阀门起始时间</td><td>阀门结束时间</td><td>刷卡器设备号</td><td>刷卡器位置</td><td>更新时间</td>'+
+        
+        '</tr>';
+        //循环遍历，每行加入tr标签，每个单元格加td标签
+        for(let i = 0 ; i < qgxxList.length ; i++ ){
+        	
+          str+='<tr>';
+         
+          for(let item in qgxxList[i]){
+              //增加\t为了不让表格显示科学计数法或者其他格式
+        	  
+        		  str+=`<td>${ qgxxList[i][item] + '\t'}</td>`;
+        	  
+          }
+          str+='</tr>';
+        	
+        }
+        //Worksheet名
+        let worksheet = 'Sheet1'
+        let uri = 'data:application/vnd.ms-excel;base64,';
+   
+        //下载的表格模板数据
+        let template = `<html xmlns:o="urn:schemas-microsoft-com:office:office" 
+        xmlns:x="urn:schemas-microsoft-com:office:excel" 
+        xmlns="http://www.w3.org/TR/REC-html40">
+        <head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>
+          <x:Name>${worksheet}</x:Name>
+          <x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet>
+          </x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->
+          </head><body><table>${str}</table></body></html>`;
+        //下载模板
+        window.location.href = uri + base64(template)
+      }
+      //输出base64编码
+      function base64 (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+	
+	
+	
+	
+	
+	
 	$("#pldf").click(function(){
 		
 		 $('input[name="check"]:checked').each(function (index, item) {

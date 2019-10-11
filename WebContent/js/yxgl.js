@@ -207,8 +207,10 @@ $(function () {
 			arr1[16] = json[i].WCAd;
 			arr1[17] = json[i].CjqWz;
 			arr1[18] = json[i].SFJF;
-			arr1[19] = json[i].HeatArea;
-			arr1[20] = json[i].QgID;
+			arr1[19] = json[i].Telephone;
+			arr1[20] = json[i].HeatArea;
+			arr1[21] = json[i].QgID;
+			
 			xinwordList.push(arr1);
 		};
 	}
@@ -427,7 +429,7 @@ $(function () {
         '<td>状态</td><td>开度</td><td>室温</td>'+
         '<td>室外温度</td><td>管道温度</td><td>锁定</td>'+
         '<td>抄表时间</td><td>用户ID</td>'+
-        '<td>阀门地址</td><td>传感器地址</td><td>缴费状态</td>'+
+        '<td>阀门地址</td><td>传感器地址</td><td>缴费状态</td><td>电话号码</td>'+
         '<td>面积</td><td>区管ID</td>'+
         '</tr>';
         //循环遍历，每行加入tr标签，每个单元格加td标签
@@ -646,8 +648,6 @@ function compareWord(xq,ld,dy,hh,compareWordList){
 			"ldh":ld,
 			"dyh":dy,
 			"hh":hh,
-			
-			
 		},
 		success : function(data) {
 		 json=data.list;
@@ -676,9 +676,9 @@ function compareWord(xq,ld,dy,hh,compareWordList){
 		arr1[16] = json[i].WCAd;
 		arr1[17] = json[i].CjqWz;
 		arr1[18] = json[i].SFJF;
-		arr1[19] = json[i].HeatArea;
-		arr1[20] = json[i].QgID;
-		
+		arr1[19] = json[i].Telephone;
+		arr1[20] = json[i].HeatArea;
+		arr1[21] = json[i].QgID;
 		compareWordList.push(arr1);
 	};
 	

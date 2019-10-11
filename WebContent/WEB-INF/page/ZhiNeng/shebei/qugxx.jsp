@@ -260,7 +260,8 @@ $.ajax({
                         <input type="submit" class="mws-button black"  id="pldf" value="批量读阀"/> 
                         <input type="submit" class="mws-button black"  id="plkf" value="批量开阀"/> 
                         <input type="submit" class="mws-button black"  id="plgf" value="批量关阀"/> 
-	                            <input type="submit" class="mws-button black"  id="increase_btn" value="添加"/>                                                     
+	                    <input type="submit" class="mws-button black"  id="increase_btn" value="添加"/>  
+	                    <input type="submit" id="export_btn" class="mws-button black"  value="导出"/>                                                   
                           </span>
                    </p> 
                 </div>
