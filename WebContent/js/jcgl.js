@@ -123,7 +123,7 @@ $("#search_btn").click(function(){
 	$("#table_body").empty();
 	search();
 	});
-
+search();
 });
 
 

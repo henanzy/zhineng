@@ -465,7 +465,28 @@ var xq;
 		
 		
 	});
- 
+ $.ajax({
+		url : "<%=basePath%>yhInfo/findLd.action", 
+		async : false,
+		dataType : "json",
+		data : {
+			"xqm" : $("#xq").val(),
+		},
+		success : function(data) {
+			$("#ldh option:gt(0)").remove();
+			$("#dyh option:gt(0)").remove();
+			$("#hh option:gt(0)").remove();
+			var ld=data.Ld;
+			for(var i=0; i<ld.length; i++){
+				 if(ld[i].BuildNo=="1"){
+					 $("#ldh").append("<option value='"+ld[i].BuildNo+"' selected>"+ld[i].BuildNo+"</option>");
+				 }else{
+				$("#ldh").append("<option value='"+ld[i].BuildNo+"'>"+ld[i].BuildNo+"</option>");
+				 }
+			}	
+		}
+
+	});
  $("#ldh").change(function(){
 	 $.ajax({
 			url : "<%=basePath%>yhInfo/findDy.action", 
